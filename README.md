@@ -35,7 +35,7 @@ $ git pull
 $ git merge harold
 消除conflict 如果有的话
 $ git commit -m""
-$ git push
+$ git push origin 本地分支:远程分支
 ```
 
 
