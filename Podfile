@@ -6,6 +6,7 @@ use_frameworks!
 target 'WeCitizens' do
 pod 'Alamofire'
 pod 'SnapKit'
+pod 'Parse'
 
 end
 

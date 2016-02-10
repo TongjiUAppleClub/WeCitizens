@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A4326DC41C66F2A000989110 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4326DC31C66F2A000989110 /* TestViewController.swift */; };
+		A4326DC61C67167F00989110 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4326DC51C67167F00989110 /* UserModel.swift */; };
+		A48E27E91C6AE7AF00DA9BA7 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48E27E81C6AE7AF00DA9BA7 /* DataModel.swift */; };
 		AC94CA15D0D06953E17890D2 /* Pods_WeCitizens.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1841685CE4A3B21E709C57A6 /* Pods_WeCitizens.framework */; };
 		E7CE059F1C6353FC00E8CCAB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CE059E1C6353FC00E8CCAB /* AppDelegate.swift */; };
 		E7CE05A11C6353FC00E8CCAB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CE05A01C6353FC00E8CCAB /* LoginViewController.swift */; };
@@ -37,6 +40,9 @@
 /* Begin PBXFileReference section */
 		011C6697387BB65F8D136DCE /* Pods-WeCitizens.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeCitizens.release.xcconfig"; path = "Pods/Target Support Files/Pods-WeCitizens/Pods-WeCitizens.release.xcconfig"; sourceTree = "<group>"; };
 		1841685CE4A3B21E709C57A6 /* Pods_WeCitizens.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WeCitizens.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A4326DC31C66F2A000989110 /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		A4326DC51C67167F00989110 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		A48E27E81C6AE7AF00DA9BA7 /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		A5F368C4EB7E5F3FC70723BC /* Pods-WeCitizens.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeCitizens.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WeCitizens/Pods-WeCitizens.debug.xcconfig"; sourceTree = "<group>"; };
 		E7CE059B1C6353FC00E8CCAB /* WeCitizens.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeCitizens.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7CE059E1C6353FC00E8CCAB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -96,6 +102,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		A48E27E71C6AE78500DA9BA7 /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				A4326DC51C67167F00989110 /* UserModel.swift */,
+				A48E27E81C6AE7AF00DA9BA7 /* DataModel.swift */,
+			);
+			name = DataModel;
+			sourceTree = "<group>";
+		};
 		E7CE05921C6353FB00E8CCAB = {
 			isa = PBXGroup;
 			children = (
@@ -121,12 +136,14 @@
 		E7CE059D1C6353FC00E8CCAB /* WeCitizens */ = {
 			isa = PBXGroup;
 			children = (
+				A48E27E71C6AE78500DA9BA7 /* DataModel */,
 				E7CE059E1C6353FC00E8CCAB /* AppDelegate.swift */,
 				E7CE05A01C6353FC00E8CCAB /* LoginViewController.swift */,
 				E7CE05A21C6353FC00E8CCAB /* Main.storyboard */,
 				E7CE05A51C6353FC00E8CCAB /* Assets.xcassets */,
 				E7CE05A71C6353FC00E8CCAB /* LaunchScreen.storyboard */,
 				E7CE05AA1C6353FC00E8CCAB /* Info.plist */,
+				A4326DC31C66F2A000989110 /* TestViewController.swift */,
 			);
 			path = WeCitizens;
 			sourceTree = "<group>";
@@ -334,7 +351,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A48E27E91C6AE7AF00DA9BA7 /* DataModel.swift in Sources */,
 				E7CE05A11C6353FC00E8CCAB /* LoginViewController.swift in Sources */,
+				A4326DC61C67167F00989110 /* UserModel.swift in Sources */,
+				A4326DC41C66F2A000989110 /* TestViewController.swift in Sources */,
 				E7CE059F1C6353FC00E8CCAB /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
