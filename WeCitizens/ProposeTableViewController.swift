@@ -19,13 +19,19 @@ class ProposeTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         UITabBar.appearance().tintColor = UIColor.redColor()
-     //   self.tableView.estimatedRowHeight = preferr
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        tableView.estimatedRowHeight = tableView.rowHeight
+        tableView.rowHeight = UITableViewAutomaticDimension
+        self.clearsSelectionOnViewWillAppear = false
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+    }
+    
+    
+    
 
 
     // MARK: - Table view data source
@@ -40,16 +46,18 @@ class ProposeTableViewController: UITableViewController {
   
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("CommentCell", forIndexPath: indexPath) as! CommentTableViewCell
-        
         //TODO:- Set every cell from the data
         /*
-        cell.Avatar.image =
+       
         cell.CommentUser.text =
         cell.UpdateTime.text =
         cell.BrowseNum.text =
         cell.Reputation.text =
         cell.Classifykind.image = 
         */
+        cell.Avatar.image = UIImage(named: "avatar")
+        cell.CommentUser.text = "HHH"
+        cell.Abstract.text = "adfa;lfka;kf;akf;akf;akfd;;askf"
         return cell
     }
 

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CommentTableViewCell: UITableViewCell {
+class CommentTableViewCell: UITableViewCell,UITextViewDelegate{
 
     @IBOutlet weak var Avatar: UIImageView!
     @IBOutlet weak var CommentUser: UILabel!
@@ -17,13 +17,13 @@ class CommentTableViewCell: UITableViewCell {
     @IBOutlet weak var UpdateTime: UILabel!
     @IBOutlet weak var BrowseNum: UILabel!
     @IBOutlet weak var Classifykind: UIImageView!
+    @IBOutlet weak var Abstract: UITextView!
     
     
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         UIconfigure()
     }
 
@@ -41,7 +41,14 @@ class CommentTableViewCell: UITableViewCell {
         Avatar.layer.cornerRadius = Avatar.frame.height/2
         Avatar.clipsToBounds = true
         
+        let contentSize = self.Abstract.sizeThatFits(self.Abstract.bounds.size)
+        var frame = self.Abstract.frame
+        frame.size.height = contentSize.height
+        self.Abstract.frame = frame
         
+        let aspectRatioTextViewConstraint = NSLayoutConstraint(item: self.Abstract, attribute: .Height, relatedBy: .Equal, toItem: self.Abstract, attribute: .Width, multiplier: Abstract.bounds.height/Abstract.bounds.width, constant: 1)
+        self.Abstract.addConstraint(aspectRatioTextViewConstraint)
+
     }
     
 

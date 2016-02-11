@@ -85,7 +85,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
     @IBAction func logInAction() {
         let password = Password.text!
         let username = UserName.text!
-        print("username is \(username) & password is \(password)")
+     //   print("username is \(username) & password is \(password)")
         
         guard let vc = storyboard?.instantiateViewControllerWithIdentifier("MainTabVC")else {
             print("Error!")
