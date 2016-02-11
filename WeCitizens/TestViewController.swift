@@ -13,44 +13,19 @@ class TestViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Test Parse Store
-        let testObject = PFObject(className: "TestObject")
-        testObject["foo"] = "bar"
-        testObject.saveInBackgroundWithBlock{(success: Bool, error: NSError?) -> Void in
-            print("Object hase been saved.")
-        }
+        print("test register")
         
-        
-        
-        // Test Parse Signup
-        let user = PFUser()
-        user.username = "myName"
-        user.passowrd = "myPassword"
-        user.email = "email@example.com"
-        
-        // other fields can be set if you want to save more information
-        user["phone"] = "650-555-0000"
-        
-        user.signUpInBackgroundWithBlock{ (success: Bool, error: NSError!) -> Void in
+        UserModel.register("HelloWorld", userEmail: "843018739@qq.com", password: "123456") { (success, error) -> Void in
             if error == nil {
                 // Hooray! Let them user th app now.
+                print(success)
+                print("success")
             } else {
                 // Examine the error object and inform the user.
+                print("there is a error")
             }
         }
-        
-        
-        
-        // Test Parse Login
-        PFUser.logInWithUsernameInBackground("myName", password: "myPassword") {
-            (user: PFUser?, error: NSError?) -> Void in
-            if user != nil {
-                // Do stuff after successful login.
-            } else {
-                // The login failed. Check error to see why.
-            }
-        }
+
     }
 
     override func didReceiveMemoryWarning() {

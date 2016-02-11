@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import Prase
+import Parse
 
 class DataModel {
     

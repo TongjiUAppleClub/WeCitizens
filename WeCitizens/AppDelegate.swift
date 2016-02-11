@@ -17,13 +17,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // [Optional] Power your app with Local Datastore. For more info, go to 
-        // http://parse.com/docs/ios/guide#local-datastore
-        
         Parse.enableLocalDatastore()
         
         // Initialize Prase
-        Parse.setApplicationId("APPLICATION ID", clientKey: "CLIENT KEY")
+        Parse.setApplicationId("2PVQUIOrjJC2tiMONyyeICDPVFW6CrHdAKlBbJjx", clientKey: "WB4B05hYeHOSTNOe0ASLli8AFJDjKdDAk8HZQIju")
         
         // [Optional] Track statistics around application opens.
         PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
