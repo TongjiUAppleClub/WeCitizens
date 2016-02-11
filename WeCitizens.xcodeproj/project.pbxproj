@@ -15,6 +15,9 @@
 		E7CE05A91C6353FC00E8CCAB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7CE05A71C6353FC00E8CCAB /* LaunchScreen.storyboard */; };
 		E7CE05B41C6353FC00E8CCAB /* WeCitizensTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CE05B31C6353FC00E8CCAB /* WeCitizensTests.swift */; };
 		E7CE05BF1C6353FC00E8CCAB /* WeCitizensUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CE05BE1C6353FC00E8CCAB /* WeCitizensUITests.swift */; };
+		E7E6F1221C6CAE2200EB1179 /* ProposeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E6F1211C6CAE2200EB1179 /* ProposeTableViewController.swift */; };
+		E7E6F1241C6CB11000EB1179 /* MainTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E6F1231C6CB11000EB1179 /* MainTabbarController.swift */; };
+		E7E6F1261C6CB48200EB1179 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E6F1251C6CB48200EB1179 /* CommentTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +54,9 @@
 		E7CE05BA1C6353FC00E8CCAB /* WeCitizensUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeCitizensUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7CE05BE1C6353FC00E8CCAB /* WeCitizensUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeCitizensUITests.swift; sourceTree = "<group>"; };
 		E7CE05C01C6353FC00E8CCAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E7E6F1211C6CAE2200EB1179 /* ProposeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProposeTableViewController.swift; sourceTree = "<group>"; };
+		E7E6F1231C6CB11000EB1179 /* MainTabbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabbarController.swift; sourceTree = "<group>"; };
+		E7E6F1251C6CB48200EB1179 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +129,9 @@
 			children = (
 				E7CE059E1C6353FC00E8CCAB /* AppDelegate.swift */,
 				E7CE05A01C6353FC00E8CCAB /* LoginViewController.swift */,
+				E7E6F1231C6CB11000EB1179 /* MainTabbarController.swift */,
+				E7E6F1211C6CAE2200EB1179 /* ProposeTableViewController.swift */,
+				E7E6F1251C6CB48200EB1179 /* CommentTableViewCell.swift */,
 				E7CE05A21C6353FC00E8CCAB /* Main.storyboard */,
 				E7CE05A51C6353FC00E8CCAB /* Assets.xcassets */,
 				E7CE05A71C6353FC00E8CCAB /* LaunchScreen.storyboard */,
@@ -162,6 +171,7 @@
 				E7CE05991C6353FB00E8CCAB /* Resources */,
 				AA8091C90B641854AEF1E27B /* Embed Pods Frameworks */,
 				AE23E8EDF90183469793ABA9 /* Copy Pods Resources */,
+				E758526B1C64D6420018F138 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -327,6 +337,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WeCitizens/Pods-WeCitizens-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		E758526B1C64D6420018F138 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "TAGS=\"TODO:|FIXME:\"\necho \"searching ${SRCROOT} for ${TAGS}\"\nfind \"${SRCROOT}\" \\( -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -335,6 +358,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E7CE05A11C6353FC00E8CCAB /* LoginViewController.swift in Sources */,
+				E7E6F1221C6CAE2200EB1179 /* ProposeTableViewController.swift in Sources */,
+				E7E6F1261C6CB48200EB1179 /* CommentTableViewCell.swift in Sources */,
+				E7E6F1241C6CB11000EB1179 /* MainTabbarController.swift in Sources */,
 				E7CE059F1C6353FC00E8CCAB /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -478,6 +504,7 @@
 			baseConfigurationReference = A5F368C4EB7E5F3FC70723BC /* Pods-WeCitizens.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = WeCitizens/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.HaroldLiu.WeCitizens;
@@ -490,6 +517,7 @@
 			baseConfigurationReference = 011C6697387BB65F8D136DCE /* Pods-WeCitizens.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = WeCitizens/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.HaroldLiu.WeCitizens;

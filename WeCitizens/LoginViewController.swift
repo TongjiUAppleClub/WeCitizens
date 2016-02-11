@@ -65,10 +65,10 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         Register.layer.borderColor = UIColor.redColor().CGColor
         Register.layer.cornerRadius = 10
         
-        
     }
     
 //MARK:- Keyboard
+    
     //Called when 'return' key pressed. return NO to ignore.
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -80,14 +80,19 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         self.view.endEditing(true)
     }
 
-//MARK:- Action
-    //TODO:- Add model action here
+    //MARK:- Action
+    //TODO:-  Add model action here
     @IBAction func logInAction() {
         let password = Password.text!
         let username = UserName.text!
         print("username is \(username) & password is \(password)")
         
+        guard let vc = storyboard?.instantiateViewControllerWithIdentifier("MainTabVC")else {
+            print("Error!")
+            return
+        }
+        presentViewController(vc, animated: true, completion: nil)
     }
-
+    
 }
 
