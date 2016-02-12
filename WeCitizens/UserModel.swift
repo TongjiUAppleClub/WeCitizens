@@ -24,21 +24,18 @@ class UserModel {
     }
     
     //用户第一次使用用户名和密码登录，completed
-    static func firstLogin(userName: String, password: String, withCallbackFun callback: (PFUser?, NSError?) -> Void) {
+    static func login(userName: String, password: String, withCallbackFun callback: (PFUser?, NSError?) -> Void) {
         PFUser.logInWithUsernameInBackground(userName, password: password, block: callback)
     }
     
-    //用户第二次打开应用时在后台登录，参数为登录时需要的回调函数
-    static func backgroundLogin(callbackFun callback: (PFUser?, NSError?) -> Void) {
-        var currentUser = PFUser.currentUser()
-        PFUser.becomeInBackground("session-token-here", block: {
-            (user: PFUser?, error: NSError?) -> Void in
-            if error != nil {
-                // The token could not be validated.
-            } else {
-                // The current user is now set to user.
-            }
-        })
+    //判断用户是否已经登录
+    static func hasLogin() -> Bool {
+        let currentUser = PFUser.currentUser()
+        if let _ = currentUser {
+            return true
+        } else {
+            return false
+        }
     }
     
     static func logout() {

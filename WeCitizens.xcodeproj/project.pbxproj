@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A4326DC41C66F2A000989110 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4326DC31C66F2A000989110 /* TestViewController.swift */; };
-		A4326DC61C67167F00989110 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4326DC51C67167F00989110 /* UserModel.swift */; };
 		A48E27E91C6AE7AF00DA9BA7 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48E27E81C6AE7AF00DA9BA7 /* DataModel.swift */; };
+		A4DDF1331C6CAE6100863F16 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DDF1321C6CAE6100863F16 /* UserModel.swift */; };
+		A4DDF1341C6CAE6100863F16 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DDF1321C6CAE6100863F16 /* UserModel.swift */; };
+		A4DDF1361C6CAEDF00863F16 /* UserModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DDF1351C6CAEDF00863F16 /* UserModelTests.swift */; };
 		AC94CA15D0D06953E17890D2 /* Pods_WeCitizens.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1841685CE4A3B21E709C57A6 /* Pods_WeCitizens.framework */; };
 		E7CE059F1C6353FC00E8CCAB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CE059E1C6353FC00E8CCAB /* AppDelegate.swift */; };
 		E7CE05A11C6353FC00E8CCAB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CE05A01C6353FC00E8CCAB /* LoginViewController.swift */; };
@@ -40,9 +41,9 @@
 /* Begin PBXFileReference section */
 		011C6697387BB65F8D136DCE /* Pods-WeCitizens.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeCitizens.release.xcconfig"; path = "Pods/Target Support Files/Pods-WeCitizens/Pods-WeCitizens.release.xcconfig"; sourceTree = "<group>"; };
 		1841685CE4A3B21E709C57A6 /* Pods_WeCitizens.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WeCitizens.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A4326DC31C66F2A000989110 /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
-		A4326DC51C67167F00989110 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		A48E27E81C6AE7AF00DA9BA7 /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
+		A4DDF1321C6CAE6100863F16 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		A4DDF1351C6CAEDF00863F16 /* UserModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModelTests.swift; sourceTree = "<group>"; };
 		A5F368C4EB7E5F3FC70723BC /* Pods-WeCitizens.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeCitizens.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WeCitizens/Pods-WeCitizens.debug.xcconfig"; sourceTree = "<group>"; };
 		E7CE059B1C6353FC00E8CCAB /* WeCitizens.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeCitizens.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7CE059E1C6353FC00E8CCAB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -105,8 +106,8 @@
 		A48E27E71C6AE78500DA9BA7 /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
-				A4326DC51C67167F00989110 /* UserModel.swift */,
 				A48E27E81C6AE7AF00DA9BA7 /* DataModel.swift */,
+				A4DDF1321C6CAE6100863F16 /* UserModel.swift */,
 			);
 			name = DataModel;
 			sourceTree = "<group>";
@@ -143,7 +144,6 @@
 				E7CE05A51C6353FC00E8CCAB /* Assets.xcassets */,
 				E7CE05A71C6353FC00E8CCAB /* LaunchScreen.storyboard */,
 				E7CE05AA1C6353FC00E8CCAB /* Info.plist */,
-				A4326DC31C66F2A000989110 /* TestViewController.swift */,
 			);
 			path = WeCitizens;
 			sourceTree = "<group>";
@@ -152,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				E7CE05B31C6353FC00E8CCAB /* WeCitizensTests.swift */,
+				A4DDF1351C6CAEDF00863F16 /* UserModelTests.swift */,
 				E7CE05B51C6353FC00E8CCAB /* Info.plist */,
 			);
 			path = WeCitizensTests;
@@ -353,8 +354,7 @@
 			files = (
 				A48E27E91C6AE7AF00DA9BA7 /* DataModel.swift in Sources */,
 				E7CE05A11C6353FC00E8CCAB /* LoginViewController.swift in Sources */,
-				A4326DC61C67167F00989110 /* UserModel.swift in Sources */,
-				A4326DC41C66F2A000989110 /* TestViewController.swift in Sources */,
+				A4DDF1331C6CAE6100863F16 /* UserModel.swift in Sources */,
 				E7CE059F1C6353FC00E8CCAB /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -363,6 +363,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4DDF1341C6CAE6100863F16 /* UserModel.swift in Sources */,
+				A4DDF1361C6CAEDF00863F16 /* UserModelTests.swift in Sources */,
 				E7CE05B41C6353FC00E8CCAB /* WeCitizensTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
