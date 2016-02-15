@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class CommentTableViewCell: UITableViewCell,UITextViewDelegate{
 
@@ -16,9 +17,8 @@ class CommentTableViewCell: UITableViewCell,UITextViewDelegate{
     @IBOutlet weak var Classify: UILabel!
     @IBOutlet weak var UpdateTime: UILabel!
     @IBOutlet weak var BrowseNum: UILabel!
-    @IBOutlet weak var Classifykind: UIImageView!
     @IBOutlet weak var Abstract: UITextView!
-    
+    @IBOutlet weak var ClassifyKind: UIImageView!
     
     
     
@@ -35,12 +35,14 @@ class CommentTableViewCell: UITableViewCell,UITextViewDelegate{
 //MARK:- Configure UI
     func UIconfigure()
     {
+        //make avatar circle
         Avatar.layer.masksToBounds = false
         Avatar.layer.borderWidth = 1
         Avatar.layer.borderColor = UIColor.clearColor().CGColor
         Avatar.layer.cornerRadius = Avatar.frame.height/2
         Avatar.clipsToBounds = true
         
+        // Adjust the height of the textview
         let contentSize = self.Abstract.sizeThatFits(self.Abstract.bounds.size)
         var frame = self.Abstract.frame
         frame.size.height = contentSize.height

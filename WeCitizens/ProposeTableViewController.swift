@@ -10,12 +10,21 @@ import UIKit
 
 class ProposeTableViewController: UITableViewController {
 
-//TODO:- Get the comment list
+//TODO:- Get the comment list  
+// I will give the example data and show how to use it
     let COMMENT_NUM = 5
+    let testAvatar =  UIImage(named: "avatar")
+    let testCommentUser = "Harold"
+    let testAbstract = "懵逼快出图！！！"
+    let testTime = "2016.2.14"
+    let testBrowser = "10247"
+    let testClassify = "Education"
+    let testReputaion = "452"
+    let testImages = [UIImage(named: "07")!,UIImage(named: "07")!,UIImage(named: "07")!]
+  
     
     
-    
-    
+//MARK:- Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         UITabBar.appearance().tintColor = UIColor.redColor()
@@ -30,11 +39,7 @@ class ProposeTableViewController: UITableViewController {
         
     }
     
-    
-    
-
-
-    // MARK: - Table view data source
+// MARK:- Table view data source && delegate
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -47,20 +52,34 @@ class ProposeTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("CommentCell", forIndexPath: indexPath) as! CommentTableViewCell
         //TODO:- Set every cell from the data
-        /*
-       
-        cell.CommentUser.text =
-        cell.UpdateTime.text =
-        cell.BrowseNum.text =
-        cell.Reputation.text =
-        cell.Classifykind.image = 
-        */
-        cell.Avatar.image = UIImage(named: "avatar")
-        cell.CommentUser.text = "HHH"
-        cell.Abstract.text = "adfa;lfka;kf;akf;akf;akfd;;askf"
+        cell.Avatar.image = testAvatar
+        cell.CommentUser.text = testCommentUser
+        cell.UpdateTime.text = testTime
+        cell.Abstract.text = testAbstract
+        cell.Classify.text = testClassify
+        cell.Reputation.text = testReputaion
+        cell.BrowseNum.text = testBrowser
+        imagesLayout(cell, images: testImages)
+        
         return cell
     }
 
+    
+    
+//MARK:- Images Layout
+    func imagesLayout(cell:CommentTableViewCell,images:[UIImage])
+    {
+        for (index,image) in images.enumerate()
+        {
+            var commentImg:UIImageView!
+            let imgFrame = CGRectMake(cell.Abstract.frame.origin.x + CGFloat(index * 72), cell.Abstract.frame.origin.y + cell.Abstract.bounds.size.height, 64, 64)
+            commentImg = UIImageView(image: image)
+            commentImg.frame = imgFrame
+            cell.addSubview(commentImg)
+        }
+    }
+
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

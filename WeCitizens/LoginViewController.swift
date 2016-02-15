@@ -86,7 +86,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         let password = Password.text!
         let username = UserName.text!
      //   print("username is \(username) & password is \(password)")
-        
+    //如果登录成功，执行下面的代码，否则弹出alert，alert我准备用HUD，还没加
         guard let vc = storyboard?.instantiateViewControllerWithIdentifier("MainTabVC")else {
             print("Error!")
             return
