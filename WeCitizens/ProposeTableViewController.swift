@@ -20,7 +20,7 @@ class ProposeTableViewController: UITableViewController {
     let testBrowser = "10247"
     let testClassify = "Education"
     let testReputaion = "452"
-    let testImages = [UIImage(named: "07")!,UIImage(named: "07")!,UIImage(named: "07")!]
+    let testImages = [UIImage(named: "07")!,UIImage(named: "07")!,UIImage(named: "07")!]    
   
     
     

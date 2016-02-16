@@ -80,7 +80,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         self.view.endEditing(true)
     }
 
-    //MARK:- Action
+//MARK:- Action
     //TODO:-  Add model action here
     @IBAction func logInAction() {
         let password = Password.text!
