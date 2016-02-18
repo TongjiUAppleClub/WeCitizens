@@ -7,91 +7,69 @@
 //
 
 import UIKit
+import ParseUI
 
-class LoginViewController: UIViewController,UITextFieldDelegate {
+class LoginViewController: PFLogInViewController {
 
-//MARK:- Controls
-    @IBOutlet weak var logoImg: UIImageView!
-    @IBOutlet weak var UserName: UITextField!
-    @IBOutlet weak var Password: UITextField!
-    @IBOutlet weak var Login: UIButton!
-    @IBOutlet weak var Register: UIButton!
-    
-    
-//MARK:- Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        UserName.delegate = self
-        Password.delegate = self
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(true)
-        
-    }
-
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        configureUI()
+        logInView?.signUpButton?.removeFromSuperview()
     }
     
     
-//MARK:- UI Congigure
-    func configureUI(){
-        //img
-        logoImg.image =  UIImage(named: "07")
-        logoImg.layer.borderWidth = 1
-        logoImg.layer.masksToBounds = false
-        logoImg.layer.borderColor = UIColor.clearColor().CGColor
-        logoImg.layer.cornerRadius = logoImg.layer.frame.height/2
-        logoImg.clipsToBounds = true
-        
-        //text
-        UserName.layer.borderWidth = 1.3
-        UserName.layer.borderColor = UIColor.redColor().CGColor
-        UserName.layer.cornerRadius = 8
-        
-        Password.layer.borderWidth = 1.3
-        Password.layer.borderColor = UIColor.redColor().CGColor
-        Password.layer.cornerRadius = 8
-        
-        
-        //Button
-        Login.layer.borderWidth = 1.2
-        Login.layer.borderColor = UIColor.redColor().CGColor
-        Login.layer.cornerRadius = 10
-        
-        Register.layer.borderWidth = 1.2
-        Register.layer.borderColor = UIColor.redColor().CGColor
-        Register.layer.cornerRadius = 10
-        
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        ConfigureUI()
     }
     
-//MARK:- Keyboard
-    
-    //Called when 'return' key pressed. return NO to ignore.
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    //Called when the user click on the view (outside the UITextField).
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        self.view.endEditing(true)
-    }
-
-//MARK:- Action
-    //TODO:-  Add model action here
-    @IBAction func logInAction() {
-        let password = Password.text!
-        let username = UserName.text!
-     //   print("username is \(username) & password is \(password)")
-    //如果登录成功，执行下面的代码，否则弹出alert，alert我准备用HUD，还没加
-        guard let vc = storyboard?.instantiateViewControllerWithIdentifier("MainTabVC")else {
-            print("Error!")
-            return
-        }
-        presentViewController(vc, animated: true, completion: nil)
+    func ConfigureUI()
+    {
+        let offsetX = CGFloat(30)
+        let TheColor = UIColor(red: 243/255, green: 77/255, blue: 53/255, alpha: 1.0)
+        
+        // logo
+        var logoF = logInView?.logo?.frame
+        logoF?.origin.y -= 50
+        
+        logInView?.logo?.frame = logoF!
+        
+        var userframe = logInView?.usernameField?.frame
+        userframe!.size.width -= offsetX * 2
+        userframe?.origin.x += offsetX
+        userframe?.origin.y -= 20
+        
+        logInView?.usernameField!.borderStyle  = .None
+        logInView?.usernameField?.frame = userframe!
+        logInView?.usernameField!.layer.borderWidth = 1.3
+        logInView?.usernameField!.layer.borderColor = TheColor.CGColor
+        logInView?.usernameField!.layer.cornerRadius = 8
+        
+        
+        
+        var passframe = userframe
+        passframe?.origin.y += (userframe?.size.height)! + 32
+        
+        logInView?.passwordField?.borderStyle = .None
+        logInView?.passwordField?.frame = passframe!
+        logInView?.passwordField?.layer.cornerRadius = 8
+        logInView?.passwordField?.layer.borderColor = TheColor.CGColor
+        logInView?.passwordField?.layer.borderWidth = 1.3
+        
+        
+        var buttonF = logInView?.logInButton?.frame
+        buttonF?.origin.x += 50
+        buttonF?.size.width -= 100
+        buttonF?.size.height -= 10
+        buttonF?.origin.y += 20
+        
+        logInView?.logInButton?.setBackgroundImage(nil, forState: .Normal)
+        logInView?.logInButton?.frame = buttonF!
+        logInView?.logInButton?.layer.borderWidth = 1.2
+        logInView?.logInButton?.layer.cornerRadius = 10
+        logInView?.logInButton?.layer.borderColor = TheColor.CGColor
+        logInView?.logInButton?.backgroundColor = TheColor
+        
+        
     }
     
 }

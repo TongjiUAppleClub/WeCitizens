@@ -4,8 +4,11 @@ platform :ios, '8.0'
 use_frameworks!
 
 target 'WeCitizens' do
+
 pod 'Alamofire'
 pod 'SnapKit'
+pod 'Parse'
+pod 'ParseUI'
 
 end
 

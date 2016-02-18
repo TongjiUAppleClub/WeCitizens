@@ -20,7 +20,7 @@ class ProposeTableViewController: UITableViewController {
     let testBrowser = "10247"
     let testClassify = "Education"
     let testReputaion = "452"
-    let testImages = [UIImage(named: "07")!,UIImage(named: "07")!,UIImage(named: "07")!]    
+    let testImages = [UIImage(named: "logo")!,UIImage(named: "logo")!,UIImage(named: "logo")!]
   
     
     
@@ -51,6 +51,7 @@ class ProposeTableViewController: UITableViewController {
   
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("CommentCell", forIndexPath: indexPath) as! CommentTableViewCell
+        
         //TODO:- Set every cell from the data
         cell.Avatar.image = testAvatar
         cell.CommentUser.text = testCommentUser

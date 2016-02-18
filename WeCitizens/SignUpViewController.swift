@@ -7,89 +7,80 @@
 //
 
 import UIKit
+import ParseUI
 
-class SignUpViewController: UIViewController,UITextFieldDelegate{
-
-    
-    @IBOutlet weak var avatar: UIImageView!
-    @IBOutlet weak var username: UITextField!
-    @IBOutlet weak var password: UITextField!
-    @IBOutlet weak var repeatPassword: UITextField!
-    @IBOutlet weak var email: UITextField!
-    @IBOutlet weak var signUp: UIButton!
-    @IBOutlet weak var signIn: UIButton!
-    
+class SignUpViewController: PFSignUpViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
-        username.delegate = self
-        password.delegate = self
-        repeatPassword.delegate = self
-        email.delegate = self
-        configureUI()
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        ConfigureUI()
+        
+    }
+    
+    
+    func ConfigureUI()
+    {
+        let offsetX = CGFloat(30)
+        let TheColor = UIColor(red: 243/255, green: 77/255, blue: 53/255, alpha: 1.0)
+        
+        // logo
+        var logoF = signUpView?.logo?.frame
+        logoF?.origin.y -= 60
+        
+        signUpView?.logo?.frame = logoF!
+        
+        var userframe = signUpView?.usernameField?.frame
+        userframe!.size.width -= offsetX * 2
+        userframe?.origin.x += offsetX
+        userframe?.origin.y -= 60
+        
+        signUpView?.usernameField!.borderStyle  = .None
+        signUpView?.usernameField?.frame = userframe!
+        signUpView?.usernameField!.layer.borderWidth = 1.3
+        signUpView?.usernameField!.layer.borderColor = TheColor.CGColor
+        signUpView?.usernameField!.layer.cornerRadius = 8
+        
+        
+        
+        var passframe = userframe
+        passframe?.origin.y += (userframe?.size.height)! + 24
+        
+        signUpView?.passwordField?.borderStyle = .None
+        signUpView?.passwordField?.frame = passframe!
+        signUpView?.passwordField?.layer.cornerRadius = 8
+        signUpView?.passwordField?.layer.borderColor = TheColor.CGColor
+        signUpView?.passwordField?.layer.borderWidth = 1.3
+        
+        var emailF = passframe
+        emailF?.origin.y += passframe!.size.height + 24
+        
+        signUpView?.emailField?.borderStyle = .None
+        signUpView?.emailField?.frame = emailF!
+        signUpView?.emailField?.layer.cornerRadius = 8
+        signUpView?.emailField?.layer.borderColor = TheColor.CGColor
+        signUpView?.emailField?.layer.borderWidth = 1.3
+        
+        
+        var buttonF = signUpView?.signUpButton?.frame
+        buttonF?.origin.x += 50
+        buttonF?.size.width -= 100
+        buttonF?.size.height -= 10
+        
+        signUpView?.signUpButton?.setBackgroundImage(nil, forState: .Normal)
+        signUpView?.signUpButton?.frame = buttonF!
+        signUpView?.signUpButton?.layer.cornerRadius = 10
+        signUpView?.signUpButton?.layer.borderWidth = 1.2
+        signUpView?.signUpButton?.layer.borderColor = TheColor.CGColor
+        signUpView?.signUpButton?.backgroundColor = TheColor
 
-    //MARK:- UI Congigure
-    func configureUI(){
-        //img
-        avatar.image =  UIImage(named: "07")
-        avatar.layer.borderWidth = 1
-        avatar.layer.masksToBounds = false
-        avatar.layer.borderColor = UIColor.clearColor().CGColor
-        avatar.layer.cornerRadius = avatar.layer.frame.height/2
-        avatar.clipsToBounds = true
-        
-        //text
-        username.layer.borderWidth = 1.3
-        username.layer.borderColor = UIColor.redColor().CGColor
-        username.layer.cornerRadius = 8
-        
-        password.layer.borderWidth = 1.3
-        password.layer.borderColor = UIColor.redColor().CGColor
-        password.layer.cornerRadius = 8
-        
-        repeatPassword.layer.borderWidth = 1.3
-        repeatPassword.layer.borderColor = UIColor.redColor().CGColor
-        repeatPassword.layer.cornerRadius = 8
-        
-        email.layer.borderWidth = 1.3
-        email.layer.borderColor = UIColor.redColor().CGColor
-        email.layer.cornerRadius = 8
-        
-        //Button
-        signIn.layer.borderWidth = 1.2
-        signIn.layer.borderColor = UIColor.redColor().CGColor
-        signIn.layer.cornerRadius = 10
-        
-        signUp.layer.borderWidth = 1.2
-        signUp.layer.borderColor = UIColor.redColor().CGColor
-        signUp.layer.cornerRadius = 10
         
     }
     
-    //MARK:- Keyboard
+ 
     
-    //Called when 'return' key pressed. return NO to ignore.
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
     
-    //Called when the user click on the view (outside the UITextField).
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        self.view.endEditing(true)
-    }
-    
-    //TODO:- Finish the action
-    //MARK:- Action
-    @IBAction func SignUp(sender: AnyObject) {
-        
-        print("\(username),\(password),\(repeatPassword),\(email)")
-        guard let vc = storyboard?.instantiateViewControllerWithIdentifier("MainTabVC")else {
-            print("Error!")
-            return
-        }
-        presentViewController(vc, animated: true, completion: nil)
-
-    }
     
 }
