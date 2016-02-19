@@ -50,6 +50,7 @@ class ProposeTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("CommentCell", forIndexPath: indexPath) as! CommentTableViewCell
         
+        cell.imageContainter.delegate = self
         
         
         //TODO:- Set every cell from the data
@@ -60,7 +61,7 @@ class ProposeTableViewController: UITableViewController {
         cell.Classify.text = testClassify
         cell.Reputation.text = testReputaion
         cell.BrowseNum.text = testBrowser
-        //imagesLayout(cell, images: testImages)
+        imagesLayout(cell, images: testImages)
         
         return cell
     }
@@ -71,37 +72,35 @@ class ProposeTableViewController: UITableViewController {
     func imagesLayout(cell:CommentTableViewCell,images:[UIImage])
     {
         
-//        var size = cell.imageContainter.frame.size
-//        
-//        print(size.height)
-//        
-//        size.width  = size.width/2 *  CGFloat(images.count)
-//        cell.imageContainter.contentSize = size
-//        
-//        cell.imageContainter.backgroundColor = UIColor.redColor()
-//        
-//        
-//        for view in cell.subviews
-//        {
-//            if view.tag == 1
-//            {
-//                view.removeFromSuperview()
-//            }
-//        }
-//    
-//        for (index,image) in images.enumerate()
-//        {
-//            var commentImg:UIImageView!
-//            commentImg = UIImageView(image: image)
-//            commentImg.tag = 1
-//            var imageF = cell.imageContainter.frame
-//            imageF.origin.y = 0
-//            imageF.size.width /= 2
-//            imageF.origin.x = CGFloat(index) * (imageF.size.width)
-//          
-//            commentImg.frame = imageF
-//            cell.imageContainter.addSubview(commentImg)
-//        }
+        var size = cell.imageContainter.frame.size
+        
+        size.width  = size.width/2 *  CGFloat(images.count)
+        cell.imageContainter.contentSize = size
+        cell.imageContainter.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0)
+        for view in cell.subviews
+        {
+            if view.tag == 1
+            {
+                view.removeFromSuperview()
+            }
+        }
+    
+        for (index,image) in images.enumerate()
+        {
+            var commentImg:UIImageView!
+            commentImg = UIImageView(image: image)
+            commentImg.tag = 1
+            var imageF = cell.imageContainter.frame
+            imageF.origin.y = 0
+            imageF.size.width /= 2
+            imageF.origin.x = CGFloat(index) * (imageF.size.width)
+            
+            //commentImg.sizeThatFits(imageF.size)
+            
+            print(imageF.origin.x)
+            commentImg.frame = imageF
+            cell.imageContainter.addSubview(commentImg)
+        }
     }
 
     
