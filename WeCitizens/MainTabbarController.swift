@@ -12,16 +12,8 @@ class MainTabbarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-       // UITabBar.appearance().barTintColor = UIColor.redColor()
-        UITabBar.appearance().tintColor = UIColor(red: 237.0, green: 78, blue: 48, alpha: 1.0)
-        UITabBar.appearance().tintColor = UIColor.redColor()
-        UINavigationBar.appearance().tintColor = UIColor.redColor()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        UITabBar.appearance().tintColor = UIColor(red: 237.0/255, green: 78/255, blue: 48/255, alpha: 1.0)
+        UINavigationBar.appearance().tintColor = UIColor(red: 237.0/255, green: 78/255, blue: 48/255, alpha: 1.0)
     }
     
-
 }

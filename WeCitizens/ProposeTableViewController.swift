@@ -27,11 +27,9 @@ class ProposeTableViewController: UITableViewController {
 //MARK:- Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        UITabBar.appearance().tintColor = UIColor.redColor()
-        tableView.estimatedRowHeight = tableView.rowHeight
-        tableView.rowHeight = UITableViewAutomaticDimension
+       // tableView.estimatedRowHeight = tableView.rowHeight
+       // tableView.rowHeight = UITableViewAutomaticDimension
         self.clearsSelectionOnViewWillAppear = false
-
     }
     
     override func viewDidLayoutSubviews() {
@@ -52,6 +50,8 @@ class ProposeTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("CommentCell", forIndexPath: indexPath) as! CommentTableViewCell
         
+        
+        
         //TODO:- Set every cell from the data
         cell.Avatar.image = testAvatar
         cell.CommentUser.text = testCommentUser
@@ -60,7 +60,7 @@ class ProposeTableViewController: UITableViewController {
         cell.Classify.text = testClassify
         cell.Reputation.text = testReputaion
         cell.BrowseNum.text = testBrowser
-        imagesLayout(cell, images: testImages)
+        //imagesLayout(cell, images: testImages)
         
         return cell
     }
@@ -70,60 +70,39 @@ class ProposeTableViewController: UITableViewController {
 //MARK:- Images Layout
     func imagesLayout(cell:CommentTableViewCell,images:[UIImage])
     {
-        for (index,image) in images.enumerate()
-        {
-            var commentImg:UIImageView!
-            let imgFrame = CGRectMake(cell.Abstract.frame.origin.x + CGFloat(index * 72), cell.Abstract.frame.origin.y + cell.Abstract.bounds.size.height, 64, 64)
-            commentImg = UIImageView(image: image)
-            commentImg.frame = imgFrame
-            cell.addSubview(commentImg)
-        }
+        
+//        var size = cell.imageContainter.frame.size
+//        
+//        print(size.height)
+//        
+//        size.width  = size.width/2 *  CGFloat(images.count)
+//        cell.imageContainter.contentSize = size
+//        
+//        cell.imageContainter.backgroundColor = UIColor.redColor()
+//        
+//        
+//        for view in cell.subviews
+//        {
+//            if view.tag == 1
+//            {
+//                view.removeFromSuperview()
+//            }
+//        }
+//    
+//        for (index,image) in images.enumerate()
+//        {
+//            var commentImg:UIImageView!
+//            commentImg = UIImageView(image: image)
+//            commentImg.tag = 1
+//            var imageF = cell.imageContainter.frame
+//            imageF.origin.y = 0
+//            imageF.size.width /= 2
+//            imageF.origin.x = CGFloat(index) * (imageF.size.width)
+//          
+//            commentImg.frame = imageF
+//            cell.imageContainter.addSubview(commentImg)
+//        }
     }
 
     
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
