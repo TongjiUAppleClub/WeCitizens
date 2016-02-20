@@ -9,6 +9,7 @@ pod 'Alamofire'
 pod 'SnapKit'
 pod 'Parse'
 pod 'ParseUI'
+pod 'Charts'
 
 end
 
