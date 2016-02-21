@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Parse.setApplicationId("2PVQUIOrjJC2tiMONyyeICDPVFW6CrHdAKlBbJjx", clientKey: "WB4B05hYeHOSTNOe0ASLli8AFJDjKdDAk8HZQIju")
         
         UINavigationBar.appearance().tintColor = UIColor(red: 237.0/255, green: 78/255, blue: 48/255, alpha: 1.0)
-        
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor(red: 237.0/255, green: 78/255, blue: 48/255, alpha: 0.8)]
         return true
     }
 

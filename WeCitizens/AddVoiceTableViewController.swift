@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import Parse
 
-class AddVoiceTableViewController: UITableViewController {
+class AddVoiceTableViewController: UITableViewController,UITextViewDelegate {
 
   
     @IBOutlet weak var TitleCell: UITableViewCell!
@@ -20,6 +21,7 @@ class AddVoiceTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        Content.delegate = self
         // self.clearsSelectionOnViewWillAppear = false
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
@@ -37,4 +39,18 @@ class AddVoiceTableViewController: UITableViewController {
      Content.backgroundColor = UIColor.clearColor()
     
     }
+    
+    @IBAction func PublishVoice(sender: UIBarButtonItem) {
+        
+        let Abstract = VoiceTitle.text
+        let content = Content.text
+        let userName = PFUser.currentUser()?.username
+        let date = NSDate()
+        print("\(date),\(Abstract),\(content),\(userName)")
+        
+//TODO:- Add send action
+        
+        
+    }
+
 }
