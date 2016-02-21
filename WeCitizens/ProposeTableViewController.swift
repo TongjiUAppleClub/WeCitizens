@@ -30,10 +30,13 @@ class ProposeTableViewController: UITableViewController {
        // tableView.estimatedRowHeight = tableView.rowHeight
        // tableView.rowHeight = UITableViewAutomaticDimension
         self.clearsSelectionOnViewWillAppear = false
+        
+        
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        configureUI()
         
     }
     
@@ -66,8 +69,37 @@ class ProposeTableViewController: UITableViewController {
         return cell
     }
 
+//MARK:- UIConfigure
+    
+    func configureUI()
+    {
+        
+        let switchButton = UIButton(frame: CGRectMake(25, 0, 40, 40))
+        let locationLabel = UILabel(frame: (CGRectMake(0, 0, 40, 40)))
+        
+        locationLabel.text = "上海"
+        locationLabel.textColor = UIColor(red: 237.0/255, green: 78/255, blue: 48/255, alpha: 1.0)
+        
+        switchButton.setImage(UIImage(named: "switch"), forState: .Normal)
+        switchButton.addTarget(self, action: "ChangeLocation", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        let titleView = UIView(frame: (CGRectMake(0, 0, 44, 44)))
+        titleView.addSubview(locationLabel)
+        titleView.addSubview(switchButton)
+
+        self.navigationItem.titleView = titleView
+    }
+
+//MARK:- ChangeLocation Action
+//TODO:- Change Location
+   func ChangeLocation()
+   {
+        print("change location!")
+   }
+
     
     
+
 //MARK:- Images Layout
     func imagesLayout(cell:CommentTableViewCell,images:[UIImage])
     {
@@ -95,9 +127,6 @@ class ProposeTableViewController: UITableViewController {
             imageF.size.width /= 2
             imageF.origin.x = CGFloat(index) * (imageF.size.width)
             
-            //commentImg.sizeThatFits(imageF.size)
-            
-            print(imageF.origin.x)
             commentImg.frame = imageF
             cell.imageContainter.addSubview(commentImg)
         }

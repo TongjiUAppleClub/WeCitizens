@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Parse.setApplicationId("2PVQUIOrjJC2tiMONyyeICDPVFW6CrHdAKlBbJjx", clientKey: "WB4B05hYeHOSTNOe0ASLli8AFJDjKdDAk8HZQIju")
         
-        //UITabBar.appearance().tintColor = UIColor.redColor()
+        UINavigationBar.appearance().tintColor = UIColor(red: 237.0/255, green: 78/255, blue: 48/255, alpha: 1.0)
         
         return true
     }
