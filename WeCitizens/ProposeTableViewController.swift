@@ -51,10 +51,7 @@ class ProposeTableViewController: UITableViewController {
     
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-        let vc = storyboard?.instantiateViewControllerWithIdentifier("VoiceDetailVC")
-        self.navigationController?.pushViewController(vc!, animated: true)
-        
+        self.performSegueWithIdentifier("ShowDetail", sender: indexPath)
     }
   
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -75,7 +72,27 @@ class ProposeTableViewController: UITableViewController {
         
         return cell
     }
-
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "ShowDetail")
+        {
+            let controller = segue.destinationViewController as! VoiceDetailTableViewController
+            let row = ( sender as! NSIndexPath ).row
+            //TODO:- GET This rows data
+            //Here I use the test data
+            controller.title = testAbstract
+            
+        }
+    }
+    
+    
+    //MARK:- ChangeLocation Action
+    //TODO:- Change Location
+    func ChangeLocation()
+    {
+        print("change location!")
+    }
+    
 //MARK:- UIConfigure
     
     func configureUI()
@@ -97,22 +114,10 @@ class ProposeTableViewController: UITableViewController {
         self.navigationItem.titleView = titleView
     }
 
-//MARK:- ChangeLocation Action
-//TODO:- Change Location
-   func ChangeLocation()
-   {
-        print("change location!")
-   }
-
-    
-    
-
 //MARK:- Images Layout
     func imagesLayout(cell:CommentTableViewCell,images:[UIImage])
     {
-        
         var size = cell.imageContainter.frame.size
-        
         size.width  = size.width/2 *  CGFloat(images.count)
         cell.imageContainter.contentSize = size
         cell.imageContainter.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0)
