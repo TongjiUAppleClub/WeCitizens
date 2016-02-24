@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A48E27E91C6AE7AF00DA9BA7 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48E27E81C6AE7AF00DA9BA7 /* DataModel.swift */; };
-		A4DDF1331C6CAE6100863F16 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DDF1321C6CAE6100863F16 /* UserModel.swift */; };
+		A467EA171C7D4A3E0068880C /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A467EA161C7D4A3E0068880C /* DataModel.swift */; };
+		A467EA191C7D4A480068880C /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A467EA181C7D4A480068880C /* UserModel.swift */; };
 		A4DDF1341C6CAE6100863F16 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DDF1321C6CAE6100863F16 /* UserModel.swift */; };
 		A4DDF1361C6CAEDF00863F16 /* UserModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DDF1351C6CAEDF00863F16 /* UserModelTests.swift */; };
 		AC94CA15D0D06953E17890D2 /* Pods_WeCitizens.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1841685CE4A3B21E709C57A6 /* Pods_WeCitizens.framework */; };
@@ -50,7 +50,8 @@
 /* Begin PBXFileReference section */
 		011C6697387BB65F8D136DCE /* Pods-WeCitizens.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeCitizens.release.xcconfig"; path = "Pods/Target Support Files/Pods-WeCitizens/Pods-WeCitizens.release.xcconfig"; sourceTree = "<group>"; };
 		1841685CE4A3B21E709C57A6 /* Pods_WeCitizens.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WeCitizens.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A48E27E81C6AE7AF00DA9BA7 /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
+		A467EA161C7D4A3E0068880C /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
+		A467EA181C7D4A480068880C /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		A4DDF1321C6CAE6100863F16 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		A4DDF1351C6CAEDF00863F16 /* UserModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModelTests.swift; sourceTree = "<group>"; };
 		A5F368C4EB7E5F3FC70723BC /* Pods-WeCitizens.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeCitizens.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WeCitizens/Pods-WeCitizens.debug.xcconfig"; sourceTree = "<group>"; };
@@ -121,6 +122,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		A467EA151C7D4A270068880C /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				A467EA161C7D4A3E0068880C /* DataModel.swift */,
+				A467EA181C7D4A480068880C /* UserModel.swift */,
+			);
+			name = DataModel;
+			sourceTree = "<group>";
+		};
 		E73CAEEA1C79B7B80099DF2D /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -163,6 +173,7 @@
 		E7CE059D1C6353FC00E8CCAB /* WeCitizens */ = {
 			isa = PBXGroup;
 			children = (
+				A467EA151C7D4A270068880C /* DataModel */,
 				E73CAEEA1C79B7B80099DF2D /* ViewController */,
 				E7CE059E1C6353FC00E8CCAB /* AppDelegate.swift */,
 				E7CE05A21C6353FC00E8CCAB /* Main.storyboard */,
@@ -396,6 +407,8 @@
 				E73CAEEE1C79ECB30099DF2D /* VoiceDetailTableViewController.swift in Sources */,
 				E7E6F1221C6CAE2200EB1179 /* ProposeTableViewController.swift in Sources */,
 				E7E6F1261C6CB48200EB1179 /* CommentTableViewCell.swift in Sources */,
+				A467EA191C7D4A480068880C /* UserModel.swift in Sources */,
+				A467EA171C7D4A3E0068880C /* DataModel.swift in Sources */,
 				E73CAEF21C7B37850099DF2D /* VoiceDetailTableViewCell.swift in Sources */,
 				E73CAEF01C7B37730099DF2D /* VoiceTitleTableViewCell.swift in Sources */,
 				E7E6F1241C6CB11000EB1179 /* MainTabbarController.swift in Sources */,
