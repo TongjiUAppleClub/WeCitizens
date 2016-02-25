@@ -18,10 +18,10 @@ struct ExamplesDefaults {
 
     private static var iPhoneChartSettings: ChartSettings {
         let chartSettings = ChartSettings()
-        chartSettings.leading = 0
-        chartSettings.top = 0
-        chartSettings.trailing = 0
-        chartSettings.bottom = 20
+        chartSettings.leading = -10
+        chartSettings.top = -16
+        chartSettings.trailing = 180
+        chartSettings.bottom = 480
         chartSettings.labelsToAxisSpacingX = 0.2
         chartSettings.labelsToAxisSpacingY = 0.2
         chartSettings.axisTitleLabelsToLabelsSpacing = 0.4
