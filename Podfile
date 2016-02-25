@@ -10,6 +10,7 @@ pod 'SnapKit'
 pod 'Parse'
 pod 'ParseUI'
 pod 'Charts'
+pod 'FoldingCell'
 
 end
 
