@@ -18,6 +18,12 @@
 		E73CAEEE1C79ECB30099DF2D /* VoiceDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73CAEED1C79ECB30099DF2D /* VoiceDetailTableViewController.swift */; };
 		E73CAEF01C7B37730099DF2D /* VoiceTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73CAEEF1C7B37730099DF2D /* VoiceTitleTableViewCell.swift */; };
 		E73CAEF21C7B37850099DF2D /* VoiceDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73CAEF11C7B37850099DF2D /* VoiceDetailTableViewCell.swift */; };
+		E74BA49E1C7E081200FC1BA6 /* ReplyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74BA49D1C7E081200FC1BA6 /* ReplyTableViewCell.swift */; };
+		E74BA4A01C7E082B00FC1BA6 /* ReplyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74BA49F1C7E082B00FC1BA6 /* ReplyTableViewController.swift */; };
+		E77624A01C7F30AB00E723BE /* BarsExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = E776249F1C7F30AB00E723BE /* BarsExample.swift */; };
+		E77624A21C7F310B00E723BE /* ExamplesDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E77624A11C7F310B00E723BE /* ExamplesDefaults.swift */; };
+		E78B5FC11C7F4FE20042E814 /* SSRadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78B5FBF1C7F4FE20042E814 /* SSRadioButton.swift */; };
+		E78B5FC21C7F4FE20042E814 /* SSRadioButtonsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78B5FC01C7F4FE20042E814 /* SSRadioButtonsController.swift */; };
 		E79F33A51C72FCFF009D1F1A /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79F33A41C72FCFF009D1F1A /* SignUpViewController.swift */; };
 		E7CE059F1C6353FC00E8CCAB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CE059E1C6353FC00E8CCAB /* AppDelegate.swift */; };
 		E7CE05A11C6353FC00E8CCAB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CE05A01C6353FC00E8CCAB /* LoginViewController.swift */; };
@@ -65,6 +71,12 @@
 		E73CAEED1C79ECB30099DF2D /* VoiceDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoiceDetailTableViewController.swift; sourceTree = "<group>"; };
 		E73CAEEF1C7B37730099DF2D /* VoiceTitleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoiceTitleTableViewCell.swift; sourceTree = "<group>"; };
 		E73CAEF11C7B37850099DF2D /* VoiceDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoiceDetailTableViewCell.swift; sourceTree = "<group>"; };
+		E74BA49D1C7E081200FC1BA6 /* ReplyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyTableViewCell.swift; sourceTree = "<group>"; };
+		E74BA49F1C7E082B00FC1BA6 /* ReplyTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyTableViewController.swift; sourceTree = "<group>"; };
+		E776249F1C7F30AB00E723BE /* BarsExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarsExample.swift; sourceTree = "<group>"; };
+		E77624A11C7F310B00E723BE /* ExamplesDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExamplesDefaults.swift; sourceTree = "<group>"; };
+		E78B5FBF1C7F4FE20042E814 /* SSRadioButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SSRadioButton.swift; path = "../../../../Downloads/SSRadioButtonsController-master/SSRadioButtonController/SSRadioButton.swift"; sourceTree = "<group>"; };
+		E78B5FC01C7F4FE20042E814 /* SSRadioButtonsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SSRadioButtonsController.swift; path = "../../../../Downloads/SSRadioButtonsController-master/SSRadioButtonController/SSRadioButtonsController.swift"; sourceTree = "<group>"; };
 		E79F33A41C72FCFF009D1F1A /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		E7CE059B1C6353FC00E8CCAB /* WeCitizens.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeCitizens.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7CE059E1C6353FC00E8CCAB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -147,6 +159,10 @@
 		E73CAEEA1C79B7B80099DF2D /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				E78B5FBF1C7F4FE20042E814 /* SSRadioButton.swift */,
+				E78B5FC01C7F4FE20042E814 /* SSRadioButtonsController.swift */,
+				E77624A11C7F310B00E723BE /* ExamplesDefaults.swift */,
+				E776249F1C7F30AB00E723BE /* BarsExample.swift */,
 				E71BFF621C75E5C3001A00E5 /* WelcomeViewController.swift */,
 				E7CE05A01C6353FC00E8CCAB /* LoginViewController.swift */,
 				E79F33A41C72FCFF009D1F1A /* SignUpViewController.swift */,
@@ -157,6 +173,8 @@
 				E73CAEED1C79ECB30099DF2D /* VoiceDetailTableViewController.swift */,
 				E73CAEEF1C7B37730099DF2D /* VoiceTitleTableViewCell.swift */,
 				E73CAEF11C7B37850099DF2D /* VoiceDetailTableViewCell.swift */,
+				E74BA49F1C7E082B00FC1BA6 /* ReplyTableViewController.swift */,
+				E74BA49D1C7E081200FC1BA6 /* ReplyTableViewCell.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -497,6 +515,9 @@
 			files = (
 				E79F33A51C72FCFF009D1F1A /* SignUpViewController.swift in Sources */,
 				E7CE05A11C6353FC00E8CCAB /* LoginViewController.swift in Sources */,
+				E74BA49E1C7E081200FC1BA6 /* ReplyTableViewCell.swift in Sources */,
+				E74BA4A01C7E082B00FC1BA6 /* ReplyTableViewController.swift in Sources */,
+				E78B5FC21C7F4FE20042E814 /* SSRadioButtonsController.swift in Sources */,
 				E73CAEEE1C79ECB30099DF2D /* VoiceDetailTableViewController.swift in Sources */,
 				E7E6F1221C6CAE2200EB1179 /* ProposeTableViewController.swift in Sources */,
 				E7E6F1261C6CB48200EB1179 /* CommentTableViewCell.swift in Sources */,
@@ -506,7 +527,10 @@
 				E7E6F1241C6CB11000EB1179 /* MainTabbarController.swift in Sources */,
 				E7CE059F1C6353FC00E8CCAB /* AppDelegate.swift in Sources */,
 				E73CAEEC1C79B8010099DF2D /* AddVoiceTableViewController.swift in Sources */,
+				E77624A21C7F310B00E723BE /* ExamplesDefaults.swift in Sources */,
+				E77624A01C7F30AB00E723BE /* BarsExample.swift in Sources */,
 				E71BFF631C75E5C3001A00E5 /* WelcomeViewController.swift in Sources */,
+				E78B5FC11C7F4FE20042E814 /* SSRadioButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

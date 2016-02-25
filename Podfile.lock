@@ -1,28 +1,31 @@
 PODS:
-  - Alamofire (3.1.3)
-  - Bolts/Tasks (1.5.0)
-  - Charts (2.1.6)
+  - Alamofire (3.2.0)
+  - Bolts/Tasks (1.6.0)
+  - FoldingCell (0.7.2)
   - Parse (1.10.0):
     - Bolts/Tasks (~> 1.5)
   - ParseUI (1.1.7):
     - Bolts/Tasks (~> 1.3)
     - Parse (~> 1.9)
-  - SnapKit (0.18.0)
+  - SnapKit (0.19.1)
+  - SwiftCharts (0.3)
 
 DEPENDENCIES:
   - Alamofire
-  - Charts
-  - Parse
-  - ParseUI
+  - FoldingCell
+  - Parse (~> 1.10.0)
+  - ParseUI (~> 1.1.7)
   - SnapKit
+  - SwiftCharts
 
 SPEC CHECKSUMS:
-  Alamofire: 9f93b56389e48def9220dd57d1f44b1927229a5a
-  Bolts: 722ab9a4f8b50fc4ed1b9998a5a7a2b3f16d80b4
-  Charts: 5e1e5ac23898e5b09d226a2fc3e9d86bc281937e
+  Alamofire: 4da478599fccddff361205c8929333d7fe18dceb
+  Bolts: f52a250053bb517ca874523c3913776359ab3def
+  FoldingCell: 19a31a3e51003af0da522ecfd57d321941a17c91
   Parse: 90b2544822200f84b18bfacc4e8b0a3a6c3584a2
   ParseUI: c2bcdfbb00330e464b5b773266ae221697a3bb7b
-  SnapKit: e1f090a6d47b1dd4bd89b73f72b6746a7835ef3c
+  SnapKit: eff58d6e3451bf2f482db2eccf86aecf371dc62d
+  SwiftCharts: c66a449d58f9c811c467f865a47b1b6136b49499
 
 PODFILE CHECKSUM: 7854ea2197d7f1461f2cc1ae5680831bdf83cd6c
 
