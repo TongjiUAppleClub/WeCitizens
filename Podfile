@@ -7,10 +7,10 @@ target 'WeCitizens' do
 
 pod 'Alamofire'
 pod 'SnapKit'
-pod 'Parse'
-pod 'ParseUI'
-pod 'Charts'
+pod 'Parse', '~> 1.10.0'
+pod 'ParseUI', '~> 1.1.7' 
 pod 'FoldingCell'
+pod 'SwiftCharts'
 
 end
 

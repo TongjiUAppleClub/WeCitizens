@@ -9,17 +9,19 @@
 import UIKit
 import FoldingCell
 
-class ReplyTableViewController: UITableViewController {
+class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDelegate {
 
     let kRowsCount = 10
-    let kCloseCellHeight:CGFloat = 208
-    let kOpenCellHeight:CGFloat = 588
+    let kCloseCellHeight:CGFloat = 168
+    let kOpenCellHeight:CGFloat = 850
     
     var cellHeights = [CGFloat]()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         
         for _ in 0...kRowsCount {
             cellHeights.append(kCloseCellHeight)
@@ -44,8 +46,19 @@ class ReplyTableViewController: UITableViewController {
         }
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("FoldingCell", forIndexPath: indexPath)
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    {
+        let cell = tableView.dequeueReusableCellWithIdentifier("FoldingCell", forIndexPath: indexPath) as! ReplyTableViewCell
+        
+        let vc = BarsExample()
+        addChildViewController(vc)
+        vc.view.frame = cell.ThirdView.frame
+        vc.view.frame.origin.y -= 32
+        cell.ThirdView.addSubview(vc.view)
+        let radioButtonController = SSRadioButtonsController(buttons: cell.L1_Button, cell.L2_Button, cell.L3_Button,cell.L4_Button)
+
+        radioButtonController.delegate = self
+        radioButtonController.shouldLetDeSelect = true
         
         return cell
     }
@@ -83,7 +96,9 @@ class ReplyTableViewController: UITableViewController {
         
     }
 
-
+    func didSelectButton(aButton: UIButton?) {
+        print(aButton)
+    }
 
     
 

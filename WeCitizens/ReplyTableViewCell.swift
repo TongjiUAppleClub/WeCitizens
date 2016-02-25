@@ -15,9 +15,18 @@ class ReplyTableViewCell: FoldingCell {
     
 
 
+    @IBOutlet weak var ThirdView: RotatedView!
+    
+    @IBOutlet weak var L1_Button: SSRadioButton!
+    @IBOutlet weak var L2_Button: SSRadioButton!
+    @IBOutlet weak var L3_Button: SSRadioButton!
+    @IBOutlet weak var L4_Button: SSRadioButton!
+    
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        
         // Initialization code
     }
 
