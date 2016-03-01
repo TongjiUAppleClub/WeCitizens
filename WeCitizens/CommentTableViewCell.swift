@@ -44,7 +44,7 @@ class CommentTableViewCell: UITableViewCell,UITextViewDelegate,UIScrollViewDeleg
         self.layer.cornerRadius = 15
         self.layer.borderWidth = 1.2
         self.layer.borderColor = UIColor.clearColor().CGColor
-        self.addBorder(edges: [.All],colour:UIColor(red: 124, green: 124, blue: 124, alpha: 1.0),thickness: 5)
+        self.layer.addBorder(.Bottom, color: UIColor(red: 124/255, green: 124/255, blue: 124/255, alpha: 1.0), thickness: 1.5)
         //make avatar circle
         Avatar.layer.masksToBounds = false
         Avatar.layer.borderWidth = 1
@@ -64,82 +64,34 @@ class CommentTableViewCell: UITableViewCell,UITextViewDelegate,UIScrollViewDeleg
     }
     
     
-    func addBorder(edges edges: UIRectEdge, colour: UIColor = UIColor.whiteColor(), thickness: CGFloat = 1) -> [UIView] {
-        
-        var borders = [UIView]()
-        
-        func border() -> UIView {
-            let border = UIView(frame: CGRectZero)
-            border.backgroundColor = colour
-            border.translatesAutoresizingMaskIntoConstraints = false
-            return border
-        }
-        
-        if edges.contains(.Top) || edges.contains(.All) {
-            let top = border()
-            addSubview(top)
-            addConstraints(
-                NSLayoutConstraint.constraintsWithVisualFormat("V:|-(0)-[top(==thickness)]",
-                    options: [],
-                    metrics: ["thickness": thickness],
-                    views: ["top": top]))
-            addConstraints(
-                NSLayoutConstraint.constraintsWithVisualFormat("H:|-(0)-[top]-(0)-|",
-                    options: [],
-                    metrics: nil,
-                    views: ["top": top]))
-            borders.append(top)
-        }
-        
-        if edges.contains(.Left) || edges.contains(.All) {
-            let left = border()
-            addSubview(left)
-            addConstraints(
-                NSLayoutConstraint.constraintsWithVisualFormat("H:|-(0)-[left(==thickness)]",
-                    options: [],
-                    metrics: ["thickness": thickness],
-                    views: ["left": left]))
-            addConstraints(
-                NSLayoutConstraint.constraintsWithVisualFormat("V:|-(0)-[left]-(0)-|",
-                    options: [],
-                    metrics: nil,
-                    views: ["left": left]))
-            borders.append(left)
-        }
-        
-        if edges.contains(.Right) || edges.contains(.All) {
-            let right = border()
-            addSubview(right)
-            addConstraints(
-                NSLayoutConstraint.constraintsWithVisualFormat("H:[right(==thickness)]-(0)-|",
-                    options: [],
-                    metrics: ["thickness": thickness],
-                    views: ["right": right]))
-            addConstraints(
-                NSLayoutConstraint.constraintsWithVisualFormat("V:|-(0)-[right]-(0)-|",
-                    options: [],
-                    metrics: nil,
-                    views: ["right": right]))
-            borders.append(right)
-        }
-        
-        if edges.contains(.Bottom) || edges.contains(.All) {
-            let bottom = border()
-            addSubview(bottom)
-            addConstraints(
-                NSLayoutConstraint.constraintsWithVisualFormat("V:[bottom(==thickness)]-(0)-|",
-                    options: [],
-                    metrics: ["thickness": thickness],
-                    views: ["bottom": bottom]))
-            addConstraints(
-                NSLayoutConstraint.constraintsWithVisualFormat("H:|-(0)-[bottom]-(0)-|",
-                    options: [],
-                    metrics: nil,
-                    views: ["bottom": bottom]))
-            borders.append(bottom)
-        }
-        
-        return borders
-    }
-    
 }
+
+extension CALayer {
+    
+    func addBorder(edge: UIRectEdge, color: UIColor, thickness: CGFloat) {
+        
+        let border = CALayer()
+        
+        switch edge {
+        case UIRectEdge.Top:
+            border.frame = CGRectMake(0, 0, CGRectGetWidth(self.frame), thickness)
+            break
+        case UIRectEdge.Bottom:
+            border.frame = CGRectMake(0, CGRectGetHeight(self.frame) - thickness, CGRectGetWidth(self.frame), thickness)
+            break
+        case UIRectEdge.Left:
+            border.frame = CGRectMake(0, 0, thickness, CGRectGetHeight(self.frame))
+            break
+        case UIRectEdge.Right:
+            border.frame = CGRectMake(CGRectGetWidth(self.frame) - thickness, 0, thickness, CGRectGetHeight(self.frame))
+            break
+        default:
+            break
+        }
+        
+        border.backgroundColor = color.CGColor;
+        
+        self.addSublayer(border)
+    }
+}
+
