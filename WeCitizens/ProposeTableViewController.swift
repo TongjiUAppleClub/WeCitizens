@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import CoreLocation
 
-class ProposeTableViewController: UITableViewController {
+class ProposeTableViewController: UITableViewController,CLLocationManagerDelegate{
 
 //TODO:- Get the comment list  
 // I will give the example data and show how to use it
-    let COMMENT_NUM = 5
+    let COMMENT_NUM = 3
+    
+    
     let testAvatar =  UIImage(named: "avatar")
     let testCommentUser = "Harold"
     let testAbstract = "懵逼快出图！！！"
@@ -21,7 +24,11 @@ class ProposeTableViewController: UITableViewController {
     let testClassify = "Education"
     let testReputaion = "452"
     let testImages = [UIImage(named: "logo")!,UIImage(named: "logo")!,UIImage(named: "logo")!]
-  
+    
+    
+    
+    let locationManager = CLLocationManager()
+    var currentLocal:String = "－－－－"
     
     
 //MARK:- Life cycle
@@ -30,8 +37,7 @@ class ProposeTableViewController: UITableViewController {
        // tableView.estimatedRowHeight = tableView.rowHeight
        // tableView.rowHeight = UITableViewAutomaticDimension
         self.clearsSelectionOnViewWillAppear = false
-        
-        
+        initLocation()
     }
     
     override func viewDidLayoutSubviews() {
@@ -41,12 +47,8 @@ class ProposeTableViewController: UITableViewController {
     }
     
 // MARK:- Table view data source && delegate
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return COMMENT_NUM
+        return COMMENT_NUM*2
     }
     
     
@@ -55,11 +57,17 @@ class ProposeTableViewController: UITableViewController {
     }
   
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("CommentCell", forIndexPath: indexPath) as! CommentTableViewCell
         
+        if indexPath.row % 2 == 0
+        {
+            let cell = tableView.dequeueReusableCellWithIdentifier("BlankCell", forIndexPath: indexPath)
+            return cell
+        }
+        else
+        {
+        
+            let cell = tableView.dequeueReusableCellWithIdentifier("CommentCell", forIndexPath: indexPath) as! CommentTableViewCell
         cell.imageContainter.delegate = self
-        
-        
         //TODO:- Set every cell from the data
         cell.Avatar.image = testAvatar
         cell.CommentUser.text = testCommentUser
@@ -69,52 +77,103 @@ class ProposeTableViewController: UITableViewController {
         cell.Reputation.text = testReputaion
         cell.BrowseNum.text = testBrowser
         imagesLayout(cell, images: testImages)
-        
         return cell
+        }
+        
     }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if (indexPath.row % 2 == 0)
+        {
+            return CGFloat(5)
+        }
+        else
+        {
+            return CGFloat(280)
+        }
+    }
+
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "ShowDetail")
         {
             let controller = segue.destinationViewController as! VoiceDetailTableViewController
-            let row = ( sender as! NSIndexPath ).row
-            //TODO:- GET This rows data
-            //Here I use the test data
+            //let row = ( sender as! NSIndexPath ).row
             controller.title = testAbstract
             
         }
     }
     
     
-    //MARK:- ChangeLocation Action
-    //TODO:- Change Location
-    func ChangeLocation()
-    {
-        print("change location!")
-    }
     
 //MARK:- UIConfigure
     
     func configureUI()
     {
+        tableView.backgroundColor = UIColor(red: 216/255, green: 216/255, blue: 216/255, alpha: 1.0)
         
-        let switchButton = UIButton(frame: CGRectMake(25, 0, 40, 40))
-        let locationLabel = UILabel(frame: (CGRectMake(0, 0, 40, 40)))
+        let titleView = UIView(frame: (CGRectMake(0, 0, 150, 44)))
+        let switchButton = UIButton(frame: CGRectMake(105, 0, 30, 44))
+        let locationLabel = UILabel(frame: (CGRectMake(0, 0, 110, 44)))
         
-        locationLabel.text = "上海"
+        locationLabel.text = currentLocal
         locationLabel.textColor = UIColor(red: 237.0/255, green: 78/255, blue: 48/255, alpha: 1.0)
+        locationLabel.textAlignment = NSTextAlignment.Right
         
         switchButton.setImage(UIImage(named: "switch"), forState: .Normal)
-        switchButton.addTarget(self, action: "ChangeLocation", forControlEvents: UIControlEvents.TouchUpInside)
+        switchButton.addTarget(self, action: "ChangeLocation:", forControlEvents: UIControlEvents.TouchUpInside)
         
-        let titleView = UIView(frame: (CGRectMake(0, 0, 44, 44)))
         titleView.addSubview(locationLabel)
         titleView.addSubview(switchButton)
 
         self.navigationItem.titleView = titleView
     }
+    
+    func ChangeLocation(sender:UIButton)
+    {
+        let controller = storyboard?.instantiateViewControllerWithIdentifier("LocationTable")
+        self.navigationController?.pushViewController(controller!, animated: true)
+        
+    }
+    
+//MARK:- Location Init
+    func initLocation()
+    {
+        if CLLocationManager.locationServicesEnabled()
+        {
+            locationManager.delegate = self
+            locationManager.distanceFilter = 1000
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.requestAlwaysAuthorization()
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
+    {
+        if let currentLocation = locations.last {
+            let long = currentLocation.coordinate.longitude
+            let lat = currentLocation.coordinate.latitude
+            let geoCoder = CLGeocoder()
+            let location = CLLocation(latitude: lat, longitude:long)
+            
+            geoCoder.reverseGeocodeLocation(location) { (placemark, error) -> Void in
+                if let validPlacemark = placemark?[0]{
+                    let placemark = validPlacemark as CLPlacemark;
+                    if let city = placemark.addressDictionary!["City"] as? NSString {
+                        print(city)
+                        self.currentLocal = city as String
+                    }
+                }
+            }
+        }
+        else
+        {
+            print("No location")
+        }
+    }
 
-//MARK:- Images Layout
+//MARK:- Data Blinder
     func imagesLayout(cell:CommentTableViewCell,images:[UIImage])
     {
         var size = cell.imageContainter.frame.size
@@ -146,3 +205,4 @@ class ProposeTableViewController: UITableViewController {
 
     
 }
+
