@@ -12,7 +12,6 @@
 		A0780D98209D729E90428CE9 /* Pods_WeCitizens.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F63D8BE26C1E432F27944258 /* Pods_WeCitizens.framework */; };
 		A467EA171C7D4A3E0068880C /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A467EA161C7D4A3E0068880C /* DataModel.swift */; };
 		A4DDF1341C6CAE6100863F16 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DDF1321C6CAE6100863F16 /* UserModel.swift */; };
-		A4DDF1361C6CAEDF00863F16 /* UserModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DDF1351C6CAEDF00863F16 /* UserModelTests.swift */; };
 		E71BFF631C75E5C3001A00E5 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71BFF621C75E5C3001A00E5 /* WelcomeViewController.swift */; };
 		E73CAEEC1C79B8010099DF2D /* AddVoiceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73CAEEB1C79B8010099DF2D /* AddVoiceTableViewController.swift */; };
 		E73CAEEE1C79ECB30099DF2D /* VoiceDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73CAEED1C79ECB30099DF2D /* VoiceDetailTableViewController.swift */; };
@@ -64,7 +63,6 @@
 		9F7F537A3CAB72927144105E /* Pods-WeCitizensTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeCitizensTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WeCitizensTests/Pods-WeCitizensTests.release.xcconfig"; sourceTree = "<group>"; };
 		A467EA161C7D4A3E0068880C /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		A4DDF1321C6CAE6100863F16 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
-		A4DDF1351C6CAEDF00863F16 /* UserModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModelTests.swift; sourceTree = "<group>"; };
 		A9E52F547828379DC43E2BA5 /* Pods-WeCitizensUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeCitizensUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WeCitizensUITests/Pods-WeCitizensUITests.release.xcconfig"; sourceTree = "<group>"; };
 		E71BFF621C75E5C3001A00E5 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		E73CAEEB1C79B8010099DF2D /* AddVoiceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddVoiceTableViewController.swift; sourceTree = "<group>"; };
@@ -219,7 +217,6 @@
 			isa = PBXGroup;
 			children = (
 				E7CE05B31C6353FC00E8CCAB /* WeCitizensTests.swift */,
-				A4DDF1351C6CAEDF00863F16 /* UserModelTests.swift */,
 				E7CE05B51C6353FC00E8CCAB /* Info.plist */,
 			);
 			path = WeCitizensTests;
@@ -539,7 +536,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A4DDF1341C6CAE6100863F16 /* UserModel.swift in Sources */,
-				A4DDF1361C6CAEDF00863F16 /* UserModelTests.swift in Sources */,
 				E7CE05B41C6353FC00E8CCAB /* WeCitizensTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
