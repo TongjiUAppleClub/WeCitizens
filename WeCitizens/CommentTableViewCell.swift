@@ -23,9 +23,10 @@ class CommentTableViewCell: UITableViewCell,UITextViewDelegate,UIScrollViewDeleg
     @IBOutlet weak var BrowseNum: UILabel!
     @IBOutlet weak var Abstract: UITextView!
     @IBOutlet weak var ClassifyKind: UIImageView!
+    @IBOutlet weak var VoiceTitle: UILabel!
     
     
-    @IBOutlet weak var imageContainter: UIScrollView!
+  //  @IBOutlet weak var imageContainter: UIScrollView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -51,6 +52,12 @@ class CommentTableViewCell: UITableViewCell,UITextViewDelegate,UIScrollViewDeleg
         Avatar.layer.borderColor = UIColor.clearColor().CGColor
         Avatar.layer.cornerRadius = Avatar.frame.height/2
         Avatar.clipsToBounds = true
+        // make reputation circle
+        Reputation.layer.masksToBounds = false
+        Reputation.layer.borderWidth = 0.2
+        Reputation.layer.borderColor = UIColor(red: 249/255, green: 251/255, blue: 255/255, alpha: 1.0).CGColor
+        Reputation.layer.cornerRadius = Reputation.frame.height/2
+        Reputation.clipsToBounds = true
         
         // Adjust the height of the textview
         let contentSize = self.Abstract.sizeThatFits(self.Abstract.bounds.size)
