@@ -11,9 +11,7 @@
 		60E879E3477D36B43DF3BB6D /* Pods_WeCitizensTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B0CE84F2FCCC52F244173CD /* Pods_WeCitizensTests.framework */; };
 		A0780D98209D729E90428CE9 /* Pods_WeCitizens.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F63D8BE26C1E432F27944258 /* Pods_WeCitizens.framework */; };
 		A467EA171C7D4A3E0068880C /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A467EA161C7D4A3E0068880C /* DataModel.swift */; };
-		A467EA191C7D4A480068880C /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A467EA181C7D4A480068880C /* UserModel.swift */; };
 		A4DDF1341C6CAE6100863F16 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DDF1321C6CAE6100863F16 /* UserModel.swift */; };
-		A4DDF1361C6CAEDF00863F16 /* UserModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DDF1351C6CAEDF00863F16 /* UserModelTests.swift */; };
 		E71BFF631C75E5C3001A00E5 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71BFF621C75E5C3001A00E5 /* WelcomeViewController.swift */; };
 		E72C16E01C857DF200E871B0 /* SSRadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72C16DE1C857DF200E871B0 /* SSRadioButton.swift */; };
 		E72C16E11C857DF200E871B0 /* SSRadioButtonsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72C16DF1C857DF200E871B0 /* SSRadioButtonsController.swift */; };
@@ -65,9 +63,7 @@
 		9B5BB3B4F8B5672637F3B74E /* Pods-WeCitizensUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeCitizensUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WeCitizensUITests/Pods-WeCitizensUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		9F7F537A3CAB72927144105E /* Pods-WeCitizensTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeCitizensTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WeCitizensTests/Pods-WeCitizensTests.release.xcconfig"; sourceTree = "<group>"; };
 		A467EA161C7D4A3E0068880C /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
-		A467EA181C7D4A480068880C /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		A4DDF1321C6CAE6100863F16 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
-		A4DDF1351C6CAEDF00863F16 /* UserModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModelTests.swift; sourceTree = "<group>"; };
 		A9E52F547828379DC43E2BA5 /* Pods-WeCitizensUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeCitizensUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WeCitizensUITests/Pods-WeCitizensUITests.release.xcconfig"; sourceTree = "<group>"; };
 		E71BFF621C75E5C3001A00E5 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		E72C16DE1C857DF200E871B0 /* SSRadioButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSRadioButton.swift; sourceTree = "<group>"; };
@@ -158,7 +154,6 @@
 			isa = PBXGroup;
 			children = (
 				A467EA161C7D4A3E0068880C /* DataModel.swift */,
-				A467EA181C7D4A480068880C /* UserModel.swift */,
 			);
 			name = DataModel;
 			sourceTree = "<group>";
@@ -226,7 +221,6 @@
 			isa = PBXGroup;
 			children = (
 				E7CE05B31C6353FC00E8CCAB /* WeCitizensTests.swift */,
-				A4DDF1351C6CAEDF00863F16 /* UserModelTests.swift */,
 				E7CE05B51C6353FC00E8CCAB /* Info.plist */,
 			);
 			path = WeCitizensTests;
@@ -529,7 +523,6 @@
 				E72C16E01C857DF200E871B0 /* SSRadioButton.swift in Sources */,
 				E7E6F1221C6CAE2200EB1179 /* ProposeTableViewController.swift in Sources */,
 				E7E6F1261C6CB48200EB1179 /* CommentTableViewCell.swift in Sources */,
-				A467EA191C7D4A480068880C /* UserModel.swift in Sources */,
 				A467EA171C7D4A3E0068880C /* DataModel.swift in Sources */,
 				E73CAEF21C7B37850099DF2D /* VoiceDetailTableViewCell.swift in Sources */,
 				E73CAEF01C7B37730099DF2D /* VoiceTitleTableViewCell.swift in Sources */,
@@ -547,7 +540,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A4DDF1341C6CAE6100863F16 /* UserModel.swift in Sources */,
-				A4DDF1361C6CAEDF00863F16 /* UserModelTests.swift in Sources */,
 				E7CE05B41C6353FC00E8CCAB /* WeCitizensTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
