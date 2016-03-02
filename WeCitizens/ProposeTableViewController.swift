@@ -34,8 +34,8 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
 //MARK:- Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-       // tableView.estimatedRowHeight = tableView.rowHeight
-       // tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = tableView.rowHeight
+        tableView.rowHeight = UITableViewAutomaticDimension
         self.clearsSelectionOnViewWillAppear = false
         initLocation()
     }
@@ -48,25 +48,32 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
     
 // MARK:- Table view data source && delegate
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return COMMENT_NUM*2
+        return 1
     }
     
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return COMMENT_NUM
+    }
+    
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 7
+    }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.performSegueWithIdentifier("ShowDetail", sender: indexPath)
     }
-  
+    
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView(frame: (CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 7)) )
+        view.backgroundColor = UIColor.clearColor()
+        
+        return view
+    }
+    
+    
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        if indexPath.row % 2 == 0
-        {
-            let cell = tableView.dequeueReusableCellWithIdentifier("BlankCell", forIndexPath: indexPath)
-            return cell
-        }
-        else
-        {
-        
-            let cell = tableView.dequeueReusableCellWithIdentifier("CommentCell", forIndexPath: indexPath) as! CommentTableViewCell
+      let cell = tableView.dequeueReusableCellWithIdentifier("CommentCell", forIndexPath: indexPath) as! CommentTableViewCell
    //     cell.imageContainter.delegate = self
         //TODO:- Set every cell from the data
         cell.VoiceTitle.text = testTitle
@@ -79,21 +86,9 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
         cell.BrowseNum.text = testBrowser
    //     imagesLayout(cell, images: testImages)
         return cell
-        }
         
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if (indexPath.row % 2 == 0)
-        {
-            return CGFloat(5)
-        }
-        else
-        {
-            return CGFloat(280)
-        }
-    }
-
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "ShowDetail")
@@ -104,7 +99,6 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
             
         }
     }
-    
     
     
 //MARK:- UIConfigure
