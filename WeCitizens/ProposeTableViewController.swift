@@ -17,18 +17,23 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
     
     let testTitle = "XX中学体罚学生情况严重"
     let testAvatar =  UIImage(named: "avatar")
-    let testCommentUser = "Harold"
-    let testAbstract = "懵逼快出图！！！"
+    let testCommentUser = "名字"
+    let testAbstract = "dsafadfdjflsjladjlfkjlajlgdsdfasdfal柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是sfafafdafdsgfdfdfafdafaffafafafafafaffdafafafaffafslskjljlakgjljl柔周乔布斯成功的主要原因是什么？"
     let testTime = "2016.2.14"
     let testBrowser = "10247"
-    let testClassify = "Education"
+    let testClassify = "教育"
     let testReputaion = "452"
     let testImages = [UIImage(named: "logo")!,UIImage(named: "logo")!]
-    
+// Delete the line above & give the real data
     
     
     let locationManager = CLLocationManager()
-    var currentLocal:String = "－－－－"
+    let locationLabel = UILabel(frame: (CGRectMake(0, 0, 110, 44)))
+    var currentLocal:String = "－－－－"{
+        didSet{
+            locationLabel.text = currentLocal
+        }
+    }
     
     
 //MARK:- Life cycle
@@ -40,6 +45,12 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
         initLocation()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+//TODO:- Reloaddata here
+        tableView.reloadData()
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         configureUI()
@@ -47,35 +58,37 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
     }
     
 // MARK:- Table view data source && delegate
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
         return 1
     }
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int
+    {
         return COMMENT_NUM
     }
     
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
+    {
         return 7
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+    {
         self.performSegueWithIdentifier("ShowDetail", sender: indexPath)
     }
     
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
+    {
         let view = UIView(frame: (CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 7)) )
         view.backgroundColor = UIColor.clearColor()
-        
         return view
     }
     
-    
-    
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    {
       let cell = tableView.dequeueReusableCellWithIdentifier("CommentCell", forIndexPath: indexPath) as! CommentTableViewCell
-   //     cell.imageContainter.delegate = self
-        //TODO:- Set every cell from the data
+        
         cell.VoiceTitle.text = testTitle
         cell.Avatar.image = testAvatar
         cell.CommentUser.text = testCommentUser
@@ -84,19 +97,20 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
         cell.Classify.text = testClassify
         cell.Reputation.text = testReputaion
         cell.BrowseNum.text = testBrowser
-        imagesBlinder(cell.ImgesContainer, images: testImages)
-        return cell
-        
+
+   //  Uncomment This Line and Delete the line above to bind the data to cell
+   //  dataBinder(cell,issues[indexPath.row])
+       imagesBinder(cell.ImgesContainer, images: testImages )
+       return cell
     }
     
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    {
         if (segue.identifier == "ShowDetail")
         {
             let controller = segue.destinationViewController as! VoiceDetailTableViewController
             //let row = ( sender as! NSIndexPath ).row
-            controller.title = testAbstract
-            
+            controller.title = testTitle
         }
     }
     
@@ -109,7 +123,7 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
         
         let titleView = UIView(frame: (CGRectMake(0, 0, 150, 44)))
         let switchButton = UIButton(frame: CGRectMake(105, 0, 30, 44))
-        let locationLabel = UILabel(frame: (CGRectMake(0, 0, 110, 44)))
+        
         
         locationLabel.text = currentLocal
         locationLabel.textColor = UIColor(red: 237.0/255, green: 78/255, blue: 48/255, alpha: 1.0)
@@ -156,7 +170,6 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
                 if let validPlacemark = placemark?[0]{
                     let placemark = validPlacemark as CLPlacemark;
                     if let city = placemark.addressDictionary!["City"] as? NSString {
-                        print(city)
                         self.currentLocal = city as String
                     }
                 }
@@ -168,8 +181,21 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
         }
     }
 
-//MARK:- Data Blinder
-    func imagesBlinder(containter:UIView,images:[UIImage])
+//MARK:- Data Binder
+    func dataBinder(cell:CommentTableViewCell,comment:Issue)
+    {
+        cell.VoiceTitle.text = comment.issueTitle
+        cell.Avatar.image = comment.userAvatar
+        cell.CommentUser.text = comment.userName
+        cell.UpdateTime.text = comment.issueTime
+        cell.Abstract.text = comment.issueAbstract
+        cell.Classify.text = comment.issueClassify
+        cell.ClassifyKind = UIImageView(image: UIImage(named: comment.issueClassify))
+        cell.Reputation.text = comment.userResume
+        cell.BrowseNum.text = comment.browseTime
+    }
+    
+    func imagesBinder(containter:UIView,images:[UIImage])
     {
         let Xoffset = CGFloat(6)
         let Yoffset = CGFloat(4)
@@ -180,7 +206,6 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
                     view.removeFromSuperview()
                 }
             }
-//TODO:- Improve the coding way
         switch images.count
         {
             case 1:
@@ -189,13 +214,12 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
                 imgView.frame.origin = CGRectZero.origin
                 imgView.frame.size.width = tableView.frame.width - 40
                 containter.addSubview(imgView)
-                
                 break;
             case 2:
                 let img1 = UIImageView(image: images[1])
                 img1.frame = containter.frame
                 img1.frame.origin = CGRectZero.origin
-                img1.frame.size.width = tableView.frame.width - 40
+                img1.frame.size.width = tableView.frame.width - 30
                 img1.frame.size.width /= 2
                 containter.addSubview(img1)
                 let img2 = UIImageView(image: images[0])
@@ -209,6 +233,7 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
                 img1.frame.size.width = tableView.frame.width - 40
                 img1.frame.origin = CGRectZero.origin
                 img1.frame.size.width /= 2
+                img1.frame.size.height += Yoffset
                 containter.addSubview(img1)
                 let img2 = UIImageView(image: images[1])
                 img2.frame = img1.frame

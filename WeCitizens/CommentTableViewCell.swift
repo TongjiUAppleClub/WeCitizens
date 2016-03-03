@@ -11,6 +11,9 @@ import SnapKit
 
 class CommentTableViewCell: UITableViewCell,UITextViewDelegate,UIScrollViewDelegate{
     
+    
+
+    @IBOutlet weak var Back: UIView!
     @IBOutlet weak var Avatar: UIImageView!
     @IBOutlet weak var CommentUser: UILabel!
     @IBOutlet weak var Reputation: UILabel!
@@ -35,9 +38,11 @@ class CommentTableViewCell: UITableViewCell,UITextViewDelegate,UIScrollViewDeleg
 //MARK:- Configure UI
     func UIconfigure()
     {
-        self.layer.cornerRadius = 15
+        self.layer.cornerRadius = 8
         self.layer.borderWidth = 1.2
         self.layer.borderColor = UIColor.clearColor().CGColor
+        
+        
        // self.layer.addBorder(.Bottom, color: UIColor(red: 124/255, green: 124/255, blue: 124/255, alpha: 1.0), thickness: 1.8)
         //make avatar circle
         Avatar.layer.masksToBounds = false

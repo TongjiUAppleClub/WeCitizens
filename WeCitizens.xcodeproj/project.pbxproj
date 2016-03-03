@@ -24,6 +24,7 @@
 		E74BA4A01C7E082B00FC1BA6 /* ReplyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74BA49F1C7E082B00FC1BA6 /* ReplyTableViewController.swift */; };
 		E77624A01C7F30AB00E723BE /* BarsExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = E776249F1C7F30AB00E723BE /* BarsExample.swift */; };
 		E77624A21C7F310B00E723BE /* ExamplesDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E77624A11C7F310B00E723BE /* ExamplesDefaults.swift */; };
+		E79CF5861C8827B4002EA7C8 /* Issue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79CF5851C8827B4002EA7C8 /* Issue.swift */; };
 		E79F33A51C72FCFF009D1F1A /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79F33A41C72FCFF009D1F1A /* SignUpViewController.swift */; };
 		E7CE059F1C6353FC00E8CCAB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CE059E1C6353FC00E8CCAB /* AppDelegate.swift */; };
 		E7CE05A11C6353FC00E8CCAB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CE05A01C6353FC00E8CCAB /* LoginViewController.swift */; };
@@ -77,6 +78,7 @@
 		E74BA49F1C7E082B00FC1BA6 /* ReplyTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyTableViewController.swift; sourceTree = "<group>"; };
 		E776249F1C7F30AB00E723BE /* BarsExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarsExample.swift; sourceTree = "<group>"; };
 		E77624A11C7F310B00E723BE /* ExamplesDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExamplesDefaults.swift; sourceTree = "<group>"; };
+		E79CF5851C8827B4002EA7C8 /* Issue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Issue.swift; sourceTree = "<group>"; };
 		E79F33A41C72FCFF009D1F1A /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		E7CE059B1C6353FC00E8CCAB /* WeCitizens.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeCitizens.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7CE059E1C6353FC00E8CCAB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -181,6 +183,14 @@
 			name = ViewController;
 			sourceTree = "<group>";
 		};
+		E79CF5831C88278C002EA7C8 /* Bean */ = {
+			isa = PBXGroup;
+			children = (
+				E79CF5851C8827B4002EA7C8 /* Issue.swift */,
+			);
+			name = Bean;
+			sourceTree = "<group>";
+		};
 		E7CE05921C6353FB00E8CCAB = {
 			isa = PBXGroup;
 			children = (
@@ -206,6 +216,7 @@
 		E7CE059D1C6353FC00E8CCAB /* WeCitizens */ = {
 			isa = PBXGroup;
 			children = (
+				E79CF5831C88278C002EA7C8 /* Bean */,
 				A467EA151C7D4A270068880C /* DataModel */,
 				E73CAEEA1C79B7B80099DF2D /* ViewController */,
 				E7CE059E1C6353FC00E8CCAB /* AppDelegate.swift */,
@@ -517,6 +528,7 @@
 				E79F33A51C72FCFF009D1F1A /* SignUpViewController.swift in Sources */,
 				E7CE05A11C6353FC00E8CCAB /* LoginViewController.swift in Sources */,
 				E74BA49E1C7E081200FC1BA6 /* ReplyTableViewCell.swift in Sources */,
+				E79CF5861C8827B4002EA7C8 /* Issue.swift in Sources */,
 				E74BA4A01C7E082B00FC1BA6 /* ReplyTableViewController.swift in Sources */,
 				E73CAEEE1C79ECB30099DF2D /* VoiceDetailTableViewController.swift in Sources */,
 				E72C16E11C857DF200E871B0 /* SSRadioButtonsController.swift in Sources */,
