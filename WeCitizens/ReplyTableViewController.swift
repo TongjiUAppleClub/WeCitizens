@@ -62,7 +62,7 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
             let foldingCell = cell as! FoldingCell
             foldingCell.backgroundColor = UIColor.clearColor()
             
-            if cellHeights[indexPath.row] == kCloseCellHeight {
+            if cellHeights[indexPath.section] == kCloseCellHeight {
                 foldingCell.selectedAnimation(false, animated: false, completion:nil)
             } else {
                 foldingCell.selectedAnimation(true, animated: false, completion: nil)
@@ -76,11 +76,22 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
         
       
         imagesBinder(cell.imgContainer, images: [UIImage(named: "logo")!,UIImage(named: "logo")!])
+        imagesBinder(cell.CimgContainer, images: [UIImage(named: "logo")!,UIImage(named: "logo")!])
+        
+        
+        
+        
+        cell.CResponseButton.tag = indexPath.section
+        cell.CResponseButton.addTarget(self, action: "CheckResponse:", forControlEvents: .TouchUpInside)
+        cell.EvaluateButton.tag = indexPath.section
+        cell.EvaluateButton.addTarget(self, action: "ScrollToEvaluate:", forControlEvents: .TouchUpInside)
+        cell.CheckHistoryButton.tag = indexPath.section
+        cell.CheckHistoryButton.addTarget(self, action: "CheckHistory:", forControlEvents: .TouchUpInside)
         return cell
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return cellHeights[indexPath.row]
+        return cellHeights[indexPath.section]
     }
     
     // MARK: Table vie delegate
@@ -94,12 +105,12 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
         }
         
         var duration = 0.0
-        if cellHeights[indexPath.row] == kCloseCellHeight { // open cell
-            cellHeights[indexPath.row] = kOpenCellHeight
+        if cellHeights[indexPath.section] == kCloseCellHeight { // open cell
+            cellHeights[indexPath.section] = kOpenCellHeight
             cell.selectedAnimation(true, animated: true, completion: nil)
             duration = 0.5
         } else {// close cell
-            cellHeights[indexPath.row] = kCloseCellHeight
+            cellHeights[indexPath.section] = kCloseCellHeight
             cell.selectedAnimation(false, animated: true, completion: nil)
             duration = 0.8
         }
@@ -110,6 +121,25 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
             }, completion: nil)
         
         
+    }
+    
+    
+    
+    func CheckResponse(sender:UIButton)
+    {
+        print(sender.tag)
+    }
+    
+    func CheckHistory(sender:UIButton)
+    {
+        
+    }
+    
+    
+    func ScrollToEvaluate(sender:UIButton)
+    {
+        let indexPath = NSIndexPath(forRow: 0, inSection: sender.tag)
+        tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: true)
     }
     
     //MARK:- Data Binder
