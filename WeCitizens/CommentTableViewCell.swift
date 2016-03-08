@@ -19,7 +19,6 @@ class CommentTableViewCell: UITableViewCell,UITextViewDelegate,UIScrollViewDeleg
     @IBOutlet weak var Reputation: UILabel!
     @IBOutlet weak var Classify: UILabel!
     @IBOutlet weak var UpdateTime: UILabel!
-    @IBOutlet weak var BrowseNum: UILabel!
     @IBOutlet weak var Abstract: UITextView!
     @IBOutlet weak var ClassifyKind: UIImageView!
     @IBOutlet weak var VoiceTitle: UILabel!

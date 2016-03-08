@@ -132,7 +132,7 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
     
     func CheckHistory(sender:UIButton)
     {
-        
+        print(sender.tag)
     }
     
     
