@@ -49,16 +49,48 @@ class DataModel {
         query.findObjectsInBackgroundWithBlock(block)
     }
     
-    //新建Issue
-    func addNewIssue(newIssue:Issue, block:PFBooleanResultBlock?) {
+    //新建Issue, complete code
+    func addNewIssue(newIssue: Issue, block: (Bool, NSError?) -> Void) {
         let issue = PFObject(className: "Issue")
         
+        //给issue赋值
         issue["userName"] = newIssue.userName
         issue["userEmail"] = newIssue.userEmail
         issue["content"] = newIssue.content
         
-//        issue.saveInBackgroundWithBlock(block)
-        issue.saveEventually(block)
+        var imageArray = [PFFile]()
+        
+        for newImage in newIssue.images {
+            let imageData = UIImageJPEGRepresentation(newImage, 0.5)
+            
+            if let data = imageData {
+                let imageFile = PFFile(name: nil, data: data)
+                imageArray.append(imageFile)
+            } else {
+                let imageDataPNG = UIImagePNGRepresentation(newImage)
+                if let dataPNG = imageDataPNG {
+                    let imageFile = PFFile(name: nil, data: dataPNG)
+                    imageArray.append(imageFile)
+                } else {
+                    //图片格式非PNG或JPEG
+                    print("图片格式非PNG或JPEG，给用户个提示")
+                }
+            }
+        }
+        
+        issue["Images"] = imageArray
+        
+        issue.saveInBackgroundWithBlock { (success, error) -> Void in
+            if error == nil {
+                if success {
+                    block(true, nil)
+                } else {
+                    block(false, nil)
+                }
+            } else {
+                block(false, error)
+            }
+        }
     }
     
     func addFocusNum(issueId: String) {
@@ -102,68 +134,4 @@ class DataModel {
         
         query.findObjectsInBackgroundWithBlock(block)
     }
-    
-    
-    
-    
-//    let dataModel = DataModel()
-//    
-//    let dateStr1 = "2016-02-01"
-//    let dateStr2 = "2016-02-28"
-//    
-//    let dateFormatter = NSDateFormatter()
-//    dateFormatter.dateFormat = "yyyy-MM-dd"
-//    
-//    let date1 = dateFormatter.dateFromString(dateStr1)!
-//    let date2 = dateFormatter.dateFromString(dateStr2)!
-//    
-//    dataModel.getRevert(from: date1, to: date2) { (objects, error) -> Void in
-//    if error == nil {
-//    // The find succeeded.
-//    print("Successfully retrieved \(objects!.count) scores.")
-//    // Do something with the found objects
-//    if let objects = objects {
-//    for object in objects {
-//    print("OBJECT_ID:\(object.objectId)")
-//    let result = object.objectForKey("content") as! String
-//    print(result)
-//    }
-//    }
-//    } else {
-//    // Log details of the failure
-//    print("Error: \(error!) \(error!.userInfo)")
-//    }
-//    }
-    
-    //        let testIssue = Issue(email: "test", name: "test", content: "test", abstract: "test")
-    //
-    //        dataModel.addNewIssue(testIssue) { (isSuccess, error) -> Void in
-    //            if error == nil {
-    //                if isSuccess {
-    //                    print("success")
-    //                } else {
-    //                    print("fail")
-    //                }
-    //            } else {
-    //                print("Error: \(error!) \(error!.userInfo)")
-    //            }
-    //        }
-    
-    //        dataModel.addFocusNum("q8POqWlAzy")
-    
-    //        let testRevert = Revert(id: "test", content: "test", email: "test", name: "test")
-    //        dataModel.addNewRevert(testRevert)
-    
-//    dataModel.getCityList(from: 0, to: 50) { (objects, error) -> Void in
-//    if error == nil {
-//    if let results = objects {
-//    print("city:")
-//    for result in results {
-//    let name = result.objectForKey("cityName") as! String
-//    print(name)
-//    }
-//    }
-//    }
-//    }
-    
 }
