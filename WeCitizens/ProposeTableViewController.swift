@@ -96,7 +96,6 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
         cell.Abstract.text = testAbstract
         cell.Classify.text = testClassify
         cell.Reputation.text = testReputaion
-        cell.BrowseNum.text = testBrowser
 
    //  Uncomment This Line and Delete the line above to bind the data to cell
    //  dataBinder(cell,issues[indexPath.row])
@@ -192,7 +191,6 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
         cell.Classify.text = comment.issueClassify
         cell.ClassifyKind = UIImageView(image: UIImage(named: comment.issueClassify))
         cell.Reputation.text = comment.userResume
-        cell.BrowseNum.text = comment.browseTime
     }
     
     func imagesBinder(containter:UIView,images:[UIImage])

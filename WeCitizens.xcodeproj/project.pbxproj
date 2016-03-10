@@ -26,8 +26,6 @@
 		E73CAEF21C7B37850099DF2D /* VoiceDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73CAEF11C7B37850099DF2D /* VoiceDetailTableViewCell.swift */; };
 		E74BA49E1C7E081200FC1BA6 /* ReplyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74BA49D1C7E081200FC1BA6 /* ReplyTableViewCell.swift */; };
 		E74BA4A01C7E082B00FC1BA6 /* ReplyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74BA49F1C7E082B00FC1BA6 /* ReplyTableViewController.swift */; };
-		E77624A01C7F30AB00E723BE /* BarsExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = E776249F1C7F30AB00E723BE /* BarsExample.swift */; };
-		E77624A21C7F310B00E723BE /* ExamplesDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E77624A11C7F310B00E723BE /* ExamplesDefaults.swift */; };
 		E79CF5861C8827B4002EA7C8 /* Issue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79CF5851C8827B4002EA7C8 /* Issue.swift */; };
 		E79F33A51C72FCFF009D1F1A /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79F33A41C72FCFF009D1F1A /* SignUpViewController.swift */; };
 		E7CE059F1C6353FC00E8CCAB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CE059E1C6353FC00E8CCAB /* AppDelegate.swift */; };
@@ -83,8 +81,6 @@
 		E73CAEF11C7B37850099DF2D /* VoiceDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoiceDetailTableViewCell.swift; sourceTree = "<group>"; };
 		E74BA49D1C7E081200FC1BA6 /* ReplyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyTableViewCell.swift; sourceTree = "<group>"; };
 		E74BA49F1C7E082B00FC1BA6 /* ReplyTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyTableViewController.swift; sourceTree = "<group>"; };
-		E776249F1C7F30AB00E723BE /* BarsExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarsExample.swift; sourceTree = "<group>"; };
-		E77624A11C7F310B00E723BE /* ExamplesDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExamplesDefaults.swift; sourceTree = "<group>"; };
 		E79CF5851C8827B4002EA7C8 /* Issue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Issue.swift; sourceTree = "<group>"; };
 		E79F33A41C72FCFF009D1F1A /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		E7CE059B1C6353FC00E8CCAB /* WeCitizens.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeCitizens.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -157,10 +153,6 @@
 		E73CAEEA1C79B7B80099DF2D /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				E72C16DE1C857DF200E871B0 /* SSRadioButton.swift */,
-				E72C16DF1C857DF200E871B0 /* SSRadioButtonsController.swift */,
-				E77624A11C7F310B00E723BE /* ExamplesDefaults.swift */,
-				E776249F1C7F30AB00E723BE /* BarsExample.swift */,
 				E71BFF621C75E5C3001A00E5 /* WelcomeViewController.swift */,
 				E7CE05A01C6353FC00E8CCAB /* LoginViewController.swift */,
 				E79F33A41C72FCFF009D1F1A /* SignUpViewController.swift */,
@@ -175,6 +167,15 @@
 				E74BA49D1C7E081200FC1BA6 /* ReplyTableViewCell.swift */,
 			);
 			name = ViewController;
+			sourceTree = "<group>";
+		};
+		E74A7F6D1C8F032C00872D6D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E72C16DE1C857DF200E871B0 /* SSRadioButton.swift */,
+				E72C16DF1C857DF200E871B0 /* SSRadioButtonsController.swift */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 		E79CF5831C88278C002EA7C8 /* Bean */ = {
@@ -214,6 +215,7 @@
 				E79CF5831C88278C002EA7C8 /* Bean */,
 				A467EA151C7D4A270068880C /* DataModel */,
 				E73CAEEA1C79B7B80099DF2D /* ViewController */,
+				E74A7F6D1C8F032C00872D6D /* View */,
 				E7CE059E1C6353FC00E8CCAB /* AppDelegate.swift */,
 				E7CE05A21C6353FC00E8CCAB /* Main.storyboard */,
 				E7CE05A51C6353FC00E8CCAB /* Assets.xcassets */,
