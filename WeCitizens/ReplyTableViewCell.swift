@@ -44,6 +44,7 @@ class ReplyTableViewCell: FoldingCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         configureUI()
+        drawBarChart([0.5,0.3,0.6,0.3])
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -75,6 +76,36 @@ class ReplyTableViewCell: FoldingCell {
         CResponseButton.layer.borderColor = UIColor(red: 243.0/255, green: 77/255, blue: 54/255, alpha: 1.0).CGColor
         CResponseButton.layer.borderWidth = 1.3
         CResponseButton.layer.cornerRadius = CResponseButton.frame.height/2
+        
+    }
+    
+    
+    func drawBarChart(radios:[CGFloat])
+    {
+        
+        for (index,radio) in radios.enumerate()
+        {
+            let width :CGFloat = 20.0+radio*300
+            let y:CGFloat = EvaluateButton.layer.frame.origin.y+CGFloat(30*index)
+            let frame = CGRect(x: -20, y:y, width:width , height: 20)
+            
+            let barView = UIView(frame: frame)
+            barView.backgroundColor = UIColor(red: 206/255, green: 141/255, blue: 110/255, alpha: 1.0)
+            barView.layer.cornerRadius = barView.frame.size.height/2
+            
+            var labelFrame = frame
+            labelFrame.size.width -= 10
+            
+            let markLabel = UILabel(frame: labelFrame)
+            markLabel.text = "\(radio)"
+            markLabel.textColor = UIColor.whiteColor()
+            markLabel.textAlignment = .Right
+            
+            ThirdView.addSubview(barView)
+            ThirdView.addSubview(markLabel)
+        }
+        
+        
         
     }
     
