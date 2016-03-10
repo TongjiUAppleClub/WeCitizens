@@ -9,7 +9,7 @@
 import UIKit
 import FoldingCell
 
-class ReplyTableViewCell: FoldingCell {
+class ReplyTableViewCell: FoldingCell,SSRadioButtonControllerDelegate{
 
 //Foreground View
     
@@ -31,20 +31,25 @@ class ReplyTableViewCell: FoldingCell {
     @IBOutlet weak var CResponseTime: UILabel!
     @IBOutlet weak var CResponseButton: UIButton!
 //Third 
+    @IBOutlet weak var ThirdView: RotatedView!
     @IBOutlet weak var EvaluateButton: UIButton!
     @IBOutlet weak var CheckHistoryButton: UIButton!
+
+
+    @IBOutlet var CommentButtons: [SSRadioButton]!
+// Fourth
     
+    @IBOutlet weak var SubmitButton: UIButton!
     
-    
-    
-    @IBOutlet weak var ThirdView: RotatedView!
 
     
+    var radioButtonController:SSRadioButtonsController?
 
     override func awakeFromNib() {
         super.awakeFromNib()
         configureUI()
         drawBarChart([0.5,0.3,0.6,0.3])
+        setButtons()
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -77,16 +82,19 @@ class ReplyTableViewCell: FoldingCell {
         CResponseButton.layer.borderWidth = 1.3
         CResponseButton.layer.cornerRadius = CResponseButton.frame.height/2
         
+        SubmitButton.layer.cornerRadius = SubmitButton.frame.height/2
+        SubmitButton.layer.borderColor = UIColor(red: 112/255, green: 83/255, blue: 88/255, alpha: 1.0).CGColor
+        SubmitButton.layer.borderWidth = 1.3
+        
     }
     
     
     func drawBarChart(radios:[CGFloat])
     {
-        
         for (index,radio) in radios.enumerate()
         {
             let width :CGFloat = 20.0+radio*300
-            let y:CGFloat = EvaluateButton.layer.frame.origin.y+CGFloat(30*index)
+            let y:CGFloat = EvaluateButton.layer.frame.origin.y+CGFloat(35*index+64)
             let frame = CGRect(x: -20, y:y, width:width , height: 20)
             
             let barView = UIView(frame: frame)
@@ -104,9 +112,22 @@ class ReplyTableViewCell: FoldingCell {
             ThirdView.addSubview(barView)
             ThirdView.addSubview(markLabel)
         }
-        
-        
-        
+    }
+    
+    func setButtons()
+    {
+      radioButtonController = SSRadioButtonsController()
+      for button in CommentButtons
+      {
+        radioButtonController?.addButton(button)
+      }
+        radioButtonController?.delegate = self
+        radioButtonController?.shouldLetDeSelect = true
+    }
+    
+    
+    func didSelectButton(aButton: UIButton?) {
+        print(aButton?.titleLabel?.text)
     }
     
     

@@ -13,7 +13,7 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
 
     let kRowsCount = 10
     let kCloseCellHeight:CGFloat = 280
-    let kOpenCellHeight:CGFloat = 850
+    let kOpenCellHeight:CGFloat = 940
     
     var cellHeights = [CGFloat]()
     
