@@ -65,12 +65,12 @@ class DataModel {
             
             if let data = imageData {
                 let imageFile = PFFile(name: nil, data: data)
-                imageArray.append(imageFile)
+                imageArray.append(imageFile!)
             } else {
                 let imageDataPNG = UIImagePNGRepresentation(newImage)
                 if let dataPNG = imageDataPNG {
                     let imageFile = PFFile(name: nil, data: dataPNG)
-                    imageArray.append(imageFile)
+                    imageArray.append(imageFile!)
                 } else {
                     //图片格式非PNG或JPEG
                     print("图片格式非PNG或JPEG，给用户个提示")

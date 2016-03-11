@@ -183,13 +183,13 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
 //MARK:- Data Binder
     func dataBinder(cell:CommentTableViewCell,comment:Issue)
     {
-        cell.VoiceTitle.text = comment.issueTitle
-        cell.Avatar.image = comment.userAvatar
+        cell.VoiceTitle.text = comment.title
+        cell.Avatar.image = comment.avatar
         cell.CommentUser.text = comment.userName
-        cell.UpdateTime.text = comment.issueTime
-        cell.Abstract.text = comment.issueAbstract
-        cell.Classify.text = comment.issueClassify
-        cell.ClassifyKind = UIImageView(image: UIImage(named: comment.issueClassify))
+        cell.UpdateTime.text = comment.time
+        cell.Abstract.text = comment.abstract
+//        cell.Classify.text = comment.classify
+//        cell.ClassifyKind = UIImageView(image: UIImage(named: comment.classify))
         cell.Reputation.text = comment.userResume
     }
     
