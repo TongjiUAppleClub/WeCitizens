@@ -40,11 +40,13 @@ class ReplyTableViewCell: FoldingCell,SSRadioButtonControllerDelegate{
 // Fourth
     
     @IBOutlet weak var SubmitButton: UIButton!
+    @IBOutlet weak var CSupport: UILabel!
     
 
     
     var radioButtonController:SSRadioButtonsController?
 
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         configureUI()
@@ -78,6 +80,7 @@ class ReplyTableViewCell: FoldingCell,SSRadioButtonControllerDelegate{
         CAvatar.layer.cornerRadius = CAvatar.frame.height/2
         CAvatar.clipsToBounds = true
         CimgContainer.layer.cornerRadius = 5
+        CContent.backgroundColor = UIColor.clearColor()
         CResponseButton.layer.borderColor = UIColor(red: 243.0/255, green: 77/255, blue: 54/255, alpha: 1.0).CGColor
         CResponseButton.layer.borderWidth = 1.3
         CResponseButton.layer.cornerRadius = CResponseButton.frame.height/2
@@ -121,13 +124,7 @@ class ReplyTableViewCell: FoldingCell,SSRadioButtonControllerDelegate{
       {
         radioButtonController?.addButton(button)
       }
-        radioButtonController?.delegate = self
         radioButtonController?.shouldLetDeSelect = true
-    }
-    
-    
-    func didSelectButton(aButton: UIButton?) {
-        print(aButton?.titleLabel?.text)
     }
     
     

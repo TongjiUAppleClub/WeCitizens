@@ -9,15 +9,22 @@
 import UIKit
 import FoldingCell
 
-class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDelegate {
+class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDelegate{
 
     let kRowsCount = 10
     let kCloseCellHeight:CGFloat = 280
     let kOpenCellHeight:CGFloat = 940
     
     var cellHeights = [CGFloat]()
+    var currentUserChoose:String?{
+        didSet{
+            print(currentUserChoose)
+        }
+
+    }
     
-    
+
+//MARK:- Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,7 +39,7 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
         tableView.backgroundColor = UIColor(red: 216/255, green: 216/255, blue: 216/255, alpha: 1.0)
     }
     
-    
+//MARK:- TableView Data Source & Delegate
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return kRowsCount
     }
@@ -53,9 +60,6 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
         return view
     }
     
-    
-    
-    
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         
         if cell is FoldingCell {
@@ -75,26 +79,28 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
         let cell = tableView.dequeueReusableCellWithIdentifier("FoldingCell", forIndexPath: indexPath) as! ReplyTableViewCell
         
       
-        imagesBinder(cell.imgContainer, images: [UIImage(named: "logo")!,UIImage(named: "logo")!])
-        imagesBinder(cell.CimgContainer, images: [UIImage(named: "logo")!,UIImage(named: "logo")!])
-        
-        
-        
-        
         cell.CResponseButton.tag = indexPath.section
         cell.CResponseButton.addTarget(self, action: "CheckResponse:", forControlEvents: .TouchUpInside)
         cell.EvaluateButton.tag = indexPath.section
         cell.EvaluateButton.addTarget(self, action: "ScrollToEvaluate:", forControlEvents: .TouchUpInside)
         cell.CheckHistoryButton.tag = indexPath.section
         cell.CheckHistoryButton.addTarget(self, action: "CheckHistory:", forControlEvents: .TouchUpInside)
+        cell.SubmitButton.tag = indexPath.section
+        cell.SubmitButton.addTarget(self, action: "Submit:", forControlEvents: .TouchUpInside)
+        cell.radioButtonController?.delegate = self
+        
+        imagesBinder(cell.imgContainer, images: [UIImage(named: "logo")!,UIImage(named: "logo")!])
+        imagesBinder(cell.CimgContainer, images: [UIImage(named: "logo")!,UIImage(named: "logo")!])
+        
+//      dataBinder(cell,<#Response#>)
+        
+    
         return cell
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return cellHeights[indexPath.section]
     }
-    
-    // MARK: Table vie delegate
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
@@ -123,28 +129,49 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
         
     }
     
-    
-    
+//MARK:- Actions
+//TODO:- User Action Update to the server
     func CheckResponse(sender:UIButton)
     {
-        print(sender.tag)
+        print("查看相关提议\(sender.tag)")
+        
     }
     
     func CheckHistory(sender:UIButton)
     {
-        print(sender.tag)
+        print("查看过往\(sender.tag)")
     }
     
+    func Submit(sender:UIButton)
+    {
+        print("提交\(sender.tag)")
+        print("当前选择:\(currentUserChoose)")
+    }
     
+    func didSelectButton(aButton: UIButton?) {
+        // print(aButton?.titleLabel?.text)
+        currentUserChoose = aButton?.titleLabel?.text
+    }
+
     func ScrollToEvaluate(sender:UIButton)
     {
         let indexPath = NSIndexPath(forRow: 0, inSection: sender.tag)
         tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: true)
     }
     
-    //MARK:- Data Binder
-//    func dataBinder(cell:CommentTableViewCell,comment:Response)
+//MARK:- Data Binder
+//    func dataBinder(cell:ReplyTableViewCell,comment:<#Response#>)
 //    {
+//        cell.Favatar.image = <#User Avatar#>
+//        cell.CAvatar.image = <#User Avatar#>
+//        
+//        cell.FAgency.text = <#AgencyName#>
+//        cell.ResponseTitle.text = <#Response Title#>
+//        cell.CTitle.text = <#Response Title#>
+//        cell.SupportPercent.text = <#Support Percent#>
+//        cell.CSupport.text = "本回应的当前满意率为 \(<#Support Percent#>>)%"
+//        cell.CContent.text = <#Response Content#>
+//        cell.CResponseTime.text = <#Response Time#>
 //        
 //    }
 
