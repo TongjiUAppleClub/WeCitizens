@@ -10,8 +10,10 @@ import UIKit
 
 class VoiceDetailTableViewController: UITableViewController {
         
+//TODO:- 从前面的那个segue中传过来，不要从网络上拿了，但是内容还有评论要从网络上获取
+    var issue:Issue?
     
-    //MARK:- Life cycle
+//MARK:- Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.clearsSelectionOnViewWillAppear = false
@@ -24,7 +26,7 @@ class VoiceDetailTableViewController: UITableViewController {
         
     }
     
-    // MARK:- Table view data source && delegate
+// MARK:- Table view data source && delegate
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -34,10 +36,6 @@ class VoiceDetailTableViewController: UITableViewController {
     }
     
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-    }
-    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         var identifier = ""
@@ -46,7 +44,15 @@ class VoiceDetailTableViewController: UITableViewController {
         {
             identifier = "DetailTitle"
             let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as! VoiceTitleTableViewCell
-            imagesBinder(cell.ImgesContainer, images:[])
+            
+//            cell.CommentUser.text = issue?.userName
+//            cell.Avatar.image = issue?.avatar
+//            cell.Reputation.text = issue?.userResume
+//          //  cell.Classify.text = issue?.classify
+//          //  cell.ClassifyKind.image = UIImage(named: "\(issue?.classify)")
+//            cell.UpdateTime.text = issue?.time
+//            imagesBinder(cell.ImgesContainer, images: (issue?.images)!)
+            
             return cell
 
         }
@@ -54,12 +60,21 @@ class VoiceDetailTableViewController: UITableViewController {
         {
             identifier = "DetailComment"
             let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as! VoiceDetailTableViewCell
+           // dataBinder(cell,issumeComment)
             return cell
         }
         
         
     }
     
+
+//MARK:- Data binder
+//TODO:- bind every comment data to the view
+//
+//    func dataBinder(cell: VoiceDetailTableViewCell,issueComment:IssueComment)
+//    {
+//        
+//    }
     
     
     
