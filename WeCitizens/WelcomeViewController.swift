@@ -59,10 +59,12 @@ class WelcomeViewController: UIViewController,PFSignUpViewControllerDelegate,PFL
     override func viewDidLayoutSubviews() {
         let TheColor = UIColor(red: 243/255, green: 77/255, blue: 53/255, alpha: 1.0)
         super.viewDidLayoutSubviews()
-        LoginB.layer.cornerRadius = 10
+        LoginB.layer.cornerRadius = LoginB.frame.height/2
         LoginB.layer.borderColor = TheColor.CGColor
         LoginB.layer.borderWidth = 1.2
-        SignupB.layer.cornerRadius = 10
+        SignupB.layer.cornerRadius = SignupB.frame.height/2
+        SignupB.layer.borderWidth = 1.2
+        SignupB.layer.borderColor = TheColor.CGColor
         
     }
     
