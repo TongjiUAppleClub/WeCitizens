@@ -23,6 +23,9 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
 
     }
     
+    var replies = [Reply]()
+    var dataModel = DataModel()
+    
 
 //MARK:- Life Cycle
     override func viewDidLoad() {
@@ -32,6 +35,27 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
         for _ in 0...kRowsCount {
             cellHeights.append(kCloseCellHeight)
         }
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        //获取当前城市或用户设置城市
+        let cityName = "shanghai"
+        
+        if 0 == replies.count {
+            dataModel.getReply(20, queryTimes: 0, cityName: cityName, block: { (issues, error) -> Void in
+                if error == nil {
+                    if let list = issues {
+                        self.replies = list
+                    }
+                } else {
+                    print("Propose Error: \(error!) \(error!.userInfo)")
+                }
+            })
+        }
+        
+        tableView.reloadData()
     }
     
     override func viewDidLayoutSubviews() {

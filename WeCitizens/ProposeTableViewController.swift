@@ -16,7 +16,7 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
     let COMMENT_NUM = 3
     
     let testTitle = "XX中学体罚学生情况严重"
-    let testAvatar =  UIImage(named: "avatar")
+    let tmpAvatar =  UIImage(named: "avatar")
     let testCommentUser = "名字"
     let testAbstract = "dsafadfdjflsjladjlfkjlajlgdsdfasdfal柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是sfafafdafdsgfdfdfafdafaffafafafafafaffdafafafaffafslskjljlakgjljl柔周乔布斯成功的主要原因是什么？"
     let testTime = "2016.2.14"
@@ -35,6 +35,9 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
         }
     }
     
+    var issueList = [Issue]()
+    let dataModel = DataModel()
+    
     
 //MARK:- Life cycle
     override func viewDidLoad() {
@@ -48,6 +51,22 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 //TODO:- Reloaddata here
+        
+//        //获取当前城市或用户设置城市
+//        let cityName = "shanghai"
+//        
+//        if 0 == issueList.count {
+//            dataModel.getIssue(20, queryTimes: 0, cityName: cityName, block: { (issues, error) -> Void in
+//                if error == nil {
+//                    if let list = issues {
+//                        self.issueList = list
+//                    }
+//                } else {
+//                    print("Propose Error: \(error!) \(error!.userInfo)")
+//                }
+//            })
+//        }
+        
         tableView.reloadData()
     }
     
@@ -65,7 +84,8 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int
     {
-        return COMMENT_NUM
+//        return issueList.count
+        return 3
     }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
@@ -90,12 +110,26 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
       let cell = tableView.dequeueReusableCellWithIdentifier("CommentCell", forIndexPath: indexPath) as! CommentTableViewCell
         
         cell.VoiceTitle.text = testTitle
-        cell.Avatar.image = testAvatar
+        cell.Avatar.image = tmpAvatar
         cell.CommentUser.text = testCommentUser
         cell.UpdateTime.text = testTime
         cell.Abstract.text = testAbstract
         cell.Classify.text = testClassify
         cell.Reputation.text = testReputaion
+        
+//        cell.VoiceTitle.text = issueList[indexPath.row].title
+//        
+//        if let image = issueList[indexPath.row].avatar {
+//            cell.Avatar.image = image
+//        } else {
+//            cell.Avatar.image = tmpAvatar
+//        }
+//        cell.CommentUser.text = "\(issueList[indexPath.row].focusNum)"
+//        cell.UpdateTime.text = issueList[indexPath.row].time
+//        cell.Abstract.text = issueList[indexPath.row].abstract
+//        cell.Classify.text = issueList[indexPath.row].classify.rawValue
+////        cell.Reputation.text = issueList[indexPath.row]//What is this?
+        
 
    //  Uncomment This Line and Delete the line above to bind the data to cell
    //  dataBinder(cell,issues[indexPath.row])
@@ -186,7 +220,7 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
         cell.VoiceTitle.text = comment.title
         cell.Avatar.image = comment.avatar
         cell.CommentUser.text = comment.userName
-        cell.UpdateTime.text = comment.time
+        cell.UpdateTime.text = "今天"//comment.time
         cell.Abstract.text = comment.abstract
 //        cell.Classify.text = comment.classify
 //        cell.ClassifyKind = UIImageView(image: UIImage(named: comment.classify))

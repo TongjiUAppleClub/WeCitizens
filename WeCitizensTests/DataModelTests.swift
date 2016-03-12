@@ -169,24 +169,7 @@ class DataModelTests: XCTestCase {
     }
     
     func testGetIssue() {
-        testDataModel.getIssue(from: date1, to: date2) { (objects, error) -> Void in
-            print("It is in the closure")
-            XCTAssert(1 == 2, "")
-
-            if error == nil {
-                // The find succeeded.
-                print("Successfully retrieved \(objects!.count) scores.")
-                // Do something with the found objects
-                if let objects = objects {
-                    for object in objects {
-                        print("OBJECT_ID:\(object.objectId)")
-                    }
-                }
-            } else {
-                // Log details of the failure
-                print("Error: \(error!) \(error!.userInfo)")
-            }
-        }
+        
     }
     
     func testNewIssue() {
