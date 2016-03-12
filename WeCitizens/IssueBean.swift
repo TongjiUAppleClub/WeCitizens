@@ -17,23 +17,26 @@ class Issue {
     var avatar:UIImage?
     var userEmail:String
     var userName:String
-    var userResume:String?
+    var userResume:Int = 100
     
     var time:NSDate?
     var title:String
     var abstract:String
     var content:String
     var classify:IssueClassify
-    var focusNum:Int? = 1
+    var focusNum:Int = 1
     var city:String
-    var isReplied:Bool? = false
+    var isReplied:Bool = false
+    var replyId = ""
     var images:[UIImage] = []
     
-    init(avatar:UIImage?, email:String, name: String, resume:String?, time:NSDate?, title:String, abstract:String, content:String, classify:String, focusNum:Int?, city:String, replied:Bool?, images:[UIImage]) {
+    init(avatar:UIImage?, email:String, name: String, resume:Int?, time:NSDate?, title:String, abstract:String, content:String, classify:String, focusNum:Int?, city:String, replied:Bool?, images:[UIImage]) {
         self.avatar = avatar
         self.userEmail = email
         self.userName = name
-        self.userResume = resume
+        if nil != resume {
+            self.userResume = resume!
+        }
         
         self.time = time
         self.title = title

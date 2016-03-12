@@ -10,21 +10,12 @@ import XCTest
 
 class DataModelTests: XCTestCase {
     
-    let date1Str = "2016-02-01"
-    let date2Str = "2016-02-28"
-    let dateFormatter = NSDateFormatter()
-    var date1:NSDate!
-    var date2:NSDate!
     let testDataModel = DataModel()
 
 
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        date1 = dateFormatter.dateFromString(date1Str)!
-        date2 = dateFormatter.dateFromString(date2Str)!
-        
         
         //    let dataModel = DataModel()
         //
@@ -85,10 +76,6 @@ class DataModelTests: XCTestCase {
         //    }
         //    }
         //    }
-        
-        
-        
-        
         
 //        let model = DataModel()
 //        let issue = Issue(email: "843018739@qq.com", name: "teng", title: "test0310(2)", classify: "test", content: "test", abstract: "test", images: [])
@@ -169,31 +156,67 @@ class DataModelTests: XCTestCase {
     }
     
     func testGetIssue() {
+        let expectation = self.expectationWithDescription("Handler called")
+        testDataModel.getIssue(20, queryTimes: 0, cityName: "shanghai") { (objects, error) -> Void in
+            expectation.fulfill()
+            if nil == error {
+                if let results = objects {
+                    for result in results {
+                        print("ISSUE:\(result.content)")
+                    }
+                } else {
+                    XCTAssert(1 == 2)
+                }
+            } else {
+                XCTAssert(1 == 2)
+                print("Error: \(error!) \(error!.userInfo)")
+            }
+        }
+        self.waitForExpectationsWithTimeout(10.0, handler: nil)
+    }
+
+    func testGetReply() {
+        let expectation = self.expectationWithDescription("Handler called")
+        testDataModel.getReply(20, queryTimes: 0, cityName: "shanghai") { (objects, error) -> Void in
+            expectation.fulfill()
+            if nil == error {
+                if let results = objects {
+                    for result in results {
+                        print("ISSUE:\(result.content)")
+                    }
+                } else {
+                    XCTAssert(1 == 2)
+                }
+            } else {
+                XCTAssert(1 == 2)
+                print("Error: \(error!) \(error!.userInfo)")
+            }
+        }
+        self.waitForExpectationsWithTimeout(10.0, handler: nil)
+    }
+    
+    func testGetComment() {
         
     }
     
     func testNewIssue() {
         
     }
-
-    func testGetRevert() {
-//        testDataModel.getRevert(from: date1, to: date2) { (objects, error) -> Void in
-//            XCTAssertNil(error, "Get!!!!!!!!!!!!!!!!!!!!")
-//            if error == nil {
-//                // The find succeeded.
-//                print("Successfully retrieved \(objects!.count) scores.")
-//                // Do something with the found objects
-//                if let objects = objects {
-//                    for object in objects {
-////                        print(object.objectId)
-//                        XCTAssert(object.objectId! == "", "get revert right!!!!!!!!!!")
-//                    }
-//                }
-//            } else {
-//                // Log details of the failure
-//                print("Error: \(error!) \(error!.userInfo)")
-//            }
-//        }
+    
+    func testNewReply() {
+        
+    }
+    
+    func testGetOneIssue() {
+        
+    }
+    
+    func testGetOneReply() {
+        
+    }
+    
+    func testGetCityList() {
+        
     }
 
     func testPerformanceExample() {

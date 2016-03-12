@@ -14,7 +14,7 @@ class DataModel {
     //获取指定数量issue,code completed
     func getIssue(queryNum: Int, queryTimes: Int, cityName:String, block: ([Issue]?, NSError?) -> Void) {
         let query = PFQuery(className:"Issue")
-        query.whereKey("cityName", equalTo: cityName)
+        query.whereKey("city", equalTo: cityName)
         query.limit = queryNum
         query.skip = queryNum * queryTimes
         
@@ -27,12 +27,12 @@ class DataModel {
                     var issues = [Issue]()
                     
                     for result in results {
-                        let avatarFile = result.objectForKey("avatar") as! PFFile
+                        let avatarFile = result.objectForKey("avatar") as? PFFile
                         let name = result.objectForKey("userName") as! String
                         let email = result.objectForKey("userEmail") as! String
-                        let resume = result.objectForKey("userResume") as! String
+                        let resume = result.objectForKey("userResume") as! Int
                         
-                        let time = result.objectForKey("createdAt") as! NSDate
+                        let time = result.createdAt!
                         let title = result.objectForKey("title") as! String
                         let abstract = result.objectForKey("abstract") as! String
                         let content = result.objectForKey("content") as! String
@@ -41,14 +41,7 @@ class DataModel {
                         let city = result.objectForKey("city") as! String
                         let isReplied = result.objectForKey("isReplied") as! Bool
                         let images = result.objectForKey("images") as! NSArray
-                        
-                        var avatarImage:UIImage? = nil
-                        do {
-                            let avatarData = try avatarFile.getData()
-                            avatarImage = UIImage(data: avatarData)
-                        } catch {
-                            print("")
-                        }
+                        let avatarImage = self.convertPFFileToImage(avatarFile)
                         
                         let imageList = self.convertArrayToImages(images)
                         
@@ -90,14 +83,7 @@ class DataModel {
                         let id = result.objectForKey("issueId") as! String
                         let content = result.objectForKey("content") as! String
                         
-                        var avatarImage:UIImage? = nil
-                        
-                        do {
-                            let avatarData = try avatarFile.getData()
-                            avatarImage = UIImage(data: avatarData)
-                        } catch {
-                            print("")
-                        }
+                        let avatarImage = self.convertPFFileToImage(avatarFile)
                         
                         let newComment = Comment(avatar: avatarImage, email: email, name: name, time: time, id: id, content: content)
                         
@@ -160,11 +146,13 @@ class DataModel {
         }
     }
     
-    func convertPFFileToImage(rawFile:PFFile) -> UIImage? {
+    func convertPFFileToImage(rawFile:PFFile?) -> UIImage? {
         var image:UIImage? = nil
         do {
-            let imageData = try rawFile.getData()
-            image = UIImage(data: imageData)
+            let imageData = try rawFile?.getData()
+            if let data = imageData {
+                image = UIImage(data: data)
+            }
         } catch {
             print("")
         }
@@ -187,36 +175,44 @@ class DataModel {
         return imageList
     }
     
+    //
+    func getCityList(from start:Int, to end: Int, block: ([PFObject]?, NSError?) -> Void) {
+        let query = PFQuery(className: "Cities")
+        
+        query.whereKey("index", greaterThanOrEqualTo: start)
+        query.whereKey("index", lessThan: end)
+        
+        query.findObjectsInBackgroundWithBlock(block)
+    }
+    
     //新建Issue, code complete
     func addNewIssue(newIssue: Issue, block: (Bool, NSError?) -> Void) {
         let issue = PFObject(className: "Issue")
         
         //给issue赋值...
+        if let image = newIssue.avatar {
+            var imageData:NSData? = nil
+            
+            imageData = UIImageJPEGRepresentation(image, 0.3)
+            if let _ = imageData {
+                imageData = UIImagePNGRepresentation(image)
+            }
+            
+            let imageFile = PFFile(name: nil, data: imageData!)
+            issue["avatar"] = imageFile
+        }
         issue["userName"] = newIssue.userName
         issue["userEmail"] = newIssue.userEmail
+        
+        issue["title"] = newIssue.title
+        issue["abstract"] = newIssue.abstract
         issue["content"] = newIssue.content
-        
-        var imageArray = [PFFile]()
-        
-        for newImage in newIssue.images {
-            let imageData = UIImageJPEGRepresentation(newImage, 0.5)
-            
-            if let data = imageData {
-                let imageFile = PFFile(name: nil, data: data)
-                imageArray.append(imageFile!)
-            } else {
-                let imageDataPNG = UIImagePNGRepresentation(newImage)
-                if let dataPNG = imageDataPNG {
-                    let imageFile = PFFile(name: nil, data: dataPNG)
-                    imageArray.append(imageFile!)
-                } else {
-                    //图片格式非PNG或JPEG
-                    print("图片格式非PNG或JPEG，给用户个提示")
-                }
-            }
-        }
-        
-        issue["Images"] = imageArray
+        issue["classify"] = newIssue.classify.rawValue
+        issue["focusNum"] = newIssue.focusNum
+        issue["city"] = newIssue.city
+        issue["isReplied"] = newIssue.isReplied
+        issue["replyId"] = newIssue.replyId
+        issue["images"] = self.convertImageToPFFile(newIssue.images)
         
         issue.saveInBackgroundWithBlock { (success, error) -> Void in
             if error == nil {
@@ -231,6 +227,7 @@ class DataModel {
         }
     }
     
+    //增加一个关注数,code complete
     func addFocusNum(issueId: String) {
         let query = PFQuery(className: "Issue")
         
@@ -253,23 +250,126 @@ class DataModel {
         }
     }
     
-    func addNewRevert(newRevert: Reply) {
-        let revert = PFObject(className: "Revert")
+    //还需要为Issue填上replyId
+    func addNewReply(newReply: Reply, block: (Bool, NSError?) -> Void) {
+        let reply = PFObject(className: "Reply")
         
-        revert["userEmail"] = newRevert.userEmail
-        revert["userName"] = newRevert.userName
-        revert["content"] = newRevert.content
-        revert["IssueId"] = newRevert.issueId
+        reply["userEmail"] = newReply.userEmail
+        reply["userName"] = newReply.userName
+        reply["avatar"] = newReply.avatar
         
-        revert.saveEventually()
+        reply["content"] = newReply.content
+        reply["issueId"] = newReply.issueId
+        reply["city"] = newReply.city
+        reply["satisfyLevel"] = newReply.satisfyLevel
+        reply["images"] = self.convertImageToPFFile(newReply.images)
+        
+        reply.saveInBackgroundWithBlock { (success, error) -> Void in
+            if error == nil {
+                block(success, nil)
+            } else {
+                //Log details of the failure
+                print("Error: \(error!) \(error!.userInfo)")
+                block(false, error)
+            }
+        }
     }
     
-    func getCityList(from start:Int, to end: Int, block: ([PFObject]?, NSError?) -> Void) {
-        let query = PFQuery(className: "Cities")
+    func convertImageToPFFile(rawImageArray:[UIImage]) -> [PFFile] {
+        var imageFileArray = [PFFile]()
         
-        query.whereKey("index", greaterThanOrEqualTo: start)
-        query.whereKey("index", lessThan: end)
+        for image in rawImageArray {
+            let imageData = UIImageJPEGRepresentation(image, 0.5)
+            
+            if let data = imageData {
+                let imageFile = PFFile(name: nil, data: data)
+                imageFileArray.append(imageFile!)
+            } else {
+                let imageDataPNG = UIImagePNGRepresentation(image)
+                if let dataPNG = imageDataPNG {
+                    let imageFile = PFFile(name: nil, data: dataPNG)
+                    imageFileArray.append(imageFile!)
+                } else {
+                    //图片格式非PNG或JPEG
+                    print("图片格式非PNG或JPEG，给用户个提示")
+                }
+            }
+        }
         
-        query.findObjectsInBackgroundWithBlock(block)
+        return imageFileArray
+    }
+    
+    func getIssue(issueId:String, resultHandler: (Issue?, NSError?) -> Void) {
+        let query = PFQuery(className: "Issue")
+        
+        query.whereKey(issueId, equalTo: "objectId")
+        
+        query.getFirstObjectInBackgroundWithBlock { (object, error) -> Void in
+            if nil == error {
+                if let result = object {
+                    let avatarFile = result.objectForKey("avatar") as? PFFile
+                    let name = result.objectForKey("userName") as! String
+                    let email = result.objectForKey("userEmail") as! String
+                    let resume = result.objectForKey("userResume") as! Int
+                    
+                    let time = result.createdAt!
+                    let title = result.objectForKey("title") as! String
+                    let abstract = result.objectForKey("abstract") as! String
+                    let content = result.objectForKey("content") as! String
+                    let classifyStr = result.objectForKey("classify") as! String
+                    let focusNum = result.objectForKey("focusNum") as! Int
+                    let city = result.objectForKey("city") as! String
+                    let isReplied = result.objectForKey("isReplied") as! Bool
+                    let images = result.objectForKey("images") as! NSArray
+                    let avatarImage = self.convertPFFileToImage(avatarFile)
+                    
+                    let imageList = self.convertArrayToImages(images)
+                    
+                    let newIssue = Issue(avatar: avatarImage, email: email, name: name, resume: resume, time: time, title: title, abstract: abstract, content: content, classify: classifyStr, focusNum: focusNum, city: city, replied: isReplied, images: imageList)
+                    
+                    resultHandler(newIssue, nil)
+                } else {
+                    //没找到issue
+                    resultHandler(nil, nil)
+                }
+            } else {
+                resultHandler(nil, error)
+            }
+        }
+    }
+    
+    func getReply(replyId:String, resultHandler: (Reply?, NSError?) -> Void) {
+        let query = PFQuery(className: "")
+        
+        query.whereKey("objectId", equalTo: replyId)
+        
+        query.getFirstObjectInBackgroundWithBlock { (object, error) -> Void in
+            if nil == error {
+                if let result = object {
+                    let avatarFile = result.objectForKey("avatar") as! PFFile
+                    let email = result.objectForKey("userEmail") as! String
+                    let name = result.objectForKey("userName") as! String
+                    
+                    let time = result.objectForKey("createdAt") as! NSDate
+                    let id = result.objectForKey("issueId") as! String
+                    let city = result.objectForKey("city") as! String
+                    let content = result.objectForKey("content") as! String
+                    let satisfy = result.objectForKey("sataisfyLevel") as! Satisfy
+                    let images = result.objectForKey("images") as! NSArray
+                    
+                    let avatarImage = self.convertPFFileToImage(avatarFile)
+                    let imageList = self.convertArrayToImages(images)
+                    
+                    let newReply = Reply(avatar: avatarImage, email: email, name: name, time: time, id: id, content: content, city: city, level: satisfy, images: imageList)
+                    
+                    resultHandler(newReply, nil)
+                } else {
+                    //没找到Reply
+                    resultHandler(nil, nil)
+                }
+            } else {
+                resultHandler(nil, error)
+            }
+        }
     }
 }

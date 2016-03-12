@@ -53,19 +53,22 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
 //TODO:- Reloaddata here
         
 //        //获取当前城市或用户设置城市
-//        let cityName = "shanghai"
-//        
-//        if 0 == issueList.count {
-//            dataModel.getIssue(20, queryTimes: 0, cityName: cityName, block: { (issues, error) -> Void in
-//                if error == nil {
-//                    if let list = issues {
+        let cityName = "shanghai"
+        
+        if 0 == issueList.count {
+            dataModel.getIssue(20, queryTimes: 0, cityName: cityName, block: { (issues, error) -> Void in
+                if error == nil {
+                    if let list = issues {
 //                        self.issueList = list
-//                    }
-//                } else {
-//                    print("Propose Error: \(error!) \(error!.userInfo)")
-//                }
-//            })
-//        }
+                        for object in list {
+                            print(object.content)
+                        }
+                    }
+                } else {
+                    print("Propose Error: \(error!) \(error!.userInfo)")
+                }
+            })
+        }
         
         tableView.reloadData()
     }
@@ -224,7 +227,7 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
         cell.Abstract.text = comment.abstract
 //        cell.Classify.text = comment.classify
 //        cell.ClassifyKind = UIImageView(image: UIImage(named: comment.classify))
-        cell.Reputation.text = comment.userResume
+        cell.Reputation.text = "\(comment.userResume)"
     }
     
     func imagesBinder(containter:UIView,images:[UIImage])

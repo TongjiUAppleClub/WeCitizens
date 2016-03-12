@@ -10,5 +10,7 @@ import Foundation
 import Parse
 
 class UserModel {
-    
+    func userSetNewAvatar(newAvatar:UIImage, block:(Bool, NSError)) {
+        
+    }
 }
