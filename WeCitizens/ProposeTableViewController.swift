@@ -145,8 +145,10 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
         if (segue.identifier == "ShowDetail")
         {
             let controller = segue.destinationViewController as! VoiceDetailTableViewController
-            //let row = ( sender as! NSIndexPath ).row
-            controller.title = testTitle
+            let row = ( sender as! NSIndexPath ).row
+           // controller.title = issues[row].title
+           // controller.issue = issues[row]
+        
         }
     }
     
