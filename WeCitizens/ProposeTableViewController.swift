@@ -56,7 +56,7 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
         let cityName = "shanghai"
         
         if 0 == issueList.count {
-            dataModel.getIssue(20, queryTimes: 0, cityName: cityName, block: { (issues, error) -> Void in
+            dataModel.getIssue(20, queryTimes: 0, cityName: cityName, resultHandler: { (issues, error) -> Void in
                 if error == nil {
                     if let list = issues {
 //                        self.issueList = list

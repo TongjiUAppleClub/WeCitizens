@@ -11,6 +11,9 @@
 		961002774BDE6FC8CD65223A /* Pods_WeCitizensUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DDBC7ECA4F4DBB5032F0C01 /* Pods_WeCitizensUITests.framework */; };
 		A43CCCBC1C91C2FA00CDB782 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43CCCBB1C91C2FA00CDB782 /* UserModel.swift */; };
 		A43CCCBD1C91C2FA00CDB782 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43CCCBB1C91C2FA00CDB782 /* UserModel.swift */; };
+		A4597DDE1C952A110069B317 /* CityBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4597DDD1C952A110069B317 /* CityBean.swift */; };
+		A4597DDF1C952A110069B317 /* CityBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4597DDD1C952A110069B317 /* CityBean.swift */; };
+		A4597DE11C9555B60069B317 /* UserModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4597DE01C9555B60069B317 /* UserModelTests.swift */; };
 		A492DBFA1C93D49100C93FE2 /* IssueBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A492DBF91C93D49100C93FE2 /* IssueBean.swift */; };
 		A492DBFB1C93D49100C93FE2 /* IssueBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A492DBF91C93D49100C93FE2 /* IssueBean.swift */; };
 		A492DBFD1C93D4D900C93FE2 /* ReplyBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A492DBFC1C93D4D900C93FE2 /* ReplyBean.swift */; };
@@ -68,6 +71,8 @@
 		6CD1707164C48F971BF50C39 /* Pods-WeCitizensUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeCitizensUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WeCitizensUITests/Pods-WeCitizensUITests.release.xcconfig"; sourceTree = "<group>"; };
 		79CF3BC644132428DBEB2D2D /* Pods_WeCitizensTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WeCitizensTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A43CCCBB1C91C2FA00CDB782 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		A4597DDD1C952A110069B317 /* CityBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityBean.swift; sourceTree = "<group>"; };
+		A4597DE01C9555B60069B317 /* UserModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModelTests.swift; sourceTree = "<group>"; };
 		A492DBF91C93D49100C93FE2 /* IssueBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueBean.swift; sourceTree = "<group>"; };
 		A492DBFC1C93D4D900C93FE2 /* ReplyBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyBean.swift; sourceTree = "<group>"; };
 		A492DBFF1C94032900C93FE2 /* CommentBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentBean.swift; sourceTree = "<group>"; };
@@ -202,6 +207,7 @@
 				A492DBF91C93D49100C93FE2 /* IssueBean.swift */,
 				A492DBFC1C93D4D900C93FE2 /* ReplyBean.swift */,
 				A492DBFF1C94032900C93FE2 /* CommentBean.swift */,
+				A4597DDD1C952A110069B317 /* CityBean.swift */,
 			);
 			name = Bean;
 			sourceTree = "<group>";
@@ -248,6 +254,7 @@
 			isa = PBXGroup;
 			children = (
 				A4D22B0F1C88553100C200F2 /* DataModelTests.swift */,
+				A4597DE01C9555B60069B317 /* UserModelTests.swift */,
 				E7CE05B31C6353FC00E8CCAB /* WeCitizensTests.swift */,
 				E7CE05B51C6353FC00E8CCAB /* Info.plist */,
 			);
@@ -560,6 +567,7 @@
 				E7E6F1241C6CB11000EB1179 /* MainTabbarController.swift in Sources */,
 				E7CE059F1C6353FC00E8CCAB /* AppDelegate.swift in Sources */,
 				E73CAEEC1C79B8010099DF2D /* AddVoiceTableViewController.swift in Sources */,
+				A4597DDE1C952A110069B317 /* CityBean.swift in Sources */,
 				E71BFF631C75E5C3001A00E5 /* WelcomeViewController.swift in Sources */,
 				A4D22B0D1C8854F900C200F2 /* DataModel.swift in Sources */,
 			);
@@ -569,9 +577,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4597DDF1C952A110069B317 /* CityBean.swift in Sources */,
 				A492DBFB1C93D49100C93FE2 /* IssueBean.swift in Sources */,
 				A4D22B101C88553100C200F2 /* DataModelTests.swift in Sources */,
 				A492DC011C94032900C93FE2 /* CommentBean.swift in Sources */,
+				A4597DE11C9555B60069B317 /* UserModelTests.swift in Sources */,
 				E7CE05B41C6353FC00E8CCAB /* WeCitizensTests.swift in Sources */,
 				A492DBFE1C93D4D900C93FE2 /* ReplyBean.swift in Sources */,
 				A43CCCBD1C91C2FA00CDB782 /* UserModel.swift in Sources */,

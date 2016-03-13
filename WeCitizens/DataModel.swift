@@ -12,7 +12,7 @@ import Parse
 class DataModel {
     
     //获取指定数量issue,code completed
-    func getIssue(queryNum: Int, queryTimes: Int, cityName:String, block: ([Issue]?, NSError?) -> Void) {
+    func getIssue(queryNum: Int, queryTimes: Int, cityName:String, resultHandler: ([Issue]?, NSError?) -> Void) {
         let query = PFQuery(className:"Issue")
         query.whereKey("city", equalTo: cityName)
         query.limit = queryNum
@@ -49,12 +49,14 @@ class DataModel {
                         
                         issues.append(newIssue)
                     }
-                    block(issues, nil)
+                    resultHandler(issues, nil)
+                } else {
+                    resultHandler(nil, nil)
                 }
             } else {
                 //Log details of the failure
                 print("Error: \(error!) \(error!.userInfo)")
-                block(nil, error)
+                resultHandler(nil, error)
             }
         }
     }
@@ -118,21 +120,28 @@ class DataModel {
                     var replies = [Reply]()
                     
                     for result in results {
-                        let avatarFile = result.objectForKey("avatar") as! PFFile
+                        let avatarFile = result.objectForKey("avatar") as? PFFile
                         let email = result.objectForKey("userEmail") as! String
                         let name = result.objectForKey("userName") as! String
                         
-                        let time = result.objectForKey("createdAt") as! NSDate
+                        let time = result.createdAt!
                         let id = result.objectForKey("issueId") as! String
                         let city = result.objectForKey("city") as! String
                         let content = result.objectForKey("content") as! String
-                        let satisfy = result.objectForKey("sataisfyLevel") as! Satisfy
+                        
+                        let satisfyDictionary = result.objectForKey("satisfyLevel") as! NSDictionary
+                        let level1 = satisfyDictionary.valueForKey("level1") as! Int
+                        let level2 = satisfyDictionary.valueForKey("level2") as! Int
+                        let level3 = satisfyDictionary.valueForKey("level3") as! Int
+                        let level4 = satisfyDictionary.valueForKey("level4") as! Int
+                        let satisfy = Satisfy(num1: level1, num2: level2, num3: level3, num4: level4)
+                        
                         let images = result.objectForKey("images") as! NSArray
                         
                         let avatarImage = self.convertPFFileToImage(avatarFile)
                         let imageList = self.convertArrayToImages(images)
                         
-                        let newReply = Reply(avatar: avatarImage, email: email, name: name, time: time, id: id, content: content, city: city, level: satisfy, images: imageList)
+                        let newReply = Reply(avatar: avatarImage, email: email, name: name, time: time, issueId: id, content: content, city: city, level: satisfy, images: imageList)
                         
                         replies.append(newReply)
                     }
@@ -176,17 +185,38 @@ class DataModel {
     }
     
     //
-    func getCityList(from start:Int, to end: Int, block: ([PFObject]?, NSError?) -> Void) {
+    func getCityList(queryNum:Int, queryTimes: Int, resultHandler: ([City]?, NSError?) -> Void) {
         let query = PFQuery(className: "Cities")
         
-        query.whereKey("index", greaterThanOrEqualTo: start)
-        query.whereKey("index", lessThan: end)
+        query.limit = queryNum
+        query.skip = queryNum * queryTimes
         
-        query.findObjectsInBackgroundWithBlock(block)
+        query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
+            if nil == error {
+                print("Successfully retrieved \(objects!.count) scores.")
+                
+                if let results = objects {
+                    var cities = [City]()
+                    
+                    for result in results {
+                        let name = result.objectForKey("cityName") as! String
+                        
+                        let newCity = City(cityName: name)
+                        
+                        cities.append(newCity)
+                    }
+                    resultHandler(cities, nil)
+                } else {
+                    resultHandler(nil, nil)
+                }
+            } else {
+                resultHandler(nil, error)
+            }
+        }
     }
     
     //新建Issue, code complete
-    func addNewIssue(newIssue: Issue, block: (Bool, NSError?) -> Void) {
+    func addNewIssue(newIssue: Issue, resultHandler: (Bool, NSError?) -> Void) {
         let issue = PFObject(className: "Issue")
         
         //给issue赋值...
@@ -217,42 +247,73 @@ class DataModel {
         issue.saveInBackgroundWithBlock { (success, error) -> Void in
             if error == nil {
                 if success {
-                    block(true, nil)
+                    resultHandler(true, nil)
                 } else {
-                    block(false, nil)
+                    resultHandler(false, nil)
                 }
             } else {
-                block(false, error)
+                resultHandler(false, error)
             }
         }
     }
     
-    //增加一个关注数,code complete
-    func addFocusNum(issueId: String) {
+    //增加一个关注,code complete
+    func addFocusNum(issueId: String, resultHandler:(Bool, NSError?) -> Void) {
         let query = PFQuery(className: "Issue")
         
         query.whereKey("objectId", equalTo: issueId)
         
         do {
-            let result = try query.findObjects()
+            let result = try query.getFirstObject()
             
-            if !result.isEmpty {
-                var currentNum = result[0].valueForKey("focusNum") as! Int
-                print("current number:\(currentNum)")
-                result[0].setValue(++currentNum, forKey: "focusNum")
-                result[0].saveEventually()
-            } else {
-                print("result is empty")
-            }
+            var currentNum = result.valueForKey("focusNum") as! Int
+            print("current number:\(currentNum)")
+            result.setValue(++currentNum, forKey: "focusNum")
             
+            result.saveInBackgroundWithBlock(resultHandler)
         } catch {
             print("there is error")
+            resultHandler(false, nil)
+        }
+    }
+    
+    //减少一个关注,code complete
+    func minusFocusNum(issueId:String, resultHandler:(Bool, NSError?) -> Void) {
+        let query = PFQuery(className: "Issue")
+        
+        query.whereKey("objectId", equalTo: issueId)
+        
+        do {
+            let result = try query.getFirstObject()
+            
+            var currentNum = result.valueForKey("focusNum") as! Int
+            print("current number:\(currentNum)")
+            result.setValue(--currentNum, forKey: "focusNum")
+            
+            result.saveInBackgroundWithBlock(resultHandler)
+        } catch {
+            print("there is error")
+            resultHandler(false, nil)
         }
     }
     
     //还需要为Issue填上replyId
-    func addNewReply(newReply: Reply, block: (Bool, NSError?) -> Void) {
+    func addNewReply(newReply: Reply, resultHandler: (Bool, NSError?) -> Void) {
         let reply = PFObject(className: "Reply")
+        print("New Reply objectId: \(reply.objectId!)")
+
+//        let issueQuery = PFQuery(className: "Issue")
+//        issueQuery.whereKey("objectId", equalTo: issueId)
+//        do {
+//            let result = try issueQuery.getFirstObject()
+//            result.setValue(true, forKey: "")
+//            result.setValue(reply.objectId, forKey: "")
+//            
+//            result.saveInBackground()
+//        } catch {
+//            print("")
+//        }
+        
         
         reply["userEmail"] = newReply.userEmail
         reply["userName"] = newReply.userName
@@ -266,11 +327,11 @@ class DataModel {
         
         reply.saveInBackgroundWithBlock { (success, error) -> Void in
             if error == nil {
-                block(success, nil)
+                resultHandler(success, nil)
             } else {
                 //Log details of the failure
                 print("Error: \(error!) \(error!.userInfo)")
-                block(false, error)
+                resultHandler(false, error)
             }
         }
     }
@@ -299,12 +360,11 @@ class DataModel {
         return imageFileArray
     }
     
+    //根据issueID获取issue
     func getIssue(issueId:String, resultHandler: (Issue?, NSError?) -> Void) {
         let query = PFQuery(className: "Issue")
         
-        query.whereKey(issueId, equalTo: "objectId")
-        
-        query.getFirstObjectInBackgroundWithBlock { (object, error) -> Void in
+        query.getObjectInBackgroundWithId(issueId) { (object, error) -> Void in
             if nil == error {
                 if let result = object {
                     let avatarFile = result.objectForKey("avatar") as? PFFile
@@ -335,32 +395,39 @@ class DataModel {
             } else {
                 resultHandler(nil, error)
             }
+
         }
     }
     
+    //根据replyID获取reply
     func getReply(replyId:String, resultHandler: (Reply?, NSError?) -> Void) {
-        let query = PFQuery(className: "")
+        let query = PFQuery(className: "Reply")
         
-        query.whereKey("objectId", equalTo: replyId)
-        
-        query.getFirstObjectInBackgroundWithBlock { (object, error) -> Void in
+        query.getObjectInBackgroundWithId(replyId) { (object, error) -> Void in
             if nil == error {
                 if let result = object {
-                    let avatarFile = result.objectForKey("avatar") as! PFFile
+                    let avatarFile = result.objectForKey("avatar") as? PFFile
                     let email = result.objectForKey("userEmail") as! String
                     let name = result.objectForKey("userName") as! String
                     
-                    let time = result.objectForKey("createdAt") as! NSDate
+                    let time = result.createdAt!
                     let id = result.objectForKey("issueId") as! String
                     let city = result.objectForKey("city") as! String
                     let content = result.objectForKey("content") as! String
-                    let satisfy = result.objectForKey("sataisfyLevel") as! Satisfy
+                    
+                    let satisfyDictionary = result.objectForKey("satisfyLevel") as! NSDictionary
+                    let level1 = satisfyDictionary.valueForKey("level1") as! Int
+                    let level2 = satisfyDictionary.valueForKey("level2") as! Int
+                    let level3 = satisfyDictionary.valueForKey("level3") as! Int
+                    let level4 = satisfyDictionary.valueForKey("level4") as! Int
+                    let satisfy = Satisfy(num1: level1, num2: level2, num3: level3, num4: level4)
+                    
                     let images = result.objectForKey("images") as! NSArray
                     
                     let avatarImage = self.convertPFFileToImage(avatarFile)
                     let imageList = self.convertArrayToImages(images)
                     
-                    let newReply = Reply(avatar: avatarImage, email: email, name: name, time: time, id: id, content: content, city: city, level: satisfy, images: imageList)
+                    let newReply = Reply(avatar: avatarImage, email: email, name: name, time: time, issueId: id, content: content, city: city, level: satisfy, images: imageList)
                     
                     resultHandler(newReply, nil)
                 } else {
@@ -370,6 +437,7 @@ class DataModel {
             } else {
                 resultHandler(nil, error)
             }
+
         }
     }
 }
