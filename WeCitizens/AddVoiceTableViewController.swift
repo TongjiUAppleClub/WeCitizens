@@ -8,6 +8,9 @@
 
 import UIKit
 import Parse
+import BSImagePicker
+import Photos
+
 
 class AddVoiceTableViewController: UITableViewController,UITextViewDelegate {
 
@@ -49,8 +52,99 @@ class AddVoiceTableViewController: UITableViewController,UITextViewDelegate {
         print("\(date),\(Abstract),\(content),\(userName)")
         
 //TODO:- Add send action
+    }
+    
+
+    @IBAction func PickImages(sender: UIBarButtonItem) {
+        
+
+        
+        self.ts_presentImagePickerController(
+            maxNumberOfSelections: 4,
+            select: { (asset: PHAsset) -> Void in
+            //    print("Selected: \(asset)")
+            }, deselect: { (asset: PHAsset) -> Void in
+            //    print("Deselected: \(asset)")
+            }, cancel: { (assets: [PHAsset]) -> Void in
+            //    print("Cancel: \(assets)")
+            }, finish: { (assets: [PHAsset]) -> Void in
+            //    print("Finish: \(assets)")
+                for (index,asset) in assets.enumerate()
+                {
+                    let image = asset.getUIImage()
+                    print(image)
+                }
+                
+            }, completion: { () -> Void in
+                print("completion")
+        })
         
         
     }
+    
+    func getAssetThumbnail(asset: PHAsset) -> UIImage {
+        let manager = PHImageManager.defaultManager()
+        let option = PHImageRequestOptions()
+        var thumbnail = UIImage()
+        option.synchronous = true
+        manager.requestImageForAsset(asset, targetSize: CGSize(width: 100.0, height: 100.0), contentMode: .AspectFit, options: option, resultHandler: {(result, info)->Void in
+            thumbnail = result!
+        })
+        return thumbnail
+    }
 
+}
+
+public extension UIViewController {
+    /**
+     封装一下 BSImagePickerViewController ，改变 UINavigationBar 的颜色
+     
+     - parameter maxNumberOfSelections: 最多选 多少个
+     - parameter select:                选中的图片
+     - parameter deselect:              反选中的图片
+     - parameter cancel:                取消按钮
+     - parameter finish:                完成按钮
+     - parameter completion:            dimiss回掉完成
+     */
+    func ts_presentImagePickerController(maxNumberOfSelections maxNumberOfSelections: Int, select: ((asset: PHAsset) -> Void)?, deselect: ((asset: PHAsset) -> Void)?, cancel: (([PHAsset]) -> Void)?, finish: (([PHAsset]) -> Void)?, completion: (() -> Void)?) {
+        
+        let viewController = BSImagePickerViewController()
+        viewController.maxNumberOfSelections = maxNumberOfSelections
+        viewController.albumButton.tintColor = UIColor.redColor()
+        viewController.cancelButton.tintColor = UIColor.redColor()
+        viewController.doneButton.tintColor = UIColor.redColor()
+        
+        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: false)
+        self.bs_presentImagePickerController(viewController, animated: true,
+            select: select, deselect: deselect, cancel: cancel, finish: finish, completion:nil)
+    }
+    
+}
+
+extension PHAsset {
+    func getUIImage() -> UIImage? {
+        let manager = PHImageManager.defaultManager()
+        let options = PHImageRequestOptions()
+        options.synchronous = true
+        options.networkAccessAllowed = true
+        options.version = .Current
+        options.deliveryMode = .HighQualityFormat
+        options.resizeMode = .Exact
+        
+        var image: UIImage?
+        manager.requestImageForAsset(
+            self,
+            targetSize: CGSize(width: CGFloat(self.pixelWidth), height: CGFloat(self.pixelHeight)),
+            contentMode: .AspectFill,
+            options: options,
+            resultHandler: {(result, info)->Void in
+                if let theResult = result {
+                    image = theResult
+                } else {
+                    image = nil
+                }
+        })
+        return image
+    }
+    
 }

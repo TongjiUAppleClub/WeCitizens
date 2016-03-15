@@ -6,6 +6,7 @@
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--心声-->
@@ -304,7 +305,7 @@
         <scene sceneID="58D-sx-rZp">
             <objects>
                 <tableViewController id="Zki-Lq-Lrl" customClass="AddVoiceTableViewController" customModule="WeCitizens" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="O33-UU-c8O">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="O33-UU-c8O">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -371,11 +372,18 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="发布心声" id="Vim-yc-ViT">
-                        <barButtonItem key="rightBarButtonItem" title="发布" id="IX2-81-5jI">
-                            <connections>
-                                <action selector="PublishVoice:" destination="Zki-Lq-Lrl" id="aKZ-Z9-yXs"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="发布" id="IX2-81-5jI">
+                                <connections>
+                                    <action selector="PublishVoice:" destination="Zki-Lq-Lrl" id="aKZ-Z9-yXs"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="camera" id="QF0-zm-mgc">
+                                <connections>
+                                    <action selector="PickImages:" destination="Zki-Lq-Lrl" id="5Wh-SS-HwU"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="BodyCell" destination="Zyb-ve-GDG" id="Mw9-k5-gca"/>
@@ -478,8 +486,8 @@
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
-                                                    <exclude reference="FGB-bh-3LB"/>
                                                     <exclude reference="Ctw-rj-hMy"/>
+                                                    <exclude reference="FGB-bh-3LB"/>
                                                 </mask>
                                             </variation>
                                         </view>
@@ -670,7 +678,13 @@
                             <outlet property="delegate" destination="522-2N-Ggf" id="jdX-yW-RP2"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="qSo-g7-Wpt"/>
+                    <navigationItem key="navigationItem" id="qSo-g7-Wpt">
+                        <barButtonItem key="rightBarButtonItem" title="收藏" id="YIQ-mf-ILD">
+                            <connections>
+                                <action selector="Like:" destination="522-2N-Ggf" id="fwY-Si-5AV"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mwz-rV-id9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
