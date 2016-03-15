@@ -11,7 +11,6 @@ import Parse
 import BSImagePicker
 import Photos
 
-
 class AddVoiceTableViewController: UITableViewController,UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
   
@@ -52,10 +51,24 @@ class AddVoiceTableViewController: UITableViewController,UITextViewDelegate, UII
         let userName = PFUser.currentUser()!.username!
         let userEmail = PFUser.currentUser()!.email!
         
+        let newIssue = Issue(avatar: nil, email: userEmail, name: userName, resume: nil, time: nil, title: "Test", abstract: abstract, content: content, classify: "test", focusNum: nil, city: "shanghai", replied: nil, images: [])
+        
 //TODO:- Add send action
+        dataModel.addNewIssue(newIssue) { (success, error) -> Void in
+            if nil == error {
+                if success {
+                    print("Add new issue success")
+                    self.navigationController?.popViewControllerAnimated(true)
+                    //给用户提示
+                }
+            } else {
+                //Log details of the failure
+                print("Error: \(error!) \(error!.userInfo)")
+                //给用户提示
+            }
+        }
     }
     
-
     @IBAction func PickImages(sender: UIBarButtonItem) {
         
 
@@ -80,20 +93,6 @@ class AddVoiceTableViewController: UITableViewController,UITextViewDelegate, UII
                 print("completion")
         })
         
-//TODO:- Add send action
-        dataModel.addNewIssue(newIssue) { (success, error) -> Void in
-            if nil == error {
-                if success {
-                    print("Add new issue success")
-                    self.navigationController?.popViewControllerAnimated(true)
-                    //给用户提示
-                }
-            } else {
-                //Log details of the failure
-                print("Error: \(error!) \(error!.userInfo)")
-                //给用户提示
-            }
-        }
         
     }
     
