@@ -12,7 +12,7 @@ import BSImagePicker
 import Photos
 
 
-class AddVoiceTableViewController: UITableViewController,UITextViewDelegate {
+class AddVoiceTableViewController: UITableViewController,UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
   
     @IBOutlet weak var TitleCell: UITableViewCell!
@@ -20,7 +20,9 @@ class AddVoiceTableViewController: UITableViewController,UITextViewDelegate {
     @IBOutlet weak var VoiceTitle: UITextField!
     @IBOutlet weak var Content: UITextView!
     
-    
+    let imagePickerController = UIImagePickerController()
+    var isFullScreen:Bool = false
+    let dataModel = DataModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,11 +47,10 @@ class AddVoiceTableViewController: UITableViewController,UITextViewDelegate {
     
     @IBAction func PublishVoice(sender: UIBarButtonItem) {
         
-        let Abstract = VoiceTitle.text
+        let abstract = VoiceTitle.text!
         let content = Content.text
-        let userName = PFUser.currentUser()?.username
-        let date = NSDate()
-        print("\(date),\(Abstract),\(content),\(userName)")
+        let userName = PFUser.currentUser()!.username!
+        let userEmail = PFUser.currentUser()!.email!
         
 //TODO:- Add send action
     }
@@ -79,6 +80,20 @@ class AddVoiceTableViewController: UITableViewController,UITextViewDelegate {
                 print("completion")
         })
         
+//TODO:- Add send action
+        dataModel.addNewIssue(newIssue) { (success, error) -> Void in
+            if nil == error {
+                if success {
+                    print("Add new issue success")
+                    self.navigationController?.popViewControllerAnimated(true)
+                    //给用户提示
+                }
+            } else {
+                //Log details of the failure
+                print("Error: \(error!) \(error!.userInfo)")
+                //给用户提示
+            }
+        }
         
     }
     
