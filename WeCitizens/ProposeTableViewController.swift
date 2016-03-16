@@ -223,13 +223,13 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
     func dataBinder(cell:CommentTableViewCell,comment:Issue)
     {
         cell.VoiceTitle.text = comment.title
-        cell.Avatar.image = comment.avatar
+//        cell.Avatar.image = comment.avatar//使用UserModel请求头像
         cell.CommentUser.text = comment.userName
         cell.UpdateTime.text = "今天"//comment.time
         cell.Abstract.text = comment.abstract
 //        cell.Classify.text = comment.classify
 //        cell.ClassifyKind = UIImageView(image: UIImage(named: comment.classify))
-        cell.Reputation.text = "\(comment.userResume)"
+//        cell.Reputation.text = "\(comment.userResume)"//使用UserModel请求用户信誉度
     }
     
     func imagesBinder(containter:UIView,images:[UIImage])

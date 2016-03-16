@@ -24,7 +24,6 @@ class Satisfy {
 }
 
 class Reply {
-    var avatar:UIImage?
     var userEmail:String
     var userName:String
     
@@ -35,8 +34,7 @@ class Reply {
     var satisfyLevel = NSDictionary()
     var images:[UIImage]
     
-    init(avatar:UIImage?, email:String, name:String, time:NSDate?, issueId:String, content:String, city:String, level:Satisfy?, images:[UIImage]) {
-        self.avatar = avatar
+    init(email:String, name:String, time:NSDate?, issueId:String, content:String, city:String, level:Satisfy?, images:[UIImage]) {
         self.userEmail = email
         self.userName = name
 

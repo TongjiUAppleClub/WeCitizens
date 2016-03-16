@@ -14,10 +14,8 @@ enum IssueClassify:String {
 }
 
 class Issue {
-    var avatar:UIImage?
     var userEmail:String
     var userName:String
-    var userResume:Int = 100
     
     var time:NSDate?
     var title:String
@@ -30,13 +28,9 @@ class Issue {
     var replyId = ""
     var images:[UIImage] = []
     
-    init(avatar:UIImage?, email:String, name: String, resume:Int?, time:NSDate?, title:String, abstract:String, content:String, classify:String, focusNum:Int?, city:String, replied:Bool?, images:[UIImage]) {
-        self.avatar = avatar
+    init(email:String, name: String, time:NSDate?, title:String, abstract:String, content:String, classify:String, focusNum:Int?, city:String, replied:Bool?, images:[UIImage]) {
         self.userEmail = email
         self.userName = name
-        if nil != resume {
-            self.userResume = resume!
-        }
         
         self.time = time
         self.title = title

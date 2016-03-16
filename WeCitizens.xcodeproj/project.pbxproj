@@ -20,6 +20,8 @@
 		A492DBFE1C93D4D900C93FE2 /* ReplyBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A492DBFC1C93D4D900C93FE2 /* ReplyBean.swift */; };
 		A492DC001C94032900C93FE2 /* CommentBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A492DBFF1C94032900C93FE2 /* CommentBean.swift */; };
 		A492DC011C94032900C93FE2 /* CommentBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A492DBFF1C94032900C93FE2 /* CommentBean.swift */; };
+		A4B5ABA11C97B08700350616 /* UserBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B5ABA01C97B08700350616 /* UserBean.swift */; };
+		A4B5ABA21C97B08700350616 /* UserBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B5ABA01C97B08700350616 /* UserBean.swift */; };
 		A4D22B0D1C8854F900C200F2 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D22B0C1C8854F900C200F2 /* DataModel.swift */; };
 		A4D22B0E1C8854F900C200F2 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D22B0C1C8854F900C200F2 /* DataModel.swift */; };
 		A4D22B101C88553100C200F2 /* DataModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D22B0F1C88553100C200F2 /* DataModelTests.swift */; };
@@ -76,6 +78,7 @@
 		A492DBF91C93D49100C93FE2 /* IssueBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueBean.swift; sourceTree = "<group>"; };
 		A492DBFC1C93D4D900C93FE2 /* ReplyBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyBean.swift; sourceTree = "<group>"; };
 		A492DBFF1C94032900C93FE2 /* CommentBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentBean.swift; sourceTree = "<group>"; };
+		A4B5ABA01C97B08700350616 /* UserBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserBean.swift; sourceTree = "<group>"; };
 		A4D22B0C1C8854F900C200F2 /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		A4D22B0F1C88553100C200F2 /* DataModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModelTests.swift; sourceTree = "<group>"; };
 		D28A4489F43F2E4FD29B78C9 /* Pods_WeCitizens.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WeCitizens.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -208,6 +211,7 @@
 				A492DBFC1C93D4D900C93FE2 /* ReplyBean.swift */,
 				A492DBFF1C94032900C93FE2 /* CommentBean.swift */,
 				A4597DDD1C952A110069B317 /* CityBean.swift */,
+				A4B5ABA01C97B08700350616 /* UserBean.swift */,
 			);
 			name = Bean;
 			sourceTree = "<group>";
@@ -553,6 +557,7 @@
 				A43CCCBC1C91C2FA00CDB782 /* UserModel.swift in Sources */,
 				A492DBFA1C93D49100C93FE2 /* IssueBean.swift in Sources */,
 				E7CE05A11C6353FC00E8CCAB /* LoginViewController.swift in Sources */,
+				A4B5ABA11C97B08700350616 /* UserBean.swift in Sources */,
 				E74BA49E1C7E081200FC1BA6 /* ReplyTableViewCell.swift in Sources */,
 				A492DC001C94032900C93FE2 /* CommentBean.swift in Sources */,
 				E74BA4A01C7E082B00FC1BA6 /* ReplyTableViewController.swift in Sources */,
@@ -583,6 +588,7 @@
 				A492DC011C94032900C93FE2 /* CommentBean.swift in Sources */,
 				A4597DE11C9555B60069B317 /* UserModelTests.swift in Sources */,
 				E7CE05B41C6353FC00E8CCAB /* WeCitizensTests.swift in Sources */,
+				A4B5ABA21C97B08700350616 /* UserBean.swift in Sources */,
 				A492DBFE1C93D4D900C93FE2 /* ReplyBean.swift in Sources */,
 				A43CCCBD1C91C2FA00CDB782 /* UserModel.swift in Sources */,
 				A4D22B0E1C8854F900C200F2 /* DataModel.swift in Sources */,

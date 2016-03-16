@@ -27,10 +27,8 @@ class DataModel {
                     var issues = [Issue]()
                     
                     for result in results {
-                        let avatarFile = result.objectForKey("avatar") as? PFFile
                         let name = result.objectForKey("userName") as! String
                         let email = result.objectForKey("userEmail") as! String
-                        let resume = result.objectForKey("userResume") as! Int
                         
                         let time = result.createdAt!
                         let title = result.objectForKey("title") as! String
@@ -41,11 +39,10 @@ class DataModel {
                         let city = result.objectForKey("city") as! String
                         let isReplied = result.objectForKey("isReplied") as! Bool
                         let images = result.objectForKey("images") as! NSArray
-                        let avatarImage = self.convertPFFileToImage(avatarFile)
                         
                         let imageList = self.convertArrayToImages(images)
                         
-                        let newIssue = Issue(avatar: avatarImage, email: email, name: name, resume: resume, time: time, title: title, abstract: abstract, content: content, classify: classifyStr, focusNum: focusNum, city: city, replied: isReplied, images: imageList)
+                        let newIssue = Issue(email: email, name: name, time: time, title: title, abstract: abstract, content: content, classify: classifyStr, focusNum: focusNum, city: city, replied: isReplied, images: imageList)
                         
                         issues.append(newIssue)
                     }
@@ -77,7 +74,6 @@ class DataModel {
                     var comments:[Comment] = []
                     
                     for result in results {
-                        let avatarFile = result.objectForKey("avatar") as! PFFile
                         let email = result.objectForKey("userEmail") as! String
                         let name = result.objectForKey("userName") as! String
                         
@@ -85,9 +81,7 @@ class DataModel {
                         let id = result.objectForKey("issueId") as! String
                         let content = result.objectForKey("content") as! String
                         
-                        let avatarImage = self.convertPFFileToImage(avatarFile)
-                        
-                        let newComment = Comment(avatar: avatarImage, email: email, name: name, time: time, id: id, content: content)
+                        let newComment = Comment(email: email, name: name, time: time, id: id, content: content)
                         
                         comments.append(newComment)
                     }
@@ -120,7 +114,6 @@ class DataModel {
                     var replies = [Reply]()
                     
                     for result in results {
-                        let avatarFile = result.objectForKey("avatar") as? PFFile
                         let email = result.objectForKey("userEmail") as! String
                         let name = result.objectForKey("userName") as! String
                         
@@ -137,11 +130,9 @@ class DataModel {
                         let satisfy = Satisfy(num1: level1, num2: level2, num3: level3, num4: level4)
                         
                         let images = result.objectForKey("images") as! NSArray
-                        
-                        let avatarImage = self.convertPFFileToImage(avatarFile)
                         let imageList = self.convertArrayToImages(images)
                         
-                        let newReply = Reply(avatar: avatarImage, email: email, name: name, time: time, issueId: id, content: content, city: city, level: satisfy, images: imageList)
+                        let newReply = Reply(email: email, name: name, time: time, issueId: id, content: content, city: city, level: satisfy, images: imageList)
                         
                         replies.append(newReply)
                     }
@@ -220,17 +211,6 @@ class DataModel {
         let issue = PFObject(className: "Issue")
         
         //给issue赋值...
-        if let image = newIssue.avatar {
-            var imageData:NSData? = nil
-            
-            imageData = UIImageJPEGRepresentation(image, 0.3)
-            if let _ = imageData {
-                imageData = UIImagePNGRepresentation(image)
-            }
-            
-            let imageFile = PFFile(name: nil, data: imageData!)
-            issue["avatar"] = imageFile
-        }
         issue["userName"] = newIssue.userName
         issue["userEmail"] = newIssue.userEmail
         
@@ -297,7 +277,7 @@ class DataModel {
         }
     }
     
-    //还需要为Issue填上replyId
+    //还需要为Issue填上replyId，未完成，单元测试未通过
     func addNewReply(newReply: Reply, resultHandler: (Bool, NSError?) -> Void) {
         let reply = PFObject(className: "Reply")
         print("New Reply objectId: \(reply.objectId!)")
@@ -317,7 +297,7 @@ class DataModel {
         
         reply["userEmail"] = newReply.userEmail
         reply["userName"] = newReply.userName
-        reply["avatar"] = newReply.avatar
+//        reply["avatar"] = newReply.avatar
         
         reply["content"] = newReply.content
         reply["issueId"] = newReply.issueId
@@ -367,10 +347,8 @@ class DataModel {
         query.getObjectInBackgroundWithId(issueId) { (object, error) -> Void in
             if nil == error {
                 if let result = object {
-                    let avatarFile = result.objectForKey("avatar") as? PFFile
                     let name = result.objectForKey("userName") as! String
                     let email = result.objectForKey("userEmail") as! String
-                    let resume = result.objectForKey("userResume") as! Int
                     
                     let time = result.createdAt!
                     let title = result.objectForKey("title") as! String
@@ -380,12 +358,11 @@ class DataModel {
                     let focusNum = result.objectForKey("focusNum") as! Int
                     let city = result.objectForKey("city") as! String
                     let isReplied = result.objectForKey("isReplied") as! Bool
-                    let images = result.objectForKey("images") as! NSArray
-                    let avatarImage = self.convertPFFileToImage(avatarFile)
                     
+                    let images = result.objectForKey("images") as! NSArray
                     let imageList = self.convertArrayToImages(images)
                     
-                    let newIssue = Issue(avatar: avatarImage, email: email, name: name, resume: resume, time: time, title: title, abstract: abstract, content: content, classify: classifyStr, focusNum: focusNum, city: city, replied: isReplied, images: imageList)
+                    let newIssue = Issue(email: email, name: name, time: time, title: title, abstract: abstract, content: content, classify: classifyStr, focusNum: focusNum, city: city, replied: isReplied, images: imageList)
                     
                     resultHandler(newIssue, nil)
                 } else {
@@ -399,14 +376,14 @@ class DataModel {
         }
     }
     
-    //根据replyID获取reply
+    //根据replyID获取reply，单元测试未通过
     func getReply(replyId:String, resultHandler: (Reply?, NSError?) -> Void) {
         let query = PFQuery(className: "Reply")
         
         query.getObjectInBackgroundWithId(replyId) { (object, error) -> Void in
             if nil == error {
                 if let result = object {
-                    let avatarFile = result.objectForKey("avatar") as? PFFile
+//                    let avatarFile = result.objectForKey("avatar") as? PFFile
                     let email = result.objectForKey("userEmail") as! String
                     let name = result.objectForKey("userName") as! String
                     
@@ -422,12 +399,10 @@ class DataModel {
                     let level4 = satisfyDictionary.valueForKey("level4") as! Int
                     let satisfy = Satisfy(num1: level1, num2: level2, num3: level3, num4: level4)
                     
-                    let images = result.objectForKey("images") as! NSArray
-                    
-                    let avatarImage = self.convertPFFileToImage(avatarFile)
+                    let images = result.objectForKey("images") as! NSArray                    
                     let imageList = self.convertArrayToImages(images)
                     
-                    let newReply = Reply(avatar: avatarImage, email: email, name: name, time: time, issueId: id, content: content, city: city, level: satisfy, images: imageList)
+                    let newReply = Reply(email: email, name: name, time: time, issueId: id, content: content, city: city, level: satisfy, images: imageList)
                     
                     resultHandler(newReply, nil)
                 } else {
