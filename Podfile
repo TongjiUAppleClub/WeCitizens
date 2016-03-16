@@ -5,12 +5,15 @@ use_frameworks!
 
 target 'WeCitizens' do
 
+# swift
 pod 'Alamofire'
 pod 'SnapKit'
 pod 'Parse', '~> 1.10.0'
 pod 'ParseUI', '~> 1.1.7' 
 pod 'FoldingCell'
-pod 'SwiftCharts'
+pod 'BSImagePicker', '~> 2.2'
+
+# objective-c
 
 end
 
