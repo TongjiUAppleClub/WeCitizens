@@ -40,7 +40,7 @@ class DataModel {
                         let isReplied = result.objectForKey("isReplied") as! Bool
                         let images = result.objectForKey("images") as! NSArray
                         
-                        let imageList = self.convertArrayToImages(images)
+                        let imageList = DataModel.convertArrayToImages(images)
                         
                         let newIssue = Issue(email: email, name: name, time: time, title: title, abstract: abstract, content: content, classify: classifyStr, focusNum: focusNum, city: city, replied: isReplied, images: imageList)
                         
@@ -132,7 +132,7 @@ class DataModel {
                         let satisfy = Satisfy(num1: level1, num2: level2, num3: level3, num4: level4)
                         
                         let images = result.objectForKey("images") as! NSArray
-                        let imageList = self.convertArrayToImages(images)
+                        let imageList = DataModel.convertArrayToImages(images)
                         
                         let newReply = Reply(email: email, name: name, time: time, issueId: id, content: content, city: city, level: satisfy, images: imageList)
                         
@@ -149,7 +149,7 @@ class DataModel {
         }
     }
     
-    func convertPFFileToImage(rawFile:PFFile?) -> UIImage? {
+    static func convertPFFileToImage(rawFile:PFFile?) -> UIImage? {
         var image:UIImage? = nil
         do {
             let imageData = try rawFile?.getData()
@@ -162,7 +162,7 @@ class DataModel {
         return image
     }
     
-    func convertArrayToImages(rawArray:NSArray) -> [UIImage] {
+    static func convertArrayToImages(rawArray:NSArray) -> [UIImage] {
         var imageList = [UIImage]()
         for tmp in rawArray {
             let imageFile = tmp as! PFFile
@@ -363,7 +363,7 @@ class DataModel {
                     let isReplied = result.objectForKey("isReplied") as! Bool
                     
                     let images = result.objectForKey("images") as! NSArray
-                    let imageList = self.convertArrayToImages(images)
+                    let imageList = DataModel.convertArrayToImages(images)
                     
                     let newIssue = Issue(email: email, name: name, time: time, title: title, abstract: abstract, content: content, classify: classifyStr, focusNum: focusNum, city: city, replied: isReplied, images: imageList)
                     
@@ -403,7 +403,7 @@ class DataModel {
                     let satisfy = Satisfy(num1: level1, num2: level2, num3: level3, num4: level4)
                     
                     let images = result.objectForKey("images") as! NSArray                    
-                    let imageList = self.convertArrayToImages(images)
+                    let imageList = DataModel.convertArrayToImages(images)
                     
                     let newReply = Reply(email: email, name: name, time: time, issueId: id, content: content, city: city, level: satisfy, images: imageList)
                     

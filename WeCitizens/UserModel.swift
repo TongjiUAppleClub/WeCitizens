@@ -64,15 +64,9 @@ class UserModel {
                     let email = oneUser["email"] as! String
                     let name = oneUser["username"] as! String
                     let resume = oneUser["resume"] as! Int
-                    let avatarFile = oneUser["avatar"] as! PFFile
-                    var avatarImage:UIImage? = nil
+                    let avatarFile = oneUser["avatar"] as? PFFile
                     
-                    do {
-                        let avatarData = try avatarFile.getData()
-                        avatarImage = UIImage(data: avatarData)
-                    } catch {
-                        print("ERROR")
-                    }
+                    let avatarImage = DataModel.convertPFFileToImage(avatarFile)
                     
                     let newUser = User(image: avatarImage, name: name, email: email, resume: resume)
                     newUserList.append(newUser)

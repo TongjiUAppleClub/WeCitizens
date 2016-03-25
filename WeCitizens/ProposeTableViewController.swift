@@ -15,14 +15,14 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
 // I will give the example data and show how to use it
     let COMMENT_NUM = 3
     
-    let testTitle = "XX中学体罚学生情况严重"
+//    let testTitle = "XX中学体罚学生情况严重"
     let tmpAvatar =  UIImage(named: "avatar")
-    let testCommentUser = "名字"
-    let testAbstract = "dsafadfdjflsjladjlfkjlajlgdsdfasdfal柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是sfafafdafdsgfdfdfafdafaffafafafafafaffdafafafaffafslskjljlakgjljl柔周乔布斯成功的主要原因是什么？"
-    let testTime = "2016.2.14"
-    let testBrowser = "10247"
-    let testClassify = "教育"
-    let testReputaion = "452"
+//    let testCommentUser = "名字"
+//    let testAbstract = "dsafadfdjflsjladjlfkjlajlgdsdfasdfal柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是sfafafdafdsgfdfdfafdafaffafafafafafaffdafafafaffafslskjljlakgjljl柔周乔布斯成功的主要原因是什么？"
+//    let testTime = "2016.2.14"
+//    let testBrowser = "10247"
+//    let testClassify = "教育"
+//    let testReputaion = "452"
     let testImages = [UIImage(named: "logo")!,UIImage(named: "logo")!]
 // Delete the line above & give the real data
     
@@ -68,16 +68,20 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
                             userList.append(object.userEmail)
                         }
                         self.userModel.getUsersAvatar(userList, resultHandler: { (objects, error) -> Void in
+                            print("helloWorld")
                             if nil == error {
                                 if let results = objects {
                                     for issue in self.issueList {
                                         for user in results {
+                                            print("User:\(user.name)")
                                             if issue.userEmail == user.email {
                                                 issue.user = user
+                                                
                                             }
                                         }
                                     }
                                     self.tableView.reloadData()
+                                    print("Issue List length:\(results.count)")//0
                                     self.queryTimes++;
                                 } else {
                                     print("no users")
@@ -101,15 +105,13 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
     }
     
 // MARK:- Table view data source && delegate
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-    {
-        return 1
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return issueList.count
+//        return 1
     }
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int
-    {
-        return issueList.count
-//        return 3
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 3
     }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
