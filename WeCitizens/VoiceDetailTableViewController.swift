@@ -28,6 +28,7 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
     
 //TODO:- 从前面的那个segue中传过来，不要从网络上拿了，但是内容还有评论要从网络上获取
     var issue:Issue?
+    var commentList = [Comment]()
     
     
     

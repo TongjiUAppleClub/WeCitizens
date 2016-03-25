@@ -23,8 +23,10 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
 
     }
     
-    var replies = [Reply]()
+    var replyList = [Reply]()
     var dataModel = DataModel()
+    var userModel = UserModel()
+    var queryTimes = 0
     
 
 //MARK:- Life Cycle
@@ -43,19 +45,36 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
         //获取当前城市或用户设置城市
         let cityName = "shanghai"
         
-        if 0 == replies.count {
-            dataModel.getReply(20, queryTimes: 0, cityName: cityName, block: { (issues, error) -> Void in
+        if 0 == replyList.count {
+            dataModel.getReply(20, queryTimes: queryTimes, cityName: cityName, resultHandler: { (issues, error) -> Void in
                 if error == nil {
                     if let list = issues {
-                        self.replies = list
+                        self.replyList = list
+                        var userList = [String]()
+                        for reply in list {
+                            userList.append(reply.userEmail)
+                        }
+                        self.userModel.getUsersAvatar(userList, resultHandler: { (objects, error) -> Void in
+                            if nil == error {
+                                if let results = objects {
+                                    for reply in self.replyList {
+                                        for user in results {
+                                            if reply.userEmail == user.email {
+                                                reply.user = user
+                                            }
+                                        }
+                                    }
+                                    self.tableView.reloadData()
+                                    self.queryTimes++
+                                }
+                            }
+                        })
                     }
                 } else {
                     print("Propose Error: \(error!) \(error!.userInfo)")
                 }
             })
         }
-        
-        tableView.reloadData()
     }
     
     override func viewDidLayoutSubviews() {
@@ -98,11 +117,10 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
         }
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
-    {
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("FoldingCell", forIndexPath: indexPath) as! ReplyTableViewCell
         
-      
+        //测试数据
         cell.CResponseButton.tag = indexPath.section
         cell.CResponseButton.addTarget(self, action: "CheckResponse:", forControlEvents: .TouchUpInside)
         cell.EvaluateButton.tag = indexPath.section

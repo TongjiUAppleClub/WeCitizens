@@ -20,7 +20,7 @@ class DataModel {
         
         query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
             if error == nil {
-                print("Successfully retrieved \(objects!.count) scores.")
+                print("Successfully retrieved \(objects!.count) issues.")
                 
                 if let results = objects {
                     
@@ -68,7 +68,7 @@ class DataModel {
         
         query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
             if error == nil {
-                print("Successfully retrieved \(objects!.count) scores.")
+                print("Successfully retrieved \(objects!.count) comments.")
                 
                 if let results = objects {
                     var comments:[Comment] = []
@@ -77,7 +77,7 @@ class DataModel {
                         let email = result.objectForKey("userEmail") as! String
                         let name = result.objectForKey("userName") as! String
                         
-                        let time = result.objectForKey("createdAt") as! NSDate
+                        let time = result.createdAt!
                         let id = result.objectForKey("issueId") as! String
                         let content = result.objectForKey("content") as! String
                         
@@ -99,7 +99,8 @@ class DataModel {
     }
     
     //获取指定数量reply,code completed
-    func getReply(queryNum:Int, queryTimes:Int, cityName:String, block: ([Reply]?, NSError?) -> Void) {
+    func getReply(queryNum:Int, queryTimes:Int, cityName:String, resultHandler: ([Reply]?, NSError?) -> Void) {
+        print("REPLY")
         let query = PFQuery(className: "Reply")
         
         query.whereKey("city", equalTo: cityName)
@@ -108,10 +109,11 @@ class DataModel {
 
         query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
             if nil == error {
-                print("Successfully retrieved \(objects!.count) scores.")
+                print("Successfully retrieved \(objects!.count) replies.")
                 
                 if let results = objects {
                     var replies = [Reply]()
+                    print("SIZE:\(results.count)")
                     
                     for result in results {
                         let email = result.objectForKey("userEmail") as! String
@@ -136,11 +138,12 @@ class DataModel {
                         
                         replies.append(newReply)
                     }
-                    block(replies, nil)
+                    print("REPLY2")
+                    resultHandler(replies, nil)
                 } else {
                     //Log details of the failure
                     print("Error: \(error!) \(error!.userInfo)")
-                    block(nil, error)
+                    resultHandler(nil, error)
                 }
             }
         }
@@ -184,7 +187,7 @@ class DataModel {
         
         query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
             if nil == error {
-                print("Successfully retrieved \(objects!.count) scores.")
+                print("Successfully retrieved \(objects!.count) cities.")
                 
                 if let results = objects {
                     var cities = [City]()

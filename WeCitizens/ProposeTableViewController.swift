@@ -37,6 +37,8 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
     
     var issueList = [Issue]()
     let dataModel = DataModel()
+    let userModel = UserModel()
+    var queryTimes = 0
     
     
 //MARK:- Life cycle
@@ -56,21 +58,40 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
         let cityName = "shanghai"
         
         if 0 == issueList.count {
-            dataModel.getIssue(20, queryTimes: 0, cityName: cityName, resultHandler: { (issues, error) -> Void in
+            dataModel.getIssue(20, queryTimes: self.queryTimes, cityName: cityName, resultHandler: { (issues, error) -> Void in
                 if error == nil {
                     if let list = issues {
-//                        self.issueList = list
+                        self.issueList = list
+                        var userList = [String]()
                         for object in list {
-                            print(object.content)
+                            print("Issue内容:\(object.userEmail)")
+                            userList.append(object.userEmail)
                         }
+                        self.userModel.getUsersAvatar(userList, resultHandler: { (objects, error) -> Void in
+                            if nil == error {
+                                if let results = objects {
+                                    for issue in self.issueList {
+                                        for user in results {
+                                            if issue.userEmail == user.email {
+                                                issue.user = user
+                                            }
+                                        }
+                                    }
+                                    self.tableView.reloadData()
+                                    self.queryTimes++;
+                                } else {
+                                    print("no users")
+                                }
+                            } else {
+                                print("Get User info Propose Error: \(error!) \(error!.userInfo)")
+                            }
+                        })
                     }
                 } else {
-                    print("Propose Error: \(error!) \(error!.userInfo)")
+                    print("Get Issue info Propose Error: \(error!) \(error!.userInfo)")
                 }
             })
         }
-        
-        tableView.reloadData()
     }
     
     override func viewDidLayoutSubviews() {
@@ -87,8 +108,8 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int
     {
-//        return issueList.count
-        return 3
+        return issueList.count
+//        return 3
     }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
@@ -108,30 +129,28 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
         return view
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
-    {
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
       let cell = tableView.dequeueReusableCellWithIdentifier("CommentCell", forIndexPath: indexPath) as! CommentTableViewCell
         
-        cell.VoiceTitle.text = testTitle
-        cell.Avatar.image = tmpAvatar
-        cell.CommentUser.text = testCommentUser
-        cell.UpdateTime.text = testTime
-        cell.Abstract.text = testAbstract
-        cell.Classify.text = testClassify
-        cell.Reputation.text = testReputaion
+//        cell.VoiceTitle.text = testTitle//测试数据
+//        cell.Avatar.image = tmpAvatar
+//        cell.CommentUser.text = testCommentUser
+//        cell.UpdateTime.text = testTime
+//        cell.Abstract.text = testAbstract
+//        cell.Classify.text = testClassify
+//        cell.Reputation.text = testReputaion
         
-//        cell.VoiceTitle.text = issueList[indexPath.row].title
-//        
-//        if let image = issueList[indexPath.row].avatar {
-//            cell.Avatar.image = image
-//        } else {
-//            cell.Avatar.image = tmpAvatar
-//        }
-//        cell.CommentUser.text = "\(issueList[indexPath.row].focusNum)"
-//        cell.UpdateTime.text = issueList[indexPath.row].time
-//        cell.Abstract.text = issueList[indexPath.row].abstract
-//        cell.Classify.text = issueList[indexPath.row].classify.rawValue
-////        cell.Reputation.text = issueList[indexPath.row]//What is this?
+        cell.VoiceTitle.text = issueList[indexPath.row].title
+        if let image = issueList[indexPath.row].user!.avatar {
+            cell.Avatar.image = image
+        } else {
+            cell.Avatar.image = tmpAvatar
+        }
+        cell.Reputation.text = "\(issueList[indexPath.row].user!.resume)"
+        cell.CommentUser.text = "\(issueList[indexPath.row].focusNum)"
+        cell.UpdateTime.text = issueList[indexPath.row].getDateString()
+        cell.Abstract.text = issueList[indexPath.row].abstract
+        cell.Classify.text = issueList[indexPath.row].classify.rawValue
         
 
    //  Uncomment This Line and Delete the line above to bind the data to cell
@@ -140,15 +159,16 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
        return cell
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
-    {
-        if (segue.identifier == "ShowDetail")
-        {
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "ShowDetail") {
             let controller = segue.destinationViewController as! VoiceDetailTableViewController
             let row = ( sender as! NSIndexPath ).row
-           // controller.title = issues[row].title
-           // controller.issue = issues[row]
+            controller.title = self.issueList[row].title
+            controller.issue = self.issueList[row]
         
+        } else if (segue.identifier == "PushVoice") {
+            let controller = segue.destinationViewController as! AddVoiceTableViewController
+            controller.currentLocation = self.currentLocal
         }
     }
     
@@ -219,7 +239,7 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
         }
     }
 
-//MARK:- Data Binder
+//MARK:- Data Binder这个是干啥的？
     func dataBinder(cell:CommentTableViewCell,comment:Issue)
     {
         cell.VoiceTitle.text = comment.title

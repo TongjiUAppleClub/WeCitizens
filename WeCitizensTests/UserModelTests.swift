@@ -46,7 +46,15 @@ class UserModelTests: XCTestCase {
         }
         self.waitForExpectationsWithTimeout(10.0, handler: nil)
     }
+    
+    func testSetAvatar() {
+        
+    }
 
+    func testGetUserData() {
+        
+    }
+    
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measureBlock {

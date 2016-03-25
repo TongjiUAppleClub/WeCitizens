@@ -14,8 +14,11 @@ enum IssueClassify:String {
 }
 
 class Issue {
+    let dateFormatter = NSDateFormatter()
+    
     var userEmail:String
     var userName:String
+    var user:User? = nil
     
     var time:NSDate?
     var title:String
@@ -45,6 +48,12 @@ class Issue {
             self.isReplied = isReplied
         }
         self.images = images
+        
+        dateFormatter.dateFormat = "yyyy.MM.dd"
+    }
+    
+    func getDateString() -> String {        
+        return dateFormatter.stringFromDate(time!)
     }
     
 }

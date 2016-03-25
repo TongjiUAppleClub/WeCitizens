@@ -26,6 +26,7 @@ class Satisfy {
 class Reply {
     var userEmail:String
     var userName:String
+    var user:User? = nil
     
     var time:NSDate?
     var issueId:String
