@@ -30,6 +30,7 @@ class DataModel {
                         let name = result.objectForKey("userName") as! String
                         let email = result.objectForKey("userEmail") as! String
                         
+                        let id = result.objectId!
                         let time = result.createdAt!
                         let title = result.objectForKey("title") as! String
                         let abstract = result.objectForKey("abstract") as! String
@@ -42,7 +43,7 @@ class DataModel {
                         
                         let imageList = DataModel.convertArrayToImages(images)
                         
-                        let newIssue = Issue(email: email, name: name, time: time, title: title, abstract: abstract, content: content, classify: classifyStr, focusNum: focusNum, city: city, replied: isReplied, images: imageList)
+                        let newIssue = Issue(issueId: id, email: email, name: name, time: time, title: title, abstract: abstract, content: content, classify: classifyStr, focusNum: focusNum, city: city, replied: isReplied, images: imageList)
                         
                         issues.append(newIssue)
                     }
@@ -353,6 +354,7 @@ class DataModel {
                     let name = result.objectForKey("userName") as! String
                     let email = result.objectForKey("userEmail") as! String
                     
+                    let id = result.objectId!
                     let time = result.createdAt!
                     let title = result.objectForKey("title") as! String
                     let abstract = result.objectForKey("abstract") as! String
@@ -365,7 +367,7 @@ class DataModel {
                     let images = result.objectForKey("images") as! NSArray
                     let imageList = DataModel.convertArrayToImages(images)
                     
-                    let newIssue = Issue(email: email, name: name, time: time, title: title, abstract: abstract, content: content, classify: classifyStr, focusNum: focusNum, city: city, replied: isReplied, images: imageList)
+                    let newIssue = Issue(issueId:id, email: email, name: name, time: time, title: title, abstract: abstract, content: content, classify: classifyStr, focusNum: focusNum, city: city, replied: isReplied, images: imageList)
                     
                     resultHandler(newIssue, nil)
                 } else {

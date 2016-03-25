@@ -68,7 +68,6 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
                             userList.append(object.userEmail)
                         }
                         self.userModel.getUsersAvatar(userList, resultHandler: { (objects, error) -> Void in
-                            print("helloWorld")
                             if nil == error {
                                 if let results = objects {
                                     for issue in self.issueList {
@@ -81,7 +80,7 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
                                         }
                                     }
                                     self.tableView.reloadData()
-                                    print("Issue List length:\(results.count)")//0
+                                    print("User List length:\(results.count)")//0
                                     self.queryTimes++;
                                 } else {
                                     print("no users")

@@ -59,7 +59,7 @@ class AddVoiceTableViewController: UITableViewController,UITextViewDelegate, UII
         let userName = PFUser.currentUser()!.username!
         let userEmail = PFUser.currentUser()!.email!
         
-        let newIssue = Issue(email: userEmail, name: userName, time: nil, title: title, abstract: abstract, content: content, classify: "test", focusNum: nil, city: "shanghai", replied: nil, images: newImages)
+        let newIssue = Issue(issueId: nil,email: userEmail, name: userName, time: nil, title: title, abstract: abstract, content: content, classify: "test", focusNum: nil, city: "shanghai", replied: nil, images: newImages)
         
         dataModel.addNewIssue(newIssue) { (success, error) -> Void in
             if nil == error {

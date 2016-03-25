@@ -20,6 +20,7 @@ class Issue {
     var userName:String
     var user:User? = nil
     
+    var id:String? = nil
     var time:NSDate?
     var title:String
     var abstract:String
@@ -31,10 +32,11 @@ class Issue {
     var replyId = ""
     var images:[UIImage] = []
     
-    init(email:String, name: String, time:NSDate?, title:String, abstract:String, content:String, classify:String, focusNum:Int?, city:String, replied:Bool?, images:[UIImage]) {
+    init(issueId:String?, email:String, name: String, time:NSDate?, title:String, abstract:String, content:String, classify:String, focusNum:Int?, city:String, replied:Bool?, images:[UIImage]) {
         self.userEmail = email
         self.userName = name
         
+        self.id = issueId
         self.time = time
         self.title = title
         self.abstract = abstract
