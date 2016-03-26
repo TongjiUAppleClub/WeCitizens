@@ -27,12 +27,16 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
     
     
 //TODO:- 从前面的那个segue中传过来，不要从网络上拿了，但是内容还有评论要从网络上获取
+    let dataModel = DataModel()
+    let userModel = UserModel()
+    var queryTimes = 0
     var issue:Issue?
+    var commentList = [Comment]()
+    var dateFormatter = NSDateFormatter()
     
     
     
-    override var inputAccessoryView:UIView!
-    {
+    override var inputAccessoryView:UIView! {
         get{
             if toolBar == nil
             {
@@ -92,6 +96,49 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
         let notificationCenter = NSNotificationCenter.defaultCenter()
         notificationCenter.addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
         notificationCenter.addObserver(self, selector: "keyboardDidShow:", name: UIKeyboardDidShowNotification, object: nil)
+        
+        self.dateFormatter.dateFormat = "yyyy.MM.dd"
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if 0 == commentList.count {
+            if let id = issue?.id {
+                dataModel.getComment(20, queryTimes: self.queryTimes, issueId: id, block: { (comments, error) -> Void in
+                    if nil == error {
+                        if let list = comments {
+                            self.commentList = list
+                            var userList = [String]()
+                            for object in list {
+                                userList.append(object.userEmail)
+                            }
+                            self.userModel.getUsersAvatar(userList, resultHandler: { (objects, error) -> Void in
+                                if nil == error {
+                                    if let results = objects {
+                                        for comment in self.commentList {
+                                            for user in results {
+                                                print("User:\(user.name)")
+                                                if comment.userEmail == user.email {
+                                                    comment.user = user
+                                                }
+                                            }
+                                        }
+                                        self.tableView.reloadData()
+                                        print("User List length:\(results.count)")//0
+                                        self.queryTimes++;
+                                    } else {
+                                        print("no users")
+                                    }
+                                } else {
+                                    print("Get User info Propose Error: \(error!) \(error!.userInfo)")
+                                }
+                            })
+                        }
+                    }
+                })
+            }
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -104,35 +151,41 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return commentList.count + 1
     }
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
+        //这个issue内容是咋么填的？还有评论怎么填的？
         var identifier = ""
         
-        if( indexPath.row == 0 )
-        {
+        if( indexPath.row == 0 ) {
             identifier = "DetailTitle"
             let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as! VoiceTitleTableViewCell
             
-//            cell.CommentUser.text = issue?.userName
-//            cell.Avatar.image = issue?.avatar
-//            cell.Reputation.text = issue?.userResume
-//          //  cell.Classify.text = issue?.classify
-//          //  cell.ClassifyKind.image = UIImage(named: "\(issue?.classify)")
-//            cell.UpdateTime.text = issue?.time
-//            imagesBinder(cell.ImgesContainer, images: (issue?.images)!)
+            if let currentIssue = issue, issueUser = issue?.user {
+                cell.CommentUser.text = currentIssue.userName
+                cell.Reputation.text = "\(issueUser.resume)"
+                cell.Classify.text = currentIssue.classify.rawValue
+                cell.UpdateTime.text = self.dateFormatter.stringFromDate(currentIssue.time!)
+                
+                if let image = issueUser.avatar {
+                    cell.Avatar.image = image
+                } else {
+                    cell.Avatar.image = UIImage(named: "avatar")
+                }
+                //  cell.ClassifyKind.image = UIImage(named: "\(issue?.classify)")
+                imagesBinder(cell.ImgesContainer, images: (issue?.images)!)
+            } else {
+                print("Current Issue is nil")
+            }
             
             return cell
 
-        }
-        else
-        {
+        } else {
             identifier = "DetailComment"
             let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as! VoiceDetailTableViewCell
-           // dataBinder(cell,issumeComment)
+            dataBinder(cell, issueComment: self.commentList[indexPath.row-1])
             return cell
         }
         
@@ -153,11 +206,23 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
 
 //MARK:- Data binder
 //TODO:- bind every comment data to the view
-//
-//    func dataBinder(cell: VoiceDetailTableViewCell,issueComment:IssueComment)
-//    {
-//        
-//    }
+
+    func dataBinder(cell: VoiceDetailTableViewCell,issueComment:Comment) {
+        cell.CommentContent.text = issueComment.content
+        cell.CommentTime.text = self.dateFormatter.stringFromDate(issueComment.time!)
+        
+        if let user = issueComment.user {
+            cell.CommentUserName.text = user.name
+            cell.CommentUserResume.text = "\(user.resume)"
+            if let image = user.avatar {
+                cell.CommentUserAvatar.image = image
+            } else {
+                cell.CommentUserAvatar.image = UIImage(named: "avatar")
+            }
+        } else {
+            print("There is no comment user")
+        }
+    }
     
     
     

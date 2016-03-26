@@ -14,11 +14,13 @@ enum IssueClassify:String {
 }
 
 class Issue {
-    var avatar:UIImage?
+    let dateFormatter = NSDateFormatter()
+    
     var userEmail:String
     var userName:String
-    var userResume:Int = 100
+    var user:User? = nil
     
+    var id:String? = nil
     var time:NSDate?
     var title:String
     var abstract:String
@@ -30,14 +32,11 @@ class Issue {
     var replyId = ""
     var images:[UIImage] = []
     
-    init(avatar:UIImage?, email:String, name: String, resume:Int?, time:NSDate?, title:String, abstract:String, content:String, classify:String, focusNum:Int?, city:String, replied:Bool?, images:[UIImage]) {
-        self.avatar = avatar
+    init(issueId:String?, email:String, name: String, time:NSDate?, title:String, abstract:String, content:String, classify:String, focusNum:Int?, city:String, replied:Bool?, images:[UIImage]) {
         self.userEmail = email
         self.userName = name
-        if nil != resume {
-            self.userResume = resume!
-        }
         
+        self.id = issueId
         self.time = time
         self.title = title
         self.abstract = abstract
@@ -51,6 +50,12 @@ class Issue {
             self.isReplied = isReplied
         }
         self.images = images
+        
+        dateFormatter.dateFormat = "yyyy.MM.dd"
+    }
+    
+    func getDateString() -> String {        
+        return dateFormatter.stringFromDate(time!)
     }
     
 }

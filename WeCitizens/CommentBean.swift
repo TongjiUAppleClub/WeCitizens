@@ -10,16 +10,15 @@ import Foundation
 import UIKit
 
 class Comment {
-    var avatar:UIImage?
     var userEmail:String
     var userName:String
+    var user:User? = nil
     
     var time:NSDate?
     var issueId:String
     var content:String
     
-    init(avatar:UIImage?, email:String, name:String, time:NSDate?, id:String, content:String) {
-        self.avatar = avatar
+    init(email:String, name:String, time:NSDate?, id:String, content:String) {
         self.userEmail = email
         self.userName = name
         

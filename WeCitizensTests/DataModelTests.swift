@@ -25,13 +25,15 @@ class DataModelTests: XCTestCase {
         super.tearDown()
     }
     
+    //completed
     func testGetIssue() {
         testDataModel.getIssue(20, queryTimes: 0, cityName: "shanghai") { (objects, error) -> Void in
-            self.expectation!.fulfill()
+            XCTAssertNil(error)
+            XCTAssertNotNil(objects)
             if nil == error {
                 if let results = objects {
                     for result in results {
-                        print("ISSUE:\(result.content)")
+                        print("Issue:\(result.content)")
                     }
                 } else {
                     XCTAssert(1 == 2)
@@ -40,17 +42,21 @@ class DataModelTests: XCTestCase {
                 XCTAssert(1 == 2)
                 print("Error: \(error!) \(error!.userInfo)")
             }
+            self.expectation!.fulfill()
         }
         self.waitForExpectationsWithTimeout(10.0, handler: nil)
     }
     
+    //completed
     func testGetComment() {
-        testDataModel.getComment(20, queryTimes: 0, issueId: "") { (objects, error) -> Void in
+        testDataModel.getComment(20, queryTimes: 0, issueId: "7hPxfbuamI") { (objects, error) -> Void in
+            XCTAssertNil(error)
+            XCTAssertNotNil(objects)
             self.expectation!.fulfill()
             if nil == error {
                 if let results = objects {
                     for result in results {
-                        print("ISSUE:\(result.content)")
+                        print("Comment:\(result.content)")
                     }
                 } else {
                     XCTAssert(1 == 2)
@@ -63,21 +69,25 @@ class DataModelTests: XCTestCase {
         self.waitForExpectationsWithTimeout(10.0, handler: nil)
     }
 
+    //there is error
     func testGetReply() {
         testDataModel.getReply(20, queryTimes: 0, cityName: "shanghai") { (objects, error) -> Void in
+            XCTAssertNil(error)
+            XCTAssertNotNil(objects)
+            print("aksdjfaksdjfkasjdf")
+//            if nil == error {
+//                if let results = objects {
+//                    for result in results {
+//                        print("Reply Content:\(result.content)")
+//                        print("Reply name:\(result.userName)")
+//                    }
+//                } else {
+//                    XCTAssert(1 == 2)
+//                }
+//            } else {
+//                print("Error: \(error!) \(error!.userInfo)")
+//            }
             self.expectation!.fulfill()
-            if nil == error {
-                if let results = objects {
-                    for result in results {
-                        print("ISSUE:\(result.content)")
-                    }
-                } else {
-                    XCTAssert(1 == 2)
-                }
-            } else {
-                XCTAssert(1 == 2)
-                print("Error: \(error!) \(error!.userInfo)")
-            }
         }
         self.waitForExpectationsWithTimeout(10.0, handler: nil)
     }
@@ -88,7 +98,7 @@ class DataModelTests: XCTestCase {
             if nil == error {
                 if let results = objects {
                     for result in results {
-                        print("ISSUE:\(result.name)")
+                        print("City:\(result.name)")
                     }
                 } else {
                     XCTAssert(1 == 2)
@@ -103,7 +113,7 @@ class DataModelTests: XCTestCase {
     
     
     func testNewIssue() {
-        let newIssue = Issue(avatar: nil, email: "test", name: "test", resume: nil, time: nil, title: "", abstract: "", content: "", classify: "test", focusNum: nil, city: "shanghai", replied: nil, images: [])
+        let newIssue = Issue(email: "test", name: "test", time: nil, title: "", abstract: "", content: "", classify: "test", focusNum: nil, city: "shanghai", replied: nil, images: [])
         
         
         testDataModel.addNewIssue(newIssue) { (success, error) -> Void in
@@ -158,7 +168,7 @@ class DataModelTests: XCTestCase {
     }
     
     func testNewReply() {
-        let newReply = Reply(avatar: nil, email: "test", name: "test", time: nil, issueId: "tsWW9HwEJp", content: "testNewReply", city: "shanghai", level: nil, images: [])
+        let newReply = Reply(email: "test", name: "test", time: nil, issueId: "tsWW9HwEJp", content: "testNewReply", city: "shanghai", level: nil, images: [])
         
         testDataModel.addNewReply(newReply) { (success, error) -> Void in
             XCTAssertNil(error)

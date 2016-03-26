@@ -12,6 +12,8 @@ class UserModelTests: XCTestCase {
     
     let testUserModel = UserModel()
     var expectation:XCTestExpectation? = nil
+    let users = ["843018739@qq.com", "843018739@qq.com", "843018739@qq.com"]
+
 
     override func setUp() {
         super.setUp()
@@ -46,7 +48,31 @@ class UserModelTests: XCTestCase {
         }
         self.waitForExpectationsWithTimeout(10.0, handler: nil)
     }
+    
+    func testSetAvatar() {
+        
+    }
 
+    func testGetUserData() {
+        testUserModel.getUsersAvatar(users) { (objects, error) -> Void in
+            XCTAssertNil(error)
+            if error == nil {
+                XCTAssertNotNil(objects)
+                if let users = objects {
+                    for user in users {
+                        print("User:\(user.name)")
+                    }
+                }
+            } else {
+                print("Error: \(error!) \(error!.userInfo)")
+            }
+            self.expectation!.fulfill()
+        }
+        self.waitForExpectationsWithTimeout(10.0) { (error) -> Void in
+            print("Error: \(error)")
+        }
+    }
+    
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measureBlock {
