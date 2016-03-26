@@ -22,8 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Initialize Prase
         Parse.setApplicationId("2PVQUIOrjJC2tiMONyyeICDPVFW6CrHdAKlBbJjx", clientKey: "WB4B05hYeHOSTNOe0ASLli8AFJDjKdDAk8HZQIju")
         
-        UINavigationBar.appearance().tintColor = UIColor(red: 237.0/255, green: 78/255, blue: 48/255, alpha: 1.0)
-        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor(red: 237.0/255, green: 78/255, blue: 48/255, alpha: 0.8)]
+        UINavigationBar.appearance().tintColor = UIColor.lxd_MainBlueColor()
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.lxd_MainBlueColor()]
         UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: true)
         // [Optional] Track statistics around application opens.
         PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
@@ -51,6 +51,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+}
+
+public extension UIColor
+{
+    class func lxd_MainBlueColor() ->UIColor{
+        return UIColor(red: 32/255, green: 179/255, blue: 245/255, alpha: 1.0)
     }
 }
 

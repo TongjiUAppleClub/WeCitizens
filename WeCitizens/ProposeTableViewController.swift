@@ -185,10 +185,11 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
         
         
         locationLabel.text = currentLocal
-        locationLabel.textColor = UIColor(red: 237.0/255, green: 78/255, blue: 48/255, alpha: 1.0)
+        locationLabel.textColor = UIColor.lxd_MainBlueColor()
         locationLabel.textAlignment = NSTextAlignment.Right
         
         switchButton.setImage(UIImage(named: "switch"), forState: .Normal)
+    
         switchButton.addTarget(self, action: "ChangeLocation:", forControlEvents: UIControlEvents.TouchUpInside)
         
         titleView.addSubview(locationLabel)
