@@ -108,38 +108,38 @@ class DataModel {
         query.limit = queryNum
         query.skip = queryNum * queryTimes
 
-        query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
+        query.findObjectsInBackgroundWithBlock { (results, error) -> Void in
             if nil == error {
-                print("Successfully retrieved \(objects!.count) replies.")
+                print("Successfully retrieved \(results!.count) replies.")
                 
-                if let results = objects {
+                if let objects = results {
                     var replies = [Reply]()
-                    print("SIZE:\(results.count)")
+                    print("SIZE:\(objects.count)")
                     
-                    for result in results {
+                    for result in objects {
                         let email = result.objectForKey("userEmail") as! String
                         let name = result.objectForKey("userName") as! String
                         
+                        let title = result.objectForKey("title") as! String
                         let time = result.createdAt!
                         let id = result.objectForKey("issueId") as! String
                         let city = result.objectForKey("city") as! String
                         let content = result.objectForKey("content") as! String
-                        
+
                         let satisfyDictionary = result.objectForKey("satisfyLevel") as! NSDictionary
                         let level1 = satisfyDictionary.valueForKey("level1") as! Int
                         let level2 = satisfyDictionary.valueForKey("level2") as! Int
                         let level3 = satisfyDictionary.valueForKey("level3") as! Int
                         let level4 = satisfyDictionary.valueForKey("level4") as! Int
                         let satisfy = Satisfy(num1: level1, num2: level2, num3: level3, num4: level4)
-                        
+
                         let images = result.objectForKey("images") as! NSArray
                         let imageList = DataModel.convertArrayToImages(images)
                         
-                        let newReply = Reply(email: email, name: name, time: time, issueId: id, content: content, city: city, level: satisfy, images: imageList)
-                        
+                        let newReply = Reply(email: email, name: name, time: time, issueId: id, title: title, content: content, city: city, level: satisfy, images: imageList)
+
                         replies.append(newReply)
                     }
-                    print("REPLY2")
                     resultHandler(replies, nil)
                 } else {
                     //Log details of the failure
@@ -303,11 +303,11 @@ class DataModel {
         reply["userName"] = newReply.userName
 //        reply["avatar"] = newReply.avatar
         
-        reply["content"] = newReply.content
-        reply["issueId"] = newReply.issueId
-        reply["city"] = newReply.city
-        reply["satisfyLevel"] = newReply.satisfyLevel
-        reply["images"] = self.convertImageToPFFile(newReply.images)
+//        reply["content"] = newReply.content
+//        reply["issueId"] = newReply.issueId
+//        reply["city"] = newReply.city
+//        reply["satisfyLevel"] = newReply.satisfyLevel
+//        reply["images"] = self.convertImageToPFFile(newReply.images)
         
         reply.saveInBackgroundWithBlock { (success, error) -> Void in
             if error == nil {
@@ -392,6 +392,7 @@ class DataModel {
                     let email = result.objectForKey("userEmail") as! String
                     let name = result.objectForKey("userName") as! String
                     
+                    let title = result.objectForKey("title") as! String
                     let time = result.createdAt!
                     let id = result.objectForKey("issueId") as! String
                     let city = result.objectForKey("city") as! String
@@ -407,7 +408,7 @@ class DataModel {
                     let images = result.objectForKey("images") as! NSArray                    
                     let imageList = DataModel.convertArrayToImages(images)
                     
-                    let newReply = Reply(email: email, name: name, time: time, issueId: id, content: content, city: city, level: satisfy, images: imageList)
+                    let newReply = Reply(email: email, name: name, time: time, issueId: id, title: title, content: content, city: city, level: satisfy, images: imageList)
                     
                     resultHandler(newReply, nil)
                 } else {

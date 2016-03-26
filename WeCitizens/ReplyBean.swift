@@ -28,32 +28,28 @@ class Reply {
     var userName:String
     var user:User? = nil
     
+    var title:String
     var time:NSDate?
     var issueId:String
     var content:String
     var city:String
-    var satisfyLevel = NSDictionary()
+    var satisfyLevel:Satisfy? = nil
     var images:[UIImage]
     
-    init(email:String, name:String, time:NSDate?, issueId:String, content:String, city:String, level:Satisfy?, images:[UIImage]) {
+    init(email:String, name:String, time:NSDate?, issueId:String, title:String, content:String, city:String, level:Satisfy?, images:[UIImage]) {
         self.userEmail = email
         self.userName = name
 
+        self.title = title
         self.time = time
         self.issueId = issueId
         self.content = content
         self.city = city
         
         if let _ = level {
-            self.satisfyLevel.setValue(level!.level1, forKey: "level1")
-            self.satisfyLevel.setValue(level!.level2, forKey: "level2")
-            self.satisfyLevel.setValue(level!.level3, forKey: "level3")
-            self.satisfyLevel.setValue(level!.level4, forKey: "level4")
+            self.satisfyLevel = level!
         } else {
-            self.satisfyLevel.setValue(0, forKey: "level1")
-            self.satisfyLevel.setValue(0, forKey: "level2")
-            self.satisfyLevel.setValue(0, forKey: "level3")
-            self.satisfyLevel.setValue(0, forKey: "level4")
+            self.satisfyLevel = Satisfy(num1: 0, num2: 0, num3: 0, num4: 0)
         }
         self.images = images
     }

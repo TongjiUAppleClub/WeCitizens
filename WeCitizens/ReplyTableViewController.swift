@@ -27,11 +27,13 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
     var dataModel = DataModel()
     var userModel = UserModel()
     var queryTimes = 0
+    let dateFormatter = NSDateFormatter()
     
 
 //MARK:- Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        dateFormatter.dateFormat = "yyyy.MM.dd"
         
         
         for _ in 0...kRowsCount {
@@ -44,14 +46,15 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
         
         //获取当前城市或用户设置城市
         let cityName = "shanghai"
-        
+        print("get reply")
         if 0 == replyList.count {
-            dataModel.getReply(20, queryTimes: queryTimes, cityName: cityName, resultHandler: { (issues, error) -> Void in
+            dataModel.getReply(20, queryTimes: queryTimes, cityName: cityName, resultHandler: { (replies, error) -> Void in
                 if error == nil {
-                    if let list = issues {
-                        self.replyList = list
+                    if let list = replies {
                         var userList = [String]()
                         for reply in list {
+                            print("remote data:\(reply.userName)")
+                            self.replyList.append(reply)
                             userList.append(reply.userEmail)
                         }
                         self.userModel.getUsersAvatar(userList, resultHandler: { (objects, error) -> Void in
@@ -88,7 +91,7 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return replyList.count
     }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
@@ -121,20 +124,20 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
         let cell = tableView.dequeueReusableCellWithIdentifier("FoldingCell", forIndexPath: indexPath) as! ReplyTableViewCell
         
         //测试数据
-        cell.CResponseButton.tag = indexPath.section
-        cell.CResponseButton.addTarget(self, action: "CheckResponse:", forControlEvents: .TouchUpInside)
-        cell.EvaluateButton.tag = indexPath.section
-        cell.EvaluateButton.addTarget(self, action: "ScrollToEvaluate:", forControlEvents: .TouchUpInside)
-        cell.CheckHistoryButton.tag = indexPath.section
-        cell.CheckHistoryButton.addTarget(self, action: "CheckHistory:", forControlEvents: .TouchUpInside)
-        cell.SubmitButton.tag = indexPath.section
-        cell.SubmitButton.addTarget(self, action: "Submit:", forControlEvents: .TouchUpInside)
-        cell.radioButtonController?.delegate = self
+//        cell.CResponseButton.tag = indexPath.section
+//        cell.CResponseButton.addTarget(self, action: "CheckResponse:", forControlEvents: .TouchUpInside)
+//        cell.EvaluateButton.tag = indexPath.section
+//        cell.EvaluateButton.addTarget(self, action: "ScrollToEvaluate:", forControlEvents: .TouchUpInside)
+//        cell.CheckHistoryButton.tag = indexPath.section
+//        cell.CheckHistoryButton.addTarget(self, action: "CheckHistory:", forControlEvents: .TouchUpInside)
+//        cell.SubmitButton.tag = indexPath.section
+//        cell.SubmitButton.addTarget(self, action: "Submit:", forControlEvents: .TouchUpInside)
+//        cell.radioButtonController?.delegate = self
         
         imagesBinder(cell.imgContainer, images: [UIImage(named: "logo")!,UIImage(named: "logo")!])
         imagesBinder(cell.CimgContainer, images: [UIImage(named: "logo")!,UIImage(named: "logo")!])
         
-//      dataBinder(cell,<#Response#>)
+        dataBinder(cell, reply: self.replyList[indexPath.row])
         
     
         return cell
@@ -202,20 +205,27 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
     }
     
 //MARK:- Data Binder
-//    func dataBinder(cell:ReplyTableViewCell,comment:<#Response#>)
-//    {
-//        cell.Favatar.image = <#User Avatar#>
-//        cell.CAvatar.image = <#User Avatar#>
-//        
-//        cell.FAgency.text = <#AgencyName#>
-//        cell.ResponseTitle.text = <#Response Title#>
-//        cell.CTitle.text = <#Response Title#>
-//        cell.SupportPercent.text = <#Support Percent#>
-//        cell.CSupport.text = "本回应的当前满意率为 \(<#Support Percent#>>)%"
-//        cell.CContent.text = <#Response Content#>
-//        cell.CResponseTime.text = <#Response Time#>
-//        
-//    }
+    func dataBinder(cell:ReplyTableViewCell,reply: Reply) {
+        let user = reply.user!
+        
+        if let image = user.avatar {
+            cell.Favatar.image = image
+            cell.CAvatar.image = image
+        } else {
+            cell.Favatar.image = UIImage(named: "avatar")
+            cell.CAvatar.image = UIImage(named: "avatar")
+        }
+
+        
+        cell.FAgency.text = user.name//机构名称
+        cell.ResponseTitle.text = reply.title
+        cell.CTitle.text = reply.title
+        cell.SupportPercent.text = "80.0%"//满意率
+        cell.CSupport.text = "本回应的当前满意率为 \(80.0)%"
+        cell.CContent.text = reply.content
+        cell.CResponseTime.text = dateFormatter.stringFromDate(reply.time!)//"yyyy.MM.dd"
+        
+    }
 
     func imagesBinder(containter:UIView,images:[UIImage])
     {

@@ -74,19 +74,6 @@ class DataModelTests: XCTestCase {
         testDataModel.getReply(20, queryTimes: 0, cityName: "shanghai") { (objects, error) -> Void in
             XCTAssertNil(error)
             XCTAssertNotNil(objects)
-            print("aksdjfaksdjfkasjdf")
-//            if nil == error {
-//                if let results = objects {
-//                    for result in results {
-//                        print("Reply Content:\(result.content)")
-//                        print("Reply name:\(result.userName)")
-//                    }
-//                } else {
-//                    XCTAssert(1 == 2)
-//                }
-//            } else {
-//                print("Error: \(error!) \(error!.userInfo)")
-//            }
             self.expectation!.fulfill()
         }
         self.waitForExpectationsWithTimeout(10.0, handler: nil)
@@ -113,8 +100,7 @@ class DataModelTests: XCTestCase {
     
     
     func testNewIssue() {
-        let newIssue = Issue(email: "test", name: "test", time: nil, title: "", abstract: "", content: "", classify: "test", focusNum: nil, city: "shanghai", replied: nil, images: [])
-        
+        let newIssue = Issue(issueId: "test", email: "test", name: "test", time: nil, title: "test", abstract: "tset", content: "tset", classify: "test", focusNum: nil, city: "test", replied: nil, images: [])
         
         testDataModel.addNewIssue(newIssue) { (success, error) -> Void in
             self.expectation!.fulfill()
@@ -168,7 +154,7 @@ class DataModelTests: XCTestCase {
     }
     
     func testNewReply() {
-        let newReply = Reply(email: "test", name: "test", time: nil, issueId: "tsWW9HwEJp", content: "testNewReply", city: "shanghai", level: nil, images: [])
+        let newReply = Reply(email: "test", name: "test", time: nil, issueId: "test", title: "test", content: "test", city: "test", level: nil, images: [])
         
         testDataModel.addNewReply(newReply) { (success, error) -> Void in
             XCTAssertNil(error)

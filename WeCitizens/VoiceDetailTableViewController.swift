@@ -156,7 +156,7 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        //这个issue内容是咋么填的？还有评论怎么填的？
+        //这个issue内容是咋么填的？
         var identifier = ""
         
         if( indexPath.row == 0 ) {
@@ -164,6 +164,7 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
             let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as! VoiceTitleTableViewCell
             
             if let currentIssue = issue, issueUser = issue?.user {
+//                 = currentIssue.content
                 cell.CommentUser.text = currentIssue.userName
                 cell.Reputation.text = "\(issueUser.resume)"
                 cell.Classify.text = currentIssue.classify.rawValue
