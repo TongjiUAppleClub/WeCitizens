@@ -24,7 +24,7 @@ class SignUpViewController: PFSignUpViewController{
     func ConfigureUI()
     {
         let offsetX = CGFloat(30)
-        let TheColor = UIColor(red: 243/255, green: 77/255, blue: 53/255, alpha: 1.0)
+        let TheColor = UIColor.lxd_MainBlueColor()
         
         // logo
         var logoF = signUpView?.logo?.frame
@@ -41,7 +41,7 @@ class SignUpViewController: PFSignUpViewController{
         signUpView?.usernameField?.frame = userframe!
         signUpView?.usernameField!.layer.borderWidth = 1.3
         signUpView?.usernameField!.layer.borderColor = TheColor.CGColor
-        signUpView?.usernameField!.layer.cornerRadius = 8
+        signUpView?.usernameField!.layer.cornerRadius = (signUpView?.usernameField?.frame.height)!/2
         
         
         
@@ -50,7 +50,7 @@ class SignUpViewController: PFSignUpViewController{
         
         signUpView?.passwordField?.borderStyle = .None
         signUpView?.passwordField?.frame = passframe!
-        signUpView?.passwordField?.layer.cornerRadius = 8
+        signUpView?.passwordField?.layer.cornerRadius = (signUpView?.passwordField?.frame.height)!/2
         signUpView?.passwordField?.layer.borderColor = TheColor.CGColor
         signUpView?.passwordField?.layer.borderWidth = 1.3
         
@@ -59,7 +59,7 @@ class SignUpViewController: PFSignUpViewController{
         
         signUpView?.emailField?.borderStyle = .None
         signUpView?.emailField?.frame = emailF!
-        signUpView?.emailField?.layer.cornerRadius = 8
+        signUpView?.emailField?.layer.cornerRadius = (signUpView?.emailField?.frame.height)!/2
         signUpView?.emailField?.layer.borderColor = TheColor.CGColor
         signUpView?.emailField?.layer.borderWidth = 1.3
         
@@ -71,7 +71,7 @@ class SignUpViewController: PFSignUpViewController{
         
         signUpView?.signUpButton?.setBackgroundImage(nil, forState: .Normal)
         signUpView?.signUpButton?.frame = buttonF!
-        signUpView?.signUpButton?.layer.cornerRadius = 10
+        signUpView?.signUpButton?.layer.cornerRadius = (signUpView?.signUpButton?.frame.height)!/2
         signUpView?.signUpButton?.layer.borderWidth = 1.2
         signUpView?.signUpButton?.layer.borderColor = TheColor.CGColor
         signUpView?.signUpButton?.backgroundColor = TheColor

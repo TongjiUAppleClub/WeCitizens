@@ -57,14 +57,18 @@ class WelcomeViewController: UIViewController,PFSignUpViewControllerDelegate,PFL
     
     
     override func viewDidLayoutSubviews() {
-        let TheColor = UIColor(red: 243/255, green: 77/255, blue: 53/255, alpha: 1.0)
+        let TheColor = UIColor.lxd_MainBlueColor()
         super.viewDidLayoutSubviews()
         LoginB.layer.cornerRadius = LoginB.frame.height/2
         LoginB.layer.borderColor = TheColor.CGColor
+        LoginB.backgroundColor = UIColor.lxd_MainBlueColor()
         LoginB.layer.borderWidth = 1.2
+        LoginB.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         SignupB.layer.cornerRadius = SignupB.frame.height/2
         SignupB.layer.borderWidth = 1.2
+        SignupB.backgroundColor = UIColor.clearColor()
         SignupB.layer.borderColor = TheColor.CGColor
+        SignupB.setTitleColor(UIColor.lxd_MainBlueColor(), forState: .Normal)
         
     }
     

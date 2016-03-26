@@ -25,8 +25,7 @@ class LoginViewController: PFLogInViewController {
     func ConfigureUI()
     {
         let offsetX = CGFloat(30)
-        let TheColor = UIColor(red: 243/255, green: 77/255, blue: 53/255, alpha: 1.0)
-        
+        let TheColor = UIColor.lxd_MainBlueColor()
         // logo
         var logoF = logInView?.logo?.frame
         logoF?.origin.y -= 50
@@ -42,7 +41,7 @@ class LoginViewController: PFLogInViewController {
         logInView?.usernameField?.frame = userframe!
         logInView?.usernameField!.layer.borderWidth = 1.3
         logInView?.usernameField!.layer.borderColor = TheColor.CGColor
-        logInView?.usernameField!.layer.cornerRadius = 8
+        logInView?.usernameField!.layer.cornerRadius = (logInView?.usernameField?.frame.height)!/2
         
         
         
@@ -51,7 +50,7 @@ class LoginViewController: PFLogInViewController {
         
         logInView?.passwordField?.borderStyle = .None
         logInView?.passwordField?.frame = passframe!
-        logInView?.passwordField?.layer.cornerRadius = 8
+        logInView?.passwordField?.layer.cornerRadius = (logInView?.passwordField?.frame.height)!/2
         logInView?.passwordField?.layer.borderColor = TheColor.CGColor
         logInView?.passwordField?.layer.borderWidth = 1.3
         
@@ -65,7 +64,7 @@ class LoginViewController: PFLogInViewController {
         logInView?.logInButton?.setBackgroundImage(nil, forState: .Normal)
         logInView?.logInButton?.frame = buttonF!
         logInView?.logInButton?.layer.borderWidth = 1.2
-        logInView?.logInButton?.layer.cornerRadius = 10
+        logInView?.logInButton?.layer.cornerRadius = (logInView?.logInButton?.frame.height)!/2
         logInView?.logInButton?.layer.borderColor = TheColor.CGColor
         logInView?.logInButton?.backgroundColor = TheColor
         
