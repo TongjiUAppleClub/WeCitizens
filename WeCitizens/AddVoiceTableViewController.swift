@@ -71,18 +71,12 @@ class AddVoiceTableViewController: UITableViewController,UITextViewDelegate, UII
     
     @IBAction func PickImages(sender: UIBarButtonItem) {
         
-
-        
         self.ts_presentImagePickerController(
             maxNumberOfSelections: 4,
             select: { (asset: PHAsset) -> Void in
-            //    print("Selected: \(asset)")
             }, deselect: { (asset: PHAsset) -> Void in
-            //    print("Deselected: \(asset)")
             }, cancel: { (assets: [PHAsset]) -> Void in
-            //    print("Cancel: \(assets)")
             }, finish: { (assets: [PHAsset]) -> Void in
-            //    print("Finish: \(assets)")
                 for (index,asset) in assets.enumerate()
                 {
                     let image = asset.getUIImage()

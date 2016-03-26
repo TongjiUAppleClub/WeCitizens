@@ -286,7 +286,7 @@
                         <barButtonItem key="leftBarButtonItem" title="地图" id="ESt-E8-sjH"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="compose" id="gmg-4V-Xnd">
                             <connections>
-                                <segue destination="Zki-Lq-Lrl" kind="push" id="boD-Ol-bjz"/>
+                                <segue destination="Zki-Lq-Lrl" kind="push" identifier="PushVoice" id="boD-Ol-bjz"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
