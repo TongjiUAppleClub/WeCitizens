@@ -8,12 +8,15 @@ target 'WeCitizens' do
 # swift
 pod 'Alamofire'
 pod 'SnapKit'
-pod 'Parse', '~> 1.10.0'
-pod 'ParseUI', '~> 1.1.7' 
 pod 'FoldingCell'
 pod 'BSImagePicker', '~> 2.2'
 
 # objective-c
+pod 'MBProgressHUD', '~> 0.9.2'
+pod 'MJRefresh'
+pod 'Parse', '~> 1.10.0'
+pod 'ParseUI', '~> 1.1.7'
+
 
 end
 
