@@ -16,7 +16,7 @@ class VoiceDetailTableViewCell: UITableViewCell {
     @IBOutlet weak var CommentUserResume: UILabel!
     @IBOutlet weak var CommentUserName: UILabel!
     @IBOutlet weak var CommentContent: UITextView!
-    @IBOutlet weak var CommentTime: UILabel!
+    @IBOutlet weak var CommentTime: UILabel! 
     
     
     
