@@ -59,5 +59,25 @@ public extension UIColor
     class func lxd_MainBlueColor() ->UIColor{
         return UIColor(red: 32/255, green: 179/255, blue: 245/255, alpha: 1.0)
     }
+    
+    class func lxd_YellowColor() -> UIColor {
+        return UIColor(red: 242/255, green: 228/255, blue: 76/255, alpha: 1.0)
+
+    }
+    
+}
+
+public extension UIImageView
+{
+    class func lxd_CircleImage(imageView: UIImageView,borderColor:UIColor,borderWidth:CGFloat) -> UIImageView
+    {
+        imageView.layer.masksToBounds = false
+        imageView.layer.borderWidth = borderWidth
+        imageView.layer.borderColor = borderColor.CGColor
+        imageView.layer.cornerRadius = imageView.frame.height/2
+        imageView.clipsToBounds = true 
+        
+        return imageView
+    }
 }
 

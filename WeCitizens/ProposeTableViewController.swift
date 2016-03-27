@@ -105,11 +105,11 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
     
 // MARK:- Table view data source && delegate
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return issueList.count
+        return 1
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 3
+        return issueList.count
     }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
