@@ -14,11 +14,15 @@ class User {
     var name:String
     var email:String
     var resume:Int
+    var voiceNum:Int
+    var focusNum:Int
     
-    init(image:UIImage?, name:String, email:String, resume:Int) {
+    init(image:UIImage?, name:String, email:String, resume:Int, voiceNum:Int, focusNum:Int) {
         self.avatar = image
         self.name = name
         self.email = email
         self.resume = resume
+        self.voiceNum = voiceNum
+        self.focusNum = focusNum
     }
 }

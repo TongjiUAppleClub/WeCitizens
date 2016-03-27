@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class MineViewController: UITableViewController {
 
@@ -15,8 +16,29 @@ class MineViewController: UITableViewController {
     @IBOutlet weak var UserName: UILabel!
     @IBOutlet weak var Reputation: UILabel!
     
+    let userModel = UserModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let userEmail = PFUser.currentUser()?.email
+        
+        userModel.getUserInfo(userEmail!) { (currentUser, error) -> Void in
+            if nil == error {
+                if let user = currentUser {
+                    //获取到user信息
+                } else {
+                    //获取信息失败
+                }
+            } else {
+                //获取信息失败
+            }
+        }
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -24,8 +46,7 @@ class MineViewController: UITableViewController {
         UIconfigure()
     }
     
-    func UIconfigure()
-    {
+    func UIconfigure() {
       tableView.backgroundView = UIImageView(image: UIImage(named: "mine_view_background"))
       self.navigationController?.navigationBar.hidden = true
       HeadView.backgroundColor = UIColor.lxd_MainBlueColor()

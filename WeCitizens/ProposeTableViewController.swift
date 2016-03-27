@@ -26,8 +26,8 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
         }
     }
     
-    var issueList = [Issue]()
-    let dataModel = DataModel()
+    var voiceList = [Voice]()
+    let voiceModel = VoiceModel()
     let userModel = UserModel()
     var queryTimes = 0
     
@@ -48,24 +48,24 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
 //        //获取当前城市或用户设置城市
         let cityName = "shanghai"
         
-        if 0 == issueList.count {
-            dataModel.getIssue(20, queryTimes: self.queryTimes, cityName: cityName, resultHandler: { (issues, error) -> Void in
+        if 0 == voiceList.count {
+            voiceModel.getVoice(20, queryTimes: self.queryTimes, cityName: cityName, resultHandler: { (voices, error) -> Void in
                 if error == nil {
-                    if let list = issues {
-                        self.issueList = list
+                    if let list = voices {
+                        self.voiceList = list
                         var userList = [String]()
                         for object in list {
-                            print("Issue内容:\(object.userEmail)")
+                            print("Voice内容:\(object.content)")
                             userList.append(object.userEmail)
                         }
                         self.userModel.getUsersAvatar(userList, resultHandler: { (objects, error) -> Void in
                             if nil == error {
                                 if let results = objects {
-                                    for issue in self.issueList {
+                                    for voice in self.voiceList {
                                         for user in results {
                                             print("User:\(user.name)")
-                                            if issue.userEmail == user.email {
-                                                issue.user = user
+                                            if voice.userEmail == user.email {
+                                                voice.user = user
                                                 
                                             }
                                         }
@@ -82,7 +82,7 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
                         })
                     }
                 } else {
-                    print("Get Issue info Propose Error: \(error!) \(error!.userInfo)")
+                    print("Get Voice info Propose Error: \(error!) \(error!.userInfo)")
                 }
             })
         }
@@ -100,21 +100,18 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return issueList.count
+        return voiceList.count
     }
     
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
-    {
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 7
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
-    {
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.performSegueWithIdentifier("ShowDetail", sender: indexPath)
     }
     
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
-    {
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView(frame: (CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 7)) )
         view.backgroundColor = UIColor.clearColor()
         return view
@@ -123,39 +120,17 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
       let cell = tableView.dequeueReusableCellWithIdentifier("CommentCell", forIndexPath: indexPath) as! CommentTableViewCell
         
-//        cell.VoiceTitle.text = testTitle//测试数据
-//        cell.Avatar.image = tmpAvatar
-//        cell.CommentUser.text = testCommentUser
-//        cell.UpdateTime.text = testTime
-//        cell.Abstract.text = testAbstract
-//        cell.Classify.text = testClassify
-//        cell.Reputation.text = testReputaion
-        
-        cell.VoiceTitle.text = issueList[indexPath.row].title
-        if let image = issueList[indexPath.row].user!.avatar {
-            cell.Avatar.image = image
-        } else {
-            cell.Avatar.image = tmpAvatar
-        }
-        cell.Reputation.text = "\(issueList[indexPath.row].user!.resume)"
-        cell.CommentUser.text = "\(issueList[indexPath.row].user!.name)"
-        cell.UpdateTime.text = issueList[indexPath.row].getDateString()
-        cell.Abstract.text = issueList[indexPath.row].abstract
-        cell.Classify.text = issueList[indexPath.row].classify.rawValue
-        
-
-   //  Uncomment This Line and Delete the line above to bind the data to cell
-   //  dataBinder(cell,issues[indexPath.row])
-       imagesBinder(cell.ImgesContainer, images: testImages )
-       return cell
+        dataBinder(cell, voice: self.voiceList[indexPath.section])
+        imagesBinder(cell.ImgesContainer, images: testImages )
+        return cell
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "ShowDetail") {
             let controller = segue.destinationViewController as! VoiceDetailTableViewController
             let row = ( sender as! NSIndexPath ).row
-            controller.title = self.issueList[row].title
-            controller.issue = self.issueList[row]
+            controller.title = self.voiceList[row].title
+            controller.voice = self.voiceList[row]
         
         } else if (segue.identifier == "PushVoice") {
             let controller = segue.destinationViewController as! AddVoiceTableViewController
@@ -166,8 +141,7 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
     
 //MARK:- UIConfigure
     
-    func configureUI()
-    {
+    func configureUI() {
         tableView.backgroundColor = UIColor(red: 216/255, green: 216/255, blue: 216/255, alpha: 1.0)
         
         let titleView = UIView(frame: (CGRectMake(0, 0, 150, 44)))
@@ -188,8 +162,7 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
         self.navigationItem.titleView = titleView
     }
     
-    func ChangeLocation(sender:UIButton)
-    {
+    func ChangeLocation(sender:UIButton) {
         let controller = storyboard?.instantiateViewControllerWithIdentifier("LocationTable")
         self.navigationController?.pushViewController(controller!, animated: true)
         
@@ -197,8 +170,7 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
     
 //MARK:- Location Init
     func initLocation() {
-        if CLLocationManager.locationServicesEnabled()
-        {
+        if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
             locationManager.distanceFilter = 1000
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
@@ -229,16 +201,18 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
         }
     }
 
-//MARK:- Data Binder这个是干啥的？
-    func dataBinder(cell:CommentTableViewCell,comment:Issue) {
-        cell.VoiceTitle.text = comment.title
-//        cell.Avatar.image = comment.avatar//使用UserModel请求头像
-        cell.CommentUser.text = comment.userName
-        cell.UpdateTime.text = "今天"//comment.time
-        cell.Abstract.text = comment.abstract
-//        cell.Classify.text = comment.classify
-//        cell.ClassifyKind = UIImageView(image: UIImage(named: comment.classify))
-//        cell.Reputation.text = "\(comment.userResume)"//使用UserModel请求用户信誉度
+    func dataBinder(cell:CommentTableViewCell,voice:Voice) {
+        cell.VoiceTitle.text = voice.title
+        if let image = voice.user!.avatar {
+            cell.Avatar.image = image
+        } else {
+            cell.Avatar.image = tmpAvatar
+        }
+        cell.Reputation.text = "\(voice.user!.resume)"
+        cell.CommentUser.text = "\(voice.user!.name)"
+        cell.UpdateTime.text = voice.getDateString()
+        cell.Abstract.text = voice.abstract
+        cell.Classify.text = voice.classify.rawValue
     }
     
     func imagesBinder(containter:UIView,images:[UIImage]) {

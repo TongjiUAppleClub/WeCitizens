@@ -28,10 +28,10 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
     
     
 //TODO:- 从前面的那个segue中传过来，不要从网络上拿了，但是内容还有评论要从网络上获取
-    let dataModel = DataModel()
+    let commentModel = CommentModel()
     let userModel = UserModel()
     var queryTimes = 0
-    var issue:Issue?
+    var voice:Voice?
     var commentList = [Comment]()
     var dateFormatter = NSDateFormatter()
     
@@ -105,8 +105,8 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
         super.viewWillAppear(animated)
         
         if 0 == commentList.count {
-            if let id = issue?.id {
-                dataModel.getComment(20, queryTimes: self.queryTimes, issueId: id, block: { (comments, error) -> Void in
+            if let id = voice?.id {
+                commentModel.getComment(20, queryTimes: self.queryTimes, issueId: id, block: { (comments, error) -> Void in
                     if nil == error {
                         if let list = comments {
                             self.commentList = list
@@ -163,7 +163,7 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
             identifier = "DetailTitle"
             let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as! VoiceTitleTableViewCell
             
-            if let currentIssue = issue, issueUser = issue?.user {
+            if let currentIssue = voice, issueUser = voice?.user {
                 cell.Abstract.text = currentIssue.content
                 cell.CommentUser.text = currentIssue.userName
                 cell.Reputation.text = "\(issueUser.resume)"
@@ -176,7 +176,7 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
                     cell.Avatar.image = UIImage(named: "avatar")
                 }
                 //  cell.ClassifyKind.image = UIImage(named: "\(issue?.classify)")
-                imagesBinder(cell.ImgesContainer, images: (issue?.images)!)
+                imagesBinder(cell.ImgesContainer, images: (voice?.images)!)
             } else {
                 print("Current Issue is nil")
             }
@@ -199,10 +199,10 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
         let content = self.textView.text
         let userEmail = PFUser.currentUser()?.email
         let userName = PFUser.currentUser()?.username
-        let id = self.issue?.id
+        let id = self.voice?.id
         let newComment = Comment(email: userEmail!, name: userName!, time: nil, id: id!, content: content)
         
-        dataModel.addNewComment(newComment) { (isSuccess, error) -> Void in
+        commentModel.addNewComment(newComment) { (isSuccess, error) -> Void in
             if nil == error {
                 if isSuccess {
                     print("Successfully save comment")

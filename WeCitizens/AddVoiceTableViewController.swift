@@ -24,7 +24,7 @@ class AddVoiceTableViewController: UITableViewController,UITextViewDelegate, UII
     
     let imagePickerController = UIImagePickerController()
     var isFullScreen:Bool = false
-    let dataModel = DataModel()
+    let voiceModel = VoiceModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,9 +60,9 @@ class AddVoiceTableViewController: UITableViewController,UITextViewDelegate, UII
         let userEmail = PFUser.currentUser()!.email!
         let voiceType = "教育"
         
-        let newIssue = Issue(issueId: nil, email: userEmail, name: userName, time: nil, title: title, abstract: abstract, content: content, status: nil, classify: voiceType, focusNum: nil, city: "shanghai", replied: nil, images: newImages)
+        let newVoice = Voice(voiceId: nil, email: userEmail, name: userName, time: nil, title: title, abstract: abstract, content: content, status: nil, classify: voiceType, focusNum: nil, city: "shanghai", replied: nil, images: newImages)
         
-        dataModel.addNewIssue(newIssue) { (success, error) -> Void in
+        voiceModel.addNewIssue(newVoice) { (success, error) -> Void in
             if nil == error {
                 if success {
                     print("Add new issue success")

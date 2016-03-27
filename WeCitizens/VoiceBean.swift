@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class Issue {
+class Voice {
     let dateFormatter = NSDateFormatter()
     
     var userEmail:String
@@ -29,11 +29,11 @@ class Issue {
     var status:Bool = false
     var images:[UIImage] = []
     
-    init(issueId:String?, email:String, name: String, time:NSDate?, title:String, abstract:String, content:String, status:Bool?, classify:String, focusNum:Int?, city:String, replied:Bool?, images:[UIImage]) {
+    init(voiceId:String?, email:String, name: String, time:NSDate?, title:String, abstract:String, content:String, status:Bool?, classify:String, focusNum:Int?, city:String, replied:Bool?, images:[UIImage]) {
         self.userEmail = email
         self.userName = name
         
-        self.id = issueId
+        self.id = voiceId
         self.time = time
         self.title = title
         self.abstract = abstract

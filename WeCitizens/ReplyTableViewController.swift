@@ -24,7 +24,7 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
     }
     
     var replyList = [Reply]()
-    var dataModel = DataModel()
+    var replyModel = ReplyModel()
     var userModel = UserModel()
     var queryTimes = 0
     let dateFormatter = NSDateFormatter()
@@ -43,7 +43,7 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
         let cityName = "shanghai"
         print("get reply")
         if 0 == replyList.count {
-            dataModel.getReply(20, queryTimes: queryTimes, cityName: cityName, resultHandler: { (replies, error) -> Void in
+            replyModel.getReply(20, queryTimes: queryTimes, cityName: cityName, resultHandler: { (replies, error) -> Void in
                 if error == nil {
                     if let list = replies {
                         var userList = [String]()
@@ -91,13 +91,11 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
         return 1
     }
     
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
-    {
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 7
     }
     
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
-    {
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView(frame: (CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 7)) )
         view.backgroundColor = UIColor.clearColor()
         return view
@@ -120,21 +118,10 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("FoldingCell", forIndexPath: indexPath) as! ReplyTableViewCell
         
-        //测试数据
-//        cell.CResponseButton.tag = indexPath.section
-//        cell.CResponseButton.addTarget(self, action: "CheckResponse:", forControlEvents: .TouchUpInside)
-//        cell.EvaluateButton.tag = indexPath.section
-//        cell.EvaluateButton.addTarget(self, action: "ScrollToEvaluate:", forControlEvents: .TouchUpInside)
-//        cell.CheckHistoryButton.tag = indexPath.section
-//        cell.CheckHistoryButton.addTarget(self, action: "CheckHistory:", forControlEvents: .TouchUpInside)
-//        cell.SubmitButton.tag = indexPath.section
-//        cell.SubmitButton.addTarget(self, action: "Submit:", forControlEvents: .TouchUpInside)
-//        cell.radioButtonController?.delegate = self
-        
         imagesBinder(cell.imgContainer, images: [UIImage(named: "logo")!,UIImage(named: "logo")!])
         imagesBinder(cell.CimgContainer, images: [UIImage(named: "logo")!,UIImage(named: "logo")!])
         
-        dataBinder(cell, reply: self.replyList[indexPath.row])
+        dataBinder(cell, reply: self.replyList[indexPath.section])
         
     
         return cell
@@ -173,14 +160,12 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
     
 //MARK:- Actions
 //TODO:- User Action Update to the server
-    func CheckResponse(sender:UIButton)
-    {
+    func CheckResponse(sender:UIButton) {
         print("查看相关提议\(sender.tag)")
         
     }
     
-    func CheckHistory(sender:UIButton)
-    {
+    func CheckHistory(sender:UIButton) {
         print("查看过往\(sender.tag)")
     }
     
@@ -194,8 +179,7 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
         currentUserChoose = aButton?.titleLabel?.text
     }
 
-    func ScrollToEvaluate(sender:UIButton)
-    {
+    func ScrollToEvaluate(sender:UIButton) {
         let indexPath = NSIndexPath(forRow: 0, inSection: sender.tag)
         tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: true)
     }
@@ -241,8 +225,7 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
         
     }
 
-    func imagesBinder(containter:UIView,images:[UIImage])
-    {
+    func imagesBinder(containter:UIView,images:[UIImage]) {
         let Xoffset = CGFloat(6)
         let Yoffset = CGFloat(4)
         for view in containter.subviews
