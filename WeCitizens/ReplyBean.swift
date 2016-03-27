@@ -10,16 +10,52 @@ import Foundation
 import UIKit
 
 class Satisfy {
-    var level1:Int//满意
-    var level2:Int//较满意
-    var level3:Int//较不满意
-    var level4:Int//不满意
+    var level1Num:Int//满意
+    var level2Num:Int//较满意
+    var level3Num:Int//较不满意
+    var level4Num:Int//不满意
+    var attitude:Int? = nil
+    
+    var satisfaction:Float32{
+        get {
+            return Float32((level1Num + level2Num + level3Num + level4Num)/10)
+        }
+    }
+    
+    var level1:Float32 {
+        get {
+            let tmp = level1Num*100/(level1Num + level2Num + level3Num + level4Num)
+            return Float32(Float32(tmp)/100)
+        }
+    }
+    
+    var level2:Float32 {
+        get {
+            let tmp = level2Num*100/(level1Num + level2Num + level3Num + level4Num)
+            return Float32(Float32(tmp)/100)
+        }
+    }
+
+    var level3:Float32 {
+        get {
+            let tmp = level3Num*100/(level1Num + level2Num + level3Num + level4Num)
+            return Float32(Float32(tmp)/100)
+        }
+    }
+
+    var level4:Float32 {
+        get {
+            let tmp = level4Num*100/(level1Num + level2Num + level3Num + level4Num)
+            return Float32(Float32(tmp)/100)
+        }
+    }
+
     
     init(num1:Int, num2:Int, num3:Int, num4:Int) {
-        self.level1 = num1
-        self.level2 = num2
-        self.level3 = num3
-        self.level4 = num4
+        self.level1Num = num1
+        self.level2Num = num2
+        self.level3Num = num3
+        self.level4Num = num4
     }
 }
 

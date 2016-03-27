@@ -50,7 +50,6 @@ class ReplyTableViewCell: FoldingCell,SSRadioButtonControllerDelegate{
     override func awakeFromNib() {
         super.awakeFromNib()
         configureUI()
-        drawBarChart([0.5,0.3,0.6,0.3])
         setButtons()
     }
 

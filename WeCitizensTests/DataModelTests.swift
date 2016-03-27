@@ -100,7 +100,7 @@ class DataModelTests: XCTestCase {
     
     
     func testNewIssue() {
-        let newIssue = Issue(issueId: "test", email: "test", name: "test", time: nil, title: "test", abstract: "tset", content: "tset", classify: "test", focusNum: nil, city: "test", replied: nil, images: [])
+        let newIssue = Issue(issueId: nil, email: "test", name: "test", time: nil, title: "tset", abstract: "test", content: "test", status: nil, classify: "test", focusNum: nil, city: "test", replied: nil, images: [])
         
         testDataModel.addNewIssue(newIssue) { (success, error) -> Void in
             self.expectation!.fulfill()
@@ -180,6 +180,16 @@ class DataModelTests: XCTestCase {
             self.expectation!.fulfill()
         }
         self.waitForExpectationsWithTimeout(10.0, handler: nil)
+    }
+    
+    func testAddSatisfication() {
+        testDataModel.addSatisfication("hvbhV5Utwd", attitude: 1) { (isSuccess, error) -> Void in
+            XCTAssertNil(error)
+            XCTAssertTrue(isSuccess)
+            self.expectation!.fulfill()
+        }
+        self.waitForExpectationsWithTimeout(10.0, handler: nil)
+        
     }
     
 //    func waitForGroup() {

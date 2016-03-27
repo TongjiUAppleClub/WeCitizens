@@ -11,7 +11,7 @@ import FoldingCell
 
 class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDelegate{
 
-    let kRowsCount = 10
+//    let kRowsCount = 10
     let kCloseCellHeight:CGFloat = 280
     let kOpenCellHeight:CGFloat = 940
     
@@ -34,11 +34,6 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
     override func viewDidLoad() {
         super.viewDidLoad()
         dateFormatter.dateFormat = "yyyy.MM.dd"
-        
-        
-        for _ in 0...kRowsCount {
-            cellHeights.append(kCloseCellHeight)
-        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -53,7 +48,6 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
                     if let list = replies {
                         var userList = [String]()
                         for reply in list {
-                            print("remote data:\(reply.userName)")
                             self.replyList.append(reply)
                             userList.append(reply.userEmail)
                         }
@@ -66,6 +60,9 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
                                                 reply.user = user
                                             }
                                         }
+                                    }
+                                    for _ in 0...self.replyList.count {
+                                        self.cellHeights.append(self.kCloseCellHeight)
                                     }
                                     self.tableView.reloadData()
                                     self.queryTimes++
@@ -87,11 +84,11 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
     
 //MARK:- TableView Data Source & Delegate
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return kRowsCount
+        return replyList.count
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return replyList.count
+        return 1
     }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
@@ -187,8 +184,7 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
         print("查看过往\(sender.tag)")
     }
     
-    func Submit(sender:UIButton)
-    {
+    func Submit(sender:UIButton) {
         print("提交\(sender.tag)")
         print("当前选择:\(currentUserChoose)")
     }
@@ -217,13 +213,31 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
         }
 
         
-        cell.FAgency.text = user.name//机构名称
+        cell.FAgency.text = user.name
+        cell.CAgency.text = user.name
         cell.ResponseTitle.text = reply.title
         cell.CTitle.text = reply.title
-        cell.SupportPercent.text = "80.0%"//满意率
-        cell.CSupport.text = "本回应的当前满意率为 \(80.0)%"
+        cell.SupportPercent.text = "\(reply.satisfyLevel!.satisfaction)%"//满意率
+        cell.CSupport.text = "本回应的当前满意率为 \(reply.satisfyLevel!.satisfaction)%"
         cell.CContent.text = reply.content
-        cell.CResponseTime.text = dateFormatter.stringFromDate(reply.time!)//"yyyy.MM.dd"
+        let dateStr = dateFormatter.stringFromDate(reply.time!)
+        cell.ResponseTime.text = dateStr
+        cell.CResponseTime.text = dateStr
+
+        //投票这个功能不简单，让我再想想
+//        if let attitude = reply.satisfyLevel!.attitude {
+//            //这人有态度，把态度值填上，提交按钮禁用
+//        } else {
+//            //还未投票
+//        }
+        
+        var tmp = [CGFloat]()
+        tmp.append(CGFloat(reply.satisfyLevel!.level1))
+        tmp.append(CGFloat(reply.satisfyLevel!.level2))
+        tmp.append(CGFloat(reply.satisfyLevel!.level3))
+        tmp.append(CGFloat(reply.satisfyLevel!.level4))
+        
+        cell.drawBarChart(tmp)
         
     }
 

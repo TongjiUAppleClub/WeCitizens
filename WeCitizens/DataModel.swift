@@ -35,6 +35,7 @@ class DataModel {
                         let title = result.objectForKey("title") as! String
                         let abstract = result.objectForKey("abstract") as! String
                         let content = result.objectForKey("content") as! String
+                        let status = result.objectForKey("status") as! Bool
                         let classifyStr = result.objectForKey("classify") as! String
                         let focusNum = result.objectForKey("focusNum") as! Int
                         let city = result.objectForKey("city") as! String
@@ -43,7 +44,7 @@ class DataModel {
                         
                         let imageList = DataModel.convertArrayToImages(images)
                         
-                        let newIssue = Issue(issueId: id, email: email, name: name, time: time, title: title, abstract: abstract, content: content, classify: classifyStr, focusNum: focusNum, city: city, replied: isReplied, images: imageList)
+                        let newIssue = Issue(issueId: id, email: email, name: name, time: time, title: title, abstract: abstract, content: content, status: status, classify: classifyStr, focusNum: focusNum, city: city, replied: isReplied, images: imageList)
                         
                         issues.append(newIssue)
                     }
@@ -359,6 +360,7 @@ class DataModel {
                     let title = result.objectForKey("title") as! String
                     let abstract = result.objectForKey("abstract") as! String
                     let content = result.objectForKey("content") as! String
+                    let status = result.objectForKey("status") as! Bool
                     let classifyStr = result.objectForKey("classify") as! String
                     let focusNum = result.objectForKey("focusNum") as! Int
                     let city = result.objectForKey("city") as! String
@@ -367,7 +369,7 @@ class DataModel {
                     let images = result.objectForKey("images") as! NSArray
                     let imageList = DataModel.convertArrayToImages(images)
                     
-                    let newIssue = Issue(issueId:id, email: email, name: name, time: time, title: title, abstract: abstract, content: content, classify: classifyStr, focusNum: focusNum, city: city, replied: isReplied, images: imageList)
+                    let newIssue = Issue(issueId: id, email: email, name: name, time: time, title: title, abstract: abstract, content: content, status: status, classify: classifyStr, focusNum: focusNum, city: city, replied: isReplied, images: imageList)
                     
                     resultHandler(newIssue, nil)
                 } else {
@@ -381,7 +383,7 @@ class DataModel {
         }
     }
     
-    //根据replyID获取reply，单元测试未通过
+    //根据replyID获取reply
     func getReply(replyId:String, resultHandler: (Reply?, NSError?) -> Void) {
         let query = PFQuery(className: "Reply")
         
@@ -419,6 +421,45 @@ class DataModel {
                 resultHandler(nil, error)
             }
 
+        }
+    }
+    
+    //用户对reply投票
+    func addSatisfication(replyId:String, attitude:Int, resultHandler: (Bool, NSError?) -> Void) {
+        let query = PFQuery(className: "Reply")
+        
+        query.whereKey("objectId", equalTo: replyId)
+        
+        do {
+            let result = try query.getFirstObject()
+            
+            let currentLevel = result.valueForKey("satisfyLevel") as! NSDictionary
+            var current:Int
+            switch (attitude) {
+            case 1:
+                current = currentLevel.valueForKey("level1") as! Int
+                current++
+                currentLevel.setValue(current, forKey: "level1")
+            case 2:
+                current = currentLevel.valueForKey("level2") as! Int
+                current++
+                currentLevel.setValue(current, forKey: "level2")
+            case 3:
+                current = currentLevel.valueForKey("level3") as! Int
+                current++
+                currentLevel.setValue(current, forKey: "level3")
+            case 4:
+                current = currentLevel.valueForKey("level4") as! Int
+                current++
+                currentLevel.setValue(current, forKey: "level4")
+            default:
+                print("")
+            }
+            result.setValue(currentLevel, forKey: "satisfyLevel")
+            result.saveInBackgroundWithBlock(resultHandler)
+        } catch {
+            print("Add satisfy error!!!!!!!!")
+            resultHandler(false, nil)
         }
     }
 }
