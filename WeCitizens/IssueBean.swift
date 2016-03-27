@@ -30,9 +30,10 @@ class Issue {
     var city:String
     var isReplied:Bool = false
     var replyId = ""
+    var status:Bool = false
     var images:[UIImage] = []
     
-    init(issueId:String?, email:String, name: String, time:NSDate?, title:String, abstract:String, content:String, classify:String, focusNum:Int?, city:String, replied:Bool?, images:[UIImage]) {
+    init(issueId:String?, email:String, name: String, time:NSDate?, title:String, abstract:String, content:String, status:Bool?, classify:String, focusNum:Int?, city:String, replied:Bool?, images:[UIImage]) {
         self.userEmail = email
         self.userName = name
         
@@ -48,6 +49,9 @@ class Issue {
         self.city = city
         if let isReplied = replied {
             self.isReplied = isReplied
+        }
+        if let _ = status {
+            self.status = status!
         }
         self.images = images
         

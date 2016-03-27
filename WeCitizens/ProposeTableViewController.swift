@@ -29,7 +29,7 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
     
     let locationManager = CLLocationManager()
     let locationLabel = UILabel(frame: (CGRectMake(0, 0, 110, 44)))
-    var currentLocal:String = "－－－－"{
+    var currentLocal:String = "－－－－" {
         didSet{
             locationLabel.text = currentLocal
         }
@@ -147,7 +147,7 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
             cell.Avatar.image = tmpAvatar
         }
         cell.Reputation.text = "\(issueList[indexPath.row].user!.resume)"
-        cell.CommentUser.text = "\(issueList[indexPath.row].focusNum)"
+        cell.CommentUser.text = "\(issueList[indexPath.row].user!.name)"
         cell.UpdateTime.text = issueList[indexPath.row].getDateString()
         cell.Abstract.text = issueList[indexPath.row].abstract
         cell.Classify.text = issueList[indexPath.row].classify.rawValue
@@ -205,8 +205,7 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
     }
     
 //MARK:- Location Init
-    func initLocation()
-    {
+    func initLocation() {
         if CLLocationManager.locationServicesEnabled()
         {
             locationManager.delegate = self
@@ -217,8 +216,7 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
         }
     }
     
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
-    {
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let currentLocation = locations.last {
             let long = currentLocation.coordinate.longitude
             let lat = currentLocation.coordinate.latitude
@@ -241,8 +239,7 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
     }
 
 //MARK:- Data Binder这个是干啥的？
-    func dataBinder(cell:CommentTableViewCell,comment:Issue)
-    {
+    func dataBinder(cell:CommentTableViewCell,comment:Issue) {
         cell.VoiceTitle.text = comment.title
 //        cell.Avatar.image = comment.avatar//使用UserModel请求头像
         cell.CommentUser.text = comment.userName
@@ -253,8 +250,7 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
 //        cell.Reputation.text = "\(comment.userResume)"//使用UserModel请求用户信誉度
     }
     
-    func imagesBinder(containter:UIView,images:[UIImage])
-    {
+    func imagesBinder(containter:UIView,images:[UIImage]) {
         let Xoffset = CGFloat(6)
         let Yoffset = CGFloat(4)
         for view in containter.subviews

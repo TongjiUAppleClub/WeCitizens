@@ -11,7 +11,7 @@ import FoldingCell
 
 class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDelegate{
 
-    let kRowsCount = 10
+//    let kRowsCount = 10
     let kCloseCellHeight:CGFloat = 280
     let kOpenCellHeight:CGFloat = 940
     
@@ -27,16 +27,13 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
     var dataModel = DataModel()
     var userModel = UserModel()
     var queryTimes = 0
+    let dateFormatter = NSDateFormatter()
     
 
 //MARK:- Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        for _ in 0...kRowsCount {
-            cellHeights.append(kCloseCellHeight)
-        }
+        dateFormatter.dateFormat = "yyyy.MM.dd"
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -44,14 +41,14 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
         
         //获取当前城市或用户设置城市
         let cityName = "shanghai"
-        
+        print("get reply")
         if 0 == replyList.count {
-            dataModel.getReply(20, queryTimes: queryTimes, cityName: cityName, resultHandler: { (issues, error) -> Void in
+            dataModel.getReply(20, queryTimes: queryTimes, cityName: cityName, resultHandler: { (replies, error) -> Void in
                 if error == nil {
-                    if let list = issues {
-                        self.replyList = list
+                    if let list = replies {
                         var userList = [String]()
                         for reply in list {
+                            self.replyList.append(reply)
                             userList.append(reply.userEmail)
                         }
                         self.userModel.getUsersAvatar(userList, resultHandler: { (objects, error) -> Void in
@@ -63,6 +60,9 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
                                                 reply.user = user
                                             }
                                         }
+                                    }
+                                    for _ in 0...self.replyList.count {
+                                        self.cellHeights.append(self.kCloseCellHeight)
                                     }
                                     self.tableView.reloadData()
                                     self.queryTimes++
@@ -84,7 +84,7 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
     
 //MARK:- TableView Data Source & Delegate
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return kRowsCount
+        return replyList.count
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -121,20 +121,20 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
         let cell = tableView.dequeueReusableCellWithIdentifier("FoldingCell", forIndexPath: indexPath) as! ReplyTableViewCell
         
         //测试数据
-        cell.CResponseButton.tag = indexPath.section
-        cell.CResponseButton.addTarget(self, action: "CheckResponse:", forControlEvents: .TouchUpInside)
-        cell.EvaluateButton.tag = indexPath.section
-        cell.EvaluateButton.addTarget(self, action: "ScrollToEvaluate:", forControlEvents: .TouchUpInside)
-        cell.CheckHistoryButton.tag = indexPath.section
-        cell.CheckHistoryButton.addTarget(self, action: "CheckHistory:", forControlEvents: .TouchUpInside)
-        cell.SubmitButton.tag = indexPath.section
-        cell.SubmitButton.addTarget(self, action: "Submit:", forControlEvents: .TouchUpInside)
-        cell.radioButtonController?.delegate = self
+//        cell.CResponseButton.tag = indexPath.section
+//        cell.CResponseButton.addTarget(self, action: "CheckResponse:", forControlEvents: .TouchUpInside)
+//        cell.EvaluateButton.tag = indexPath.section
+//        cell.EvaluateButton.addTarget(self, action: "ScrollToEvaluate:", forControlEvents: .TouchUpInside)
+//        cell.CheckHistoryButton.tag = indexPath.section
+//        cell.CheckHistoryButton.addTarget(self, action: "CheckHistory:", forControlEvents: .TouchUpInside)
+//        cell.SubmitButton.tag = indexPath.section
+//        cell.SubmitButton.addTarget(self, action: "Submit:", forControlEvents: .TouchUpInside)
+//        cell.radioButtonController?.delegate = self
         
         imagesBinder(cell.imgContainer, images: [UIImage(named: "logo")!,UIImage(named: "logo")!])
         imagesBinder(cell.CimgContainer, images: [UIImage(named: "logo")!,UIImage(named: "logo")!])
         
-//      dataBinder(cell,<#Response#>)
+        dataBinder(cell, reply: self.replyList[indexPath.row])
         
     
         return cell
@@ -184,8 +184,7 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
         print("查看过往\(sender.tag)")
     }
     
-    func Submit(sender:UIButton)
-    {
+    func Submit(sender:UIButton) {
         print("提交\(sender.tag)")
         print("当前选择:\(currentUserChoose)")
     }
@@ -202,20 +201,45 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
     }
     
 //MARK:- Data Binder
-//    func dataBinder(cell:ReplyTableViewCell,comment:<#Response#>)
-//    {
-//        cell.Favatar.image = <#User Avatar#>
-//        cell.CAvatar.image = <#User Avatar#>
-//        
-//        cell.FAgency.text = <#AgencyName#>
-//        cell.ResponseTitle.text = <#Response Title#>
-//        cell.CTitle.text = <#Response Title#>
-//        cell.SupportPercent.text = <#Support Percent#>
-//        cell.CSupport.text = "本回应的当前满意率为 \(<#Support Percent#>>)%"
-//        cell.CContent.text = <#Response Content#>
-//        cell.CResponseTime.text = <#Response Time#>
-//        
-//    }
+    func dataBinder(cell:ReplyTableViewCell,reply: Reply) {
+        let user = reply.user!
+        
+        if let image = user.avatar {
+            cell.Favatar.image = image
+            cell.CAvatar.image = image
+        } else {
+            cell.Favatar.image = UIImage(named: "avatar")
+            cell.CAvatar.image = UIImage(named: "avatar")
+        }
+
+        
+        cell.FAgency.text = user.name
+        cell.CAgency.text = user.name
+        cell.ResponseTitle.text = reply.title
+        cell.CTitle.text = reply.title
+        cell.SupportPercent.text = "\(reply.satisfyLevel!.satisfaction)%"//满意率
+        cell.CSupport.text = "本回应的当前满意率为 \(reply.satisfyLevel!.satisfaction)%"
+        cell.CContent.text = reply.content
+        let dateStr = dateFormatter.stringFromDate(reply.time!)
+        cell.ResponseTime.text = dateStr
+        cell.CResponseTime.text = dateStr
+
+        //投票这个功能不简单，让我再想想
+//        if let attitude = reply.satisfyLevel!.attitude {
+//            //这人有态度，把态度值填上，提交按钮禁用
+//        } else {
+//            //还未投票
+//        }
+        
+        var tmp = [CGFloat]()
+        tmp.append(CGFloat(reply.satisfyLevel!.level1))
+        tmp.append(CGFloat(reply.satisfyLevel!.level2))
+        tmp.append(CGFloat(reply.satisfyLevel!.level3))
+        tmp.append(CGFloat(reply.satisfyLevel!.level4))
+        
+        cell.drawBarChart(tmp)
+        
+    }
 
     func imagesBinder(containter:UIView,images:[UIImage])
     {
