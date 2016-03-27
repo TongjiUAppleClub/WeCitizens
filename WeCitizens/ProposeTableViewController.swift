@@ -15,17 +15,8 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
 // I will give the example data and show how to use it
     let COMMENT_NUM = 3
     
-//    let testTitle = "XX中学体罚学生情况严重"
     let tmpAvatar =  UIImage(named: "avatar")
-//    let testCommentUser = "名字"
-//    let testAbstract = "dsafadfdjflsjladjlfkjlajlgdsdfasdfal柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是l柔周乔布斯成功的主要原因是sfafafdafdsgfdfdfafdafaffafafafafafaffdafafafaffafslskjljlakgjljl柔周乔布斯成功的主要原因是什么？"
-//    let testTime = "2016.2.14"
-//    let testBrowser = "10247"
-//    let testClassify = "教育"
-//    let testReputaion = "452"
-    let testImages = [UIImage(named: "logo")!,UIImage(named: "logo")!]
-// Delete the line above & give the real data
-    
+    let testImages = [UIImage(named: "logo")!,UIImage(named: "logo")!]    
     
     let locationManager = CLLocationManager()
     let locationLabel = UILabel(frame: (CGRectMake(0, 0, 110, 44)))

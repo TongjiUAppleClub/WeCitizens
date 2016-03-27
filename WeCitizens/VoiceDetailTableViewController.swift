@@ -164,7 +164,7 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
             let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as! VoiceTitleTableViewCell
             
             if let currentIssue = issue, issueUser = issue?.user {
-//                 = currentIssue.content
+                cell.Abstract.text = currentIssue.content
                 cell.CommentUser.text = currentIssue.userName
                 cell.Reputation.text = "\(issueUser.resume)"
                 cell.Classify.text = currentIssue.classify.rawValue

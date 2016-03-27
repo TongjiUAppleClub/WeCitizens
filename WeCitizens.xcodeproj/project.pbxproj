@@ -14,6 +14,7 @@
 		A4597DDE1C952A110069B317 /* CityBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4597DDD1C952A110069B317 /* CityBean.swift */; };
 		A4597DDF1C952A110069B317 /* CityBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4597DDD1C952A110069B317 /* CityBean.swift */; };
 		A4597DE11C9555B60069B317 /* UserModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4597DE01C9555B60069B317 /* UserModelTests.swift */; };
+		A48163E31CA82002004D2A38 /* VoiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48163E21CA82002004D2A38 /* VoiceType.swift */; };
 		A492DBFA1C93D49100C93FE2 /* IssueBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A492DBF91C93D49100C93FE2 /* IssueBean.swift */; };
 		A492DBFB1C93D49100C93FE2 /* IssueBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A492DBF91C93D49100C93FE2 /* IssueBean.swift */; };
 		A492DBFD1C93D4D900C93FE2 /* ReplyBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A492DBFC1C93D4D900C93FE2 /* ReplyBean.swift */; };
@@ -78,6 +79,7 @@
 		A43CCCBB1C91C2FA00CDB782 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		A4597DDD1C952A110069B317 /* CityBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityBean.swift; sourceTree = "<group>"; };
 		A4597DE01C9555B60069B317 /* UserModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModelTests.swift; sourceTree = "<group>"; };
+		A48163E21CA82002004D2A38 /* VoiceType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoiceType.swift; sourceTree = "<group>"; };
 		A492DBF91C93D49100C93FE2 /* IssueBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueBean.swift; sourceTree = "<group>"; };
 		A492DBFC1C93D4D900C93FE2 /* ReplyBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyBean.swift; sourceTree = "<group>"; };
 		A492DBFF1C94032900C93FE2 /* CommentBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentBean.swift; sourceTree = "<group>"; };
@@ -215,6 +217,7 @@
 				A492DBFF1C94032900C93FE2 /* CommentBean.swift */,
 				A4597DDD1C952A110069B317 /* CityBean.swift */,
 				A4B5ABA01C97B08700350616 /* UserBean.swift */,
+				A48163E21CA82002004D2A38 /* VoiceType.swift */,
 			);
 			name = Bean;
 			sourceTree = "<group>";
@@ -558,6 +561,7 @@
 			files = (
 				E79F33A51C72FCFF009D1F1A /* SignUpViewController.swift in Sources */,
 				A43CCCBC1C91C2FA00CDB782 /* UserModel.swift in Sources */,
+				A48163E31CA82002004D2A38 /* VoiceType.swift in Sources */,
 				A492DBFA1C93D49100C93FE2 /* IssueBean.swift in Sources */,
 				E7CE05A11C6353FC00E8CCAB /* LoginViewController.swift in Sources */,
 				A4B5ABA11C97B08700350616 /* UserBean.swift in Sources */,

@@ -9,10 +9,6 @@
 import Foundation
 import UIKit
 
-enum IssueClassify:String {
-    case Test = "test"
-}
-
 class Issue {
     let dateFormatter = NSDateFormatter()
     
@@ -25,7 +21,7 @@ class Issue {
     var title:String
     var abstract:String
     var content:String
-    var classify:IssueClassify
+    var classify:VoiceType
     var focusNum:Int = 1
     var city:String
     var isReplied:Bool = false
@@ -42,7 +38,7 @@ class Issue {
         self.title = title
         self.abstract = abstract
         self.content = content
-        self.classify = IssueClassify(rawValue: classify)!
+        self.classify = VoiceType(rawValue: classify)!
         if let num = focusNum {
             self.focusNum = num
         }
