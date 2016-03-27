@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Parse
 
 let toolBarMinHeight:CGFloat = 50
 let textViewMaxHeight: (portrait: CGFloat, landscape: CGFloat) = (portrait: 272, landscape: 90)
@@ -156,7 +157,6 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        //这个issue内容是咋么填的？
         var identifier = ""
         
         if( indexPath.row == 0 ) {
@@ -194,9 +194,27 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
     }
     
 
-    func SendComment()
-    {
-        print("SendCommentAction")
+    func SendComment() {
+        print(self.textView.text)
+        let content = self.textView.text
+        let userEmail = PFUser.currentUser()?.email
+        let userName = PFUser.currentUser()?.username
+        let id = self.issue?.id
+        let newComment = Comment(email: userEmail!, name: userName!, time: nil, id: id!, content: content)
+        
+        dataModel.addNewComment(newComment) { (isSuccess, error) -> Void in
+            if nil == error {
+                if isSuccess {
+                    print("Successfully save comment")
+                    self.textView.text = ""
+                    self.commentList.append(newComment)
+                } else {
+                    print("Error save comment")
+                }
+            } else {
+                print("Save Comment Error: \(error!) \(error!.userInfo)")
+            }
+        }
     }
     
     

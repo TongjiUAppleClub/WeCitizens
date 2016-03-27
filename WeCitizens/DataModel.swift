@@ -222,6 +222,7 @@ class DataModel {
         issue["title"] = newIssue.title
         issue["abstract"] = newIssue.abstract
         issue["content"] = newIssue.content
+        issue["status"] = newIssue.status
         issue["classify"] = newIssue.classify.rawValue
         issue["focusNum"] = newIssue.focusNum
         issue["city"] = newIssue.city
@@ -461,5 +462,29 @@ class DataModel {
             print("Add satisfy error!!!!!!!!")
             resultHandler(false, nil)
         }
+    }
+    
+    func addNewComment(newComment:Comment, resultHandler:(Bool, NSError?) -> Void) {
+        let comment = PFObject(className: "Comment")
+        
+        //给comment赋值...
+        comment["userName"] = newComment.userName
+        comment["userEmail"] = newComment.userEmail
+        comment["issueId"] = newComment.issueId
+        comment["content"] = newComment.content
+        
+        
+        comment.saveInBackgroundWithBlock { (success, error) -> Void in
+            if error == nil {
+                if success {
+                    resultHandler(true, nil)
+                } else {
+                    resultHandler(false, nil)
+                }
+            } else {
+                resultHandler(false, error)
+            }
+        }
+
     }
 }
