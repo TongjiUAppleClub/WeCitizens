@@ -19,7 +19,6 @@
 		A422D3721CA833760021D9FF /* CityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A422D3701CA833760021D9FF /* CityModel.swift */; };
 		A43CCCBC1C91C2FA00CDB782 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43CCCBB1C91C2FA00CDB782 /* UserModel.swift */; };
 		A43CCCBD1C91C2FA00CDB782 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43CCCBB1C91C2FA00CDB782 /* UserModel.swift */; };
-		A446952A1CA8CA6E0079DC4F /* Bean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44695291CA8CA6E0079DC4F /* Bean.swift */; };
 		A4597DDE1C952A110069B317 /* CityBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4597DDD1C952A110069B317 /* CityBean.swift */; };
 		A4597DDF1C952A110069B317 /* CityBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4597DDD1C952A110069B317 /* CityBean.swift */; };
 		A4597DE11C9555B60069B317 /* UserModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4597DE01C9555B60069B317 /* UserModelTests.swift */; };
@@ -29,6 +28,12 @@
 		A492DBFE1C93D4D900C93FE2 /* ReplyBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A492DBFC1C93D4D900C93FE2 /* ReplyBean.swift */; };
 		A492DC001C94032900C93FE2 /* CommentBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A492DBFF1C94032900C93FE2 /* CommentBean.swift */; };
 		A492DC011C94032900C93FE2 /* CommentBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A492DBFF1C94032900C93FE2 /* CommentBean.swift */; };
+		A49F8D261CA91B750084F7D8 /* Bean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49F8D251CA91B750084F7D8 /* Bean.swift */; };
+		A49F8D271CA91B750084F7D8 /* Bean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49F8D251CA91B750084F7D8 /* Bean.swift */; };
+		A4B06A471CA96B6900603910 /* VoiceModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B06A461CA96B6900603910 /* VoiceModelTests.swift */; };
+		A4B06A491CA96B7E00603910 /* ReplyModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B06A481CA96B7E00603910 /* ReplyModelTests.swift */; };
+		A4B06A4B1CA96B9500603910 /* CommentModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B06A4A1CA96B9500603910 /* CommentModelTests.swift */; };
+		A4B06A4D1CA96E3B00603910 /* CityModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B06A4C1CA96E3B00603910 /* CityModelTests.swift */; };
 		A4B5ABA11C97B08700350616 /* UserBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B5ABA01C97B08700350616 /* UserBean.swift */; };
 		A4B5ABA21C97B08700350616 /* UserBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B5ABA01C97B08700350616 /* UserBean.swift */; };
 		A4D22B0D1C8854F900C200F2 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D22B0C1C8854F900C200F2 /* DataModel.swift */; };
@@ -52,7 +57,6 @@
 		E7CE05A41C6353FC00E8CCAB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7CE05A21C6353FC00E8CCAB /* Main.storyboard */; };
 		E7CE05A61C6353FC00E8CCAB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E7CE05A51C6353FC00E8CCAB /* Assets.xcassets */; };
 		E7CE05A91C6353FC00E8CCAB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7CE05A71C6353FC00E8CCAB /* LaunchScreen.storyboard */; };
-		E7CE05B41C6353FC00E8CCAB /* WeCitizensTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CE05B31C6353FC00E8CCAB /* WeCitizensTests.swift */; };
 		E7CE05BF1C6353FC00E8CCAB /* WeCitizensUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CE05BE1C6353FC00E8CCAB /* WeCitizensUITests.swift */; };
 		E7E6F1221C6CAE2200EB1179 /* ProposeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E6F1211C6CAE2200EB1179 /* ProposeTableViewController.swift */; };
 		E7E6F1241C6CB11000EB1179 /* MainTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E6F1231C6CB11000EB1179 /* MainTabbarController.swift */; };
@@ -89,12 +93,16 @@
 		A422D36D1CA832950021D9FF /* CommentModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentModel.swift; sourceTree = "<group>"; };
 		A422D3701CA833760021D9FF /* CityModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityModel.swift; sourceTree = "<group>"; };
 		A43CCCBB1C91C2FA00CDB782 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
-		A44695291CA8CA6E0079DC4F /* Bean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bean.swift; sourceTree = "<group>"; };
 		A4597DDD1C952A110069B317 /* CityBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityBean.swift; sourceTree = "<group>"; };
 		A4597DE01C9555B60069B317 /* UserModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModelTests.swift; sourceTree = "<group>"; };
 		A492DBF91C93D49100C93FE2 /* VoiceBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoiceBean.swift; sourceTree = "<group>"; };
 		A492DBFC1C93D4D900C93FE2 /* ReplyBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyBean.swift; sourceTree = "<group>"; };
 		A492DBFF1C94032900C93FE2 /* CommentBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentBean.swift; sourceTree = "<group>"; };
+		A49F8D251CA91B750084F7D8 /* Bean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bean.swift; sourceTree = "<group>"; };
+		A4B06A461CA96B6900603910 /* VoiceModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoiceModelTests.swift; sourceTree = "<group>"; };
+		A4B06A481CA96B7E00603910 /* ReplyModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyModelTests.swift; sourceTree = "<group>"; };
+		A4B06A4A1CA96B9500603910 /* CommentModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentModelTests.swift; sourceTree = "<group>"; };
+		A4B06A4C1CA96E3B00603910 /* CityModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityModelTests.swift; sourceTree = "<group>"; };
 		A4B5ABA01C97B08700350616 /* UserBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserBean.swift; sourceTree = "<group>"; };
 		A4D22B0C1C8854F900C200F2 /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		A4D22B0F1C88553100C200F2 /* DataModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModelTests.swift; sourceTree = "<group>"; };
@@ -120,7 +128,6 @@
 		E7CE05A81C6353FC00E8CCAB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E7CE05AA1C6353FC00E8CCAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E7CE05AF1C6353FC00E8CCAB /* WeCitizensTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeCitizensTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E7CE05B31C6353FC00E8CCAB /* WeCitizensTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeCitizensTests.swift; sourceTree = "<group>"; };
 		E7CE05B51C6353FC00E8CCAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E7CE05BA1C6353FC00E8CCAB /* WeCitizensUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeCitizensUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7CE05BE1C6353FC00E8CCAB /* WeCitizensUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeCitizensUITests.swift; sourceTree = "<group>"; };
@@ -233,7 +240,7 @@
 				A492DBFF1C94032900C93FE2 /* CommentBean.swift */,
 				A4597DDD1C952A110069B317 /* CityBean.swift */,
 				A4B5ABA01C97B08700350616 /* UserBean.swift */,
-				A44695291CA8CA6E0079DC4F /* Bean.swift */,
+				A49F8D251CA91B750084F7D8 /* Bean.swift */,
 			);
 			name = Bean;
 			sourceTree = "<group>";
@@ -280,8 +287,11 @@
 			isa = PBXGroup;
 			children = (
 				A4D22B0F1C88553100C200F2 /* DataModelTests.swift */,
+				A4B06A461CA96B6900603910 /* VoiceModelTests.swift */,
+				A4B06A481CA96B7E00603910 /* ReplyModelTests.swift */,
+				A4B06A4A1CA96B9500603910 /* CommentModelTests.swift */,
 				A4597DE01C9555B60069B317 /* UserModelTests.swift */,
-				E7CE05B31C6353FC00E8CCAB /* WeCitizensTests.swift */,
+				A4B06A4C1CA96E3B00603910 /* CityModelTests.swift */,
 				E7CE05B51C6353FC00E8CCAB /* Info.plist */,
 			);
 			path = WeCitizensTests;
@@ -581,7 +591,6 @@
 				E7CE05A11C6353FC00E8CCAB /* LoginViewController.swift in Sources */,
 				A4B5ABA11C97B08700350616 /* UserBean.swift in Sources */,
 				E74BA49E1C7E081200FC1BA6 /* ReplyTableViewCell.swift in Sources */,
-				A446952A1CA8CA6E0079DC4F /* Bean.swift in Sources */,
 				A492DC001C94032900C93FE2 /* CommentBean.swift in Sources */,
 				E74BA4A01C7E082B00FC1BA6 /* ReplyTableViewController.swift in Sources */,
 				E73CAEEE1C79ECB30099DF2D /* VoiceDetailTableViewController.swift in Sources */,
@@ -599,6 +608,7 @@
 				E7E6F1241C6CB11000EB1179 /* MainTabbarController.swift in Sources */,
 				E7CE059F1C6353FC00E8CCAB /* AppDelegate.swift in Sources */,
 				A422D3681CA8326A0021D9FF /* VoiceModel.swift in Sources */,
+				A49F8D261CA91B750084F7D8 /* Bean.swift in Sources */,
 				E73CAEEC1C79B8010099DF2D /* AddVoiceTableViewController.swift in Sources */,
 				A4597DDE1C952A110069B317 /* CityBean.swift in Sources */,
 				E71BFF631C75E5C3001A00E5 /* WelcomeViewController.swift in Sources */,
@@ -611,6 +621,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A4597DDF1C952A110069B317 /* CityBean.swift in Sources */,
+				A4B06A4B1CA96B9500603910 /* CommentModelTests.swift in Sources */,
 				A492DBFB1C93D49100C93FE2 /* VoiceBean.swift in Sources */,
 				A422D3691CA8326A0021D9FF /* VoiceModel.swift in Sources */,
 				A4D22B101C88553100C200F2 /* DataModelTests.swift in Sources */,
@@ -618,7 +629,10 @@
 				A422D36F1CA832950021D9FF /* CommentModel.swift in Sources */,
 				A422D3721CA833760021D9FF /* CityModel.swift in Sources */,
 				A4597DE11C9555B60069B317 /* UserModelTests.swift in Sources */,
-				E7CE05B41C6353FC00E8CCAB /* WeCitizensTests.swift in Sources */,
+				A4B06A491CA96B7E00603910 /* ReplyModelTests.swift in Sources */,
+				A49F8D271CA91B750084F7D8 /* Bean.swift in Sources */,
+				A4B06A4D1CA96E3B00603910 /* CityModelTests.swift in Sources */,
+				A4B06A471CA96B6900603910 /* VoiceModelTests.swift in Sources */,
 				A4B5ABA21C97B08700350616 /* UserBean.swift in Sources */,
 				A422D36C1CA832760021D9FF /* ReplyModel.swift in Sources */,
 				A492DBFE1C93D4D900C93FE2 /* ReplyBean.swift in Sources */,

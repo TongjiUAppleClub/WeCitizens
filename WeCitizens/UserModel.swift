@@ -69,7 +69,7 @@ class UserModel:DataModel {
                     let voiceNum = oneUser["voiceNum"] as! Int
                     let focusNum = oneUser["focusNum"] as! Int
                     
-                    let newUser = User(image: avatarImage, name: name, email: email, resume: resume, voiceNum: voiceNum, focusNum: focusNum)
+                    let newUser = User(imageFromRemote: avatarImage, name: name, email: email, resume: resume, voiceNum: voiceNum, focusNum: focusNum)
                     newUserList.append(newUser)
                 }
                 
@@ -89,7 +89,7 @@ class UserModel:DataModel {
             if nil == error {
                 if let result = object {
                     let avatarFile = result.valueForKey("avatar") as! PFFile
-                    let image = super.convertPFFileToImage(avatarFile)
+                    let avatarImage = super.convertPFFileToImage(avatarFile)
                     let name = result.valueForKey("username") as! String
                     let email = result.valueForKey("email") as! String
                     let resume = result.valueForKey("resume") as! Int
@@ -97,7 +97,7 @@ class UserModel:DataModel {
                     let focusNum = result.valueForKey("focusNum") as! Int
                     
                     
-                    let newUser = User(image: image, name: name, email: email, resume: resume, voiceNum: voiceNum, focusNum: focusNum)
+                    let newUser = User(imageFromRemote: avatarImage, name: name, email: email, resume: resume, voiceNum: voiceNum, focusNum: focusNum)
                     resultHandler(newUser, nil)
                 } else {
                     resultHandler(nil, nil)

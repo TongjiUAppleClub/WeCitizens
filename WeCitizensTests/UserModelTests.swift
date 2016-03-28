@@ -25,12 +25,8 @@ class UserModelTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
     
+    //未通过
     func testAddResume() {
         testUserModel.addUserResume("7hPxfbuamI") { (success, error) -> Void in
             XCTAssertNil(error)
@@ -40,6 +36,7 @@ class UserModelTests: XCTestCase {
         self.waitForExpectationsWithTimeout(10.0, handler: nil)
     }
     
+    //未通过
     func testMinusResume() {
         testUserModel.minusUserResume("vETKWM6fe5") { (success, error) -> Void in
             XCTAssertNil(error)
@@ -49,6 +46,7 @@ class UserModelTests: XCTestCase {
         self.waitForExpectationsWithTimeout(10.0, handler: nil)
     }
     
+    //未通过
     func testSetAvatar() {
         
     }
@@ -60,7 +58,7 @@ class UserModelTests: XCTestCase {
                 XCTAssertNotNil(objects)
                 if let users = objects {
                     for user in users {
-                        print("User:\(user.name)")
+                        print("User:\(user.userName)")
                     }
                 }
             } else {
@@ -72,12 +70,4 @@ class UserModelTests: XCTestCase {
             print("Error: \(error)")
         }
     }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
 }

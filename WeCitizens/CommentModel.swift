@@ -10,11 +10,11 @@ import Foundation
 import Parse
 
 class CommentModel: DataModel {
-    //获取指定数量comment,code completed
-    func getComment(queryNum:Int, queryTimes:Int, issueId:String, block: ([Comment]?, NSError?) -> Void) {
+    //获取指定数量comment
+    func getComment(queryNum:Int, queryTimes:Int, voiceId:String, block: ([Comment]?, NSError?) -> Void) {
         let query = PFQuery(className: "Comment")
         
-        query.whereKey("issueId", equalTo: issueId)
+        query.whereKey("voiceId", equalTo: voiceId)
         query.limit = queryNum
         query.skip = queryNum * queryTimes
         
@@ -25,16 +25,16 @@ class CommentModel: DataModel {
                 if let results = objects {
                     var comments:[Comment] = []
                     
+                    var newComment:Comment
                     for result in results {
                         let email = result.objectForKey("userEmail") as! String
                         let name = result.objectForKey("userName") as! String
                         
                         let time = result.createdAt!
-                        let id = result.objectForKey("issueId") as! String
+                        let id = result.objectForKey("voiceId") as! String
                         let content = result.objectForKey("content") as! String
                         
-                        let newComment = Comment(email: email, name: name, time: time, id: id, content: content)
-                        
+                        newComment = Comment(emailFromRemote: email, name: name, date: time, voiceId: id, content: content)
                         comments.append(newComment)
                     }
                     
@@ -58,7 +58,7 @@ class CommentModel: DataModel {
         //给comment赋值...
         comment["userName"] = newComment.userName
         comment["userEmail"] = newComment.userEmail
-        comment["issueId"] = newComment.issueId
+        comment["voiceId"] = newComment.voiceId
         comment["content"] = newComment.content
         
         

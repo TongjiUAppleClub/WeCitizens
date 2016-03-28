@@ -27,13 +27,10 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
     var replyModel = ReplyModel()
     var userModel = UserModel()
     var queryTimes = 0
-    let dateFormatter = NSDateFormatter()
-    
 
 //MARK:- Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        dateFormatter.dateFormat = "yyyy.MM.dd"
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -56,7 +53,7 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
                                 if let results = objects {
                                     for reply in self.replyList {
                                         for user in results {
-                                            if reply.userEmail == user.email {
+                                            if reply.userEmail == user.userEmail {
                                                 reply.user = user
                                             }
                                         }
@@ -197,14 +194,14 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
         }
 
         
-        cell.FAgency.text = user.name
-        cell.CAgency.text = user.name
+        cell.FAgency.text = user.userName
+        cell.CAgency.text = user.userName
         cell.ResponseTitle.text = reply.title
         cell.CTitle.text = reply.title
-        cell.SupportPercent.text = "\(reply.satisfyLevel!.satisfaction)%"//满意率
-        cell.CSupport.text = "本回应的当前满意率为 \(reply.satisfyLevel!.satisfaction)%"
+        cell.SupportPercent.text = "\(reply.satisfyLevel.satisfaction)%"//满意率
+        cell.CSupport.text = "本回应的当前满意率为 \(reply.satisfyLevel.satisfaction)%"
         cell.CContent.text = reply.content
-        let dateStr = dateFormatter.stringFromDate(reply.time!)
+        let dateStr = reply.dateStr
         cell.ResponseTime.text = dateStr
         cell.CResponseTime.text = dateStr
 
@@ -216,10 +213,10 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
 //        }
         
         var tmp = [CGFloat]()
-        tmp.append(CGFloat(reply.satisfyLevel!.level1))
-        tmp.append(CGFloat(reply.satisfyLevel!.level2))
-        tmp.append(CGFloat(reply.satisfyLevel!.level3))
-        tmp.append(CGFloat(reply.satisfyLevel!.level4))
+        tmp.append(CGFloat(reply.satisfyLevel.level1))
+        tmp.append(CGFloat(reply.satisfyLevel.level2))
+        tmp.append(CGFloat(reply.satisfyLevel.level3))
+        tmp.append(CGFloat(reply.satisfyLevel.level4))
         
         cell.drawBarChart(tmp)
         

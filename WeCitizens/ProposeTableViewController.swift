@@ -43,9 +43,8 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-//TODO:- Reloaddata here
         
-//        //获取当前城市或用户设置城市
+        //获取当前城市或用户设置城市
         let cityName = "shanghai"
         
         if 0 == voiceList.count {
@@ -63,8 +62,8 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
                                 if let results = objects {
                                     for voice in self.voiceList {
                                         for user in results {
-                                            print("User:\(user.name)")
-                                            if voice.userEmail == user.email {
+                                            print("User:\(user.userName)")
+                                            if voice.userEmail == user.userEmail {
                                                 voice.user = user
                                                 
                                             }
@@ -209,8 +208,8 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
             cell.Avatar.image = tmpAvatar
         }
         cell.Reputation.text = "\(voice.user!.resume)"
-        cell.CommentUser.text = "\(voice.user!.name)"
-        cell.UpdateTime.text = voice.getDateString()
+        cell.CommentUser.text = "\(voice.user!.userName)"
+        cell.UpdateTime.text = voice.dateStr
         cell.Abstract.text = voice.abstract
         cell.Classify.text = voice.classify.rawValue
     }

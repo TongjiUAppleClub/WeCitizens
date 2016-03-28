@@ -9,21 +9,23 @@
 import Foundation
 import UIKit
 
-class Comment {
-    var userEmail:String
-    var userName:String
-    var user:User? = nil
+class Comment: Bean {
+    var user:User?
     
-    var time:NSDate?
-    var issueId:String
+    var voiceId:String
     var content:String
     
-    init(email:String, name:String, time:NSDate?, id:String, content:String) {
-        self.userEmail = email
-        self.userName = name
-        
-        self.time = time
-        self.issueId = id
+    init(emailFromLocal email:String, name:String, voiceId:String, content:String) {
+        self.voiceId = voiceId
         self.content = content
+        
+        super.init(email: email, name: name)
+    }
+    
+    init(emailFromRemote email:String, name:String, date:NSDate, voiceId:String, content:String) {
+        self.voiceId = voiceId
+        self.content = content
+
+        super.init(dateFromRemote: date, email: email, name: name)
     }
 }

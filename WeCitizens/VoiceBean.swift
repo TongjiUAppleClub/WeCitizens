@@ -1,5 +1,5 @@
 //
-//  Issue.swift
+//  VoiceType.swift
 //  WeCitizens
 //
 //  Created by  Harold LIU on 3/3/16.
@@ -23,20 +23,9 @@ enum VoiceType:String {
 }
 
 class Voice: Bean {
-    let dateFormatter = NSDateFormatter()
-    
-//    var userEmail:String
-//    var userName:String
     var user:User? = nil
     
     var id:String?
-    var date:NSDate?
-    
-    var dateStr:String {
-        get {
-            return dateFormatter.stringFromDate(date!)
-        }
-    }
     
     var title:String
     var abstract:String
@@ -49,9 +38,7 @@ class Voice: Bean {
     var status:Bool = false
     var images:[UIImage] = []
     
-    init(fromLocal email:String, name: String, title:String, abstract:String, content:String, classify:String, city:String, images:[UIImage]) {
-//        self.userEmail = email
-//        self.userName = name
+    init(emailFromLocal email:String, name: String, title:String, abstract:String, content:String, classify:String, city:String, images:[UIImage]) {
         
         self.title = title
         self.abstract = abstract
@@ -60,12 +47,10 @@ class Voice: Bean {
         self.city = city
         self.images = images
         
-        dateFormatter.dateFormat = "yyyy.MM.dd"
+        super.init(email: email, name: name)
     }
     
-    init(datafromRemote voiceId:String, email:String, name:String, date:NSDate, title:String, abstract:String, content:String, status:Bool, classify:String, focusNum:Int, city:String, replied:Bool, images:[UIImage]) {
-//        self.userEmail = email
-//        self.userName = name
+    init(voiceIdFromRemote voiceId:String, email:String, name:String, date:NSDate, title:String, abstract:String, content:String, status:Bool, classify:String, focusNum:Int, city:String, replied:Bool, images:[UIImage]) {
         
         self.id = voiceId
         self.title = title
@@ -78,6 +63,6 @@ class Voice: Bean {
         self.status = status
         self.images = images
         
-        dateFormatter.dateFormat = "yyyy.MM.dd"
+        super.init(dateFromRemote: date, email: email, name: name)
     }
 }

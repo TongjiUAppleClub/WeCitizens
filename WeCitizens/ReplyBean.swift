@@ -59,35 +59,48 @@ class Satisfy {
     }
 }
 
-class Reply {
-    var userEmail:String
-    var userName:String
+class Reply: Bean {
     var user:User? = nil
     
     var title:String
-    var time:NSDate?
-    var issueId:String
+    var voiceId:String
     var content:String
     var city:String
-    var satisfyLevel:Satisfy? = nil
+    var satisfyLevel:Satisfy = Satisfy(num1: 0, num2: 0, num3: 0, num4: 0)
+    var satisfyDictionary:NSDictionary {
+        get {
+            let dictionary = NSDictionary()
+//            dictionary.setValuesForKeysWithDictionary(["level1" : satisfyLevel.level1Num, "level2": satisfyLevel.level2Num, "level3": satisfyLevel.level3Num, "level4": satisfyLevel.level4Num])
+            
+            dictionary.setValue(10, forKey: "level1")
+            dictionary.setValue(10, forKey: "level2")
+            dictionary.setValue(10, forKey: "level3")
+            dictionary.setValue(10, forKey: "level4")
+            
+            return dictionary
+        }
+    }
+    
     var images:[UIImage]
     
-    init(email:String, name:String, time:NSDate?, issueId:String, title:String, content:String, city:String, level:Satisfy?, images:[UIImage]) {
-        self.userEmail = email
-        self.userName = name
-
+    init(emailFromLocal email:String, name:String, voiceId:String, title:String, content:String, city:String, images:[UIImage]) {
         self.title = title
-        self.time = time
-        self.issueId = issueId
+        self.voiceId = voiceId
         self.content = content
         self.city = city
-        
-        if let _ = level {
-            self.satisfyLevel = level!
-        } else {
-            self.satisfyLevel = Satisfy(num1: 0, num2: 0, num3: 0, num4: 0)
-        }
         self.images = images
+        super.init(email: email, name: name)
+    }
+    
+    init(emailFromRemote email:String, name:String, title:String, date:NSDate, voiceId:String, content:String, city:String, satisfyLevel:Satisfy, images:[UIImage]) {
+        self.title = title
+        self.voiceId = voiceId
+        self.content = content
+        self.city = city
+        self.satisfyLevel = satisfyLevel
+        self.images = images
+        
+        super.init(dateFromRemote: date, email: email, name: name)
     }
     
 }

@@ -23,7 +23,7 @@ class VoiceModel: DataModel {
                 
                 if let results = objects {
                     
-                    var issues = [Voice]()
+                    var voice = [Voice]()
                     
                     for result in results {
                         let name = result.objectForKey("userName") as! String
@@ -43,11 +43,11 @@ class VoiceModel: DataModel {
                         
                         let imageList = super.convertArrayToImages(images)
                         
-                        let newVoice = Voice(voiceId: id, email: email, name: name, time: time, title: title, abstract: abstract, content: content, status: status, classify: classifyStr, focusNum: focusNum, city: city, replied: isReplied, images: imageList)
+                        let newVoice = Voice(voiceIdFromRemote: id, email: email, name: name, date: time, title: title, abstract: abstract, content: content, status: status, classify: classifyStr, focusNum: focusNum, city: city, replied: isReplied, images: imageList)
                         
-                        issues.append(newVoice)
+                        voice.append(newVoice)
                     }
-                    resultHandler(issues, nil)
+                    resultHandler(voice, nil)
                 } else {
                     resultHandler(nil, nil)
                 }
@@ -60,25 +60,25 @@ class VoiceModel: DataModel {
     }
     
     //新建Voice, code complete
-    func addNewIssue(newVoice: Voice, resultHandler: (Bool, NSError?) -> Void) {
-        let issue = PFObject(className: "Voice")
+    func addNewVoice(newVoice: Voice, resultHandler: (Bool, NSError?) -> Void) {
+        let voice = PFObject(className: "Voice")
         
-        //给issue赋值...
-        issue["userName"] = newVoice.userName
-        issue["userEmail"] = newVoice.userEmail
+        //给voice赋值...
+        voice["userName"] = newVoice.userName
+        voice["userEmail"] = newVoice.userEmail
         
-        issue["title"] = newVoice.title
-        issue["abstract"] = newVoice.abstract
-        issue["content"] = newVoice.content
-        issue["status"] = newVoice.status
-        issue["classify"] = newVoice.classify.rawValue
-        issue["focusNum"] = newVoice.focusNum
-        issue["city"] = newVoice.city
-        issue["isReplied"] = newVoice.isReplied
-        issue["replyId"] = newVoice.replyId
-        issue["images"] = self.convertImageToPFFile(newVoice.images)
+        voice["title"] = newVoice.title
+        voice["abstract"] = newVoice.abstract
+        voice["content"] = newVoice.content
+        voice["status"] = newVoice.status
+        voice["classify"] = newVoice.classify.rawValue
+        voice["focusNum"] = newVoice.focusNum
+        voice["city"] = newVoice.city
+        voice["isReplied"] = newVoice.isReplied
+        voice["replyId"] = newVoice.replyId
+        voice["images"] = self.convertImageToPFFile(newVoice.images)
         
-        issue.saveInBackgroundWithBlock { (success, error) -> Void in
+        voice.saveInBackgroundWithBlock { (success, error) -> Void in
             if error == nil {
                 if success {
                     resultHandler(true, nil)
@@ -92,10 +92,10 @@ class VoiceModel: DataModel {
     }
     
     //为Voice增加一个关注,code complete
-    func addFocusNum(issueId: String, resultHandler:(Bool, NSError?) -> Void) {
+    func addFocusNum(voiceId: String, resultHandler:(Bool, NSError?) -> Void) {
         let query = PFQuery(className: "Voice")
         
-        query.whereKey("objectId", equalTo: issueId)
+        query.whereKey("objectId", equalTo: voiceId)
         
         do {
             let result = try query.getFirstObject()
@@ -112,10 +112,10 @@ class VoiceModel: DataModel {
     }
     
     //为Voice减少一个关注,code complete
-    func minusFocusNum(issueId:String, resultHandler:(Bool, NSError?) -> Void) {
+    func minusFocusNum(voiceId:String, resultHandler:(Bool, NSError?) -> Void) {
         let query = PFQuery(className: "Voice")
         
-        query.whereKey("objectId", equalTo: issueId)
+        query.whereKey("objectId", equalTo: voiceId)
         
         do {
             let result = try query.getFirstObject()
@@ -132,10 +132,10 @@ class VoiceModel: DataModel {
     }
     
     //根据voiceId获取voice
-    func getIssue(issueId:String, resultHandler: (Voice?, NSError?) -> Void) {
+    func getVoice(voiceId:String, resultHandler: (Voice?, NSError?) -> Void) {
         let query = PFQuery(className: "Voice")
         
-        query.getObjectInBackgroundWithId(issueId) { (object, error) -> Void in
+        query.getObjectInBackgroundWithId(voiceId) { (object, error) -> Void in
             if nil == error {
                 if let result = object {
                     let name = result.objectForKey("userName") as! String
@@ -155,7 +155,7 @@ class VoiceModel: DataModel {
                     let images = result.objectForKey("images") as! NSArray
                     let imageList = super.convertArrayToImages(images)
                     
-                    let newVoice = Voice(voiceId: id, email: email, name: name, time: time, title: title, abstract: abstract, content: content, status: status, classify: classifyStr, focusNum: focusNum, city: city, replied: isReplied, images: imageList)
+                    let newVoice = Voice(voiceIdFromRemote: id, email: email, name: name, date: time, title: title, abstract: abstract, content: content, status: status, classify: classifyStr, focusNum: focusNum, city: city, replied: isReplied, images: imageList)
                     
                     resultHandler(newVoice, nil)
                 } else {

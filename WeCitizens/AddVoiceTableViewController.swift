@@ -60,12 +60,12 @@ class AddVoiceTableViewController: UITableViewController,UITextViewDelegate, UII
         let userEmail = PFUser.currentUser()!.email!
         let voiceType = "教育"
         
-        let newVoice = Voice(voiceId: nil, email: userEmail, name: userName, time: nil, title: title, abstract: abstract, content: content, status: nil, classify: voiceType, focusNum: nil, city: "shanghai", replied: nil, images: newImages)
+        let newVoice = Voice(emailFromLocal: userEmail, name: userName, title: title, abstract: abstract, content: content, classify: voiceType, city: "shanghai", images: newImages)
         
-        voiceModel.addNewIssue(newVoice) { (success, error) -> Void in
+        voiceModel.addNewVoice(newVoice) { (success, error) -> Void in
             if nil == error {
                 if success {
-                    print("Add new issue success")
+                    print("Add new voice success")
                     self.navigationController?.popViewControllerAnimated(true)
                     //给用户提示
                 }

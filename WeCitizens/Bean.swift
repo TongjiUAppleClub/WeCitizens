@@ -9,13 +9,29 @@
 import Foundation
 import Parse
 
-class Bean:PFObject {
+class Bean {
+    let dateFormatter = NSDateFormatter()
+
     var userEmail:String
     var userName:String
+    var date:NSDate?
+    var dateStr:String {
+        get {
+            return dateFormatter.stringFromDate(date!)
+        }
+    }
     
     init(email:String, name:String) {
         self.userEmail = email
         self.userName = name
-        super.init()
+        dateFormatter.dateFormat = "yyyy.MM.dd"
+    }
+    
+    init(dateFromRemote date:NSDate, email:String, name:String) {
+        self.date = date
+        self.userEmail = email
+        self.userName = name
+        
+        dateFormatter.dateFormat = "yyyy.MM.dd"
     }
 }

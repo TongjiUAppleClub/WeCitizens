@@ -33,8 +33,6 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
     var queryTimes = 0
     var voice:Voice?
     var commentList = [Comment]()
-    var dateFormatter = NSDateFormatter()
-    
     
     
     override var inputAccessoryView:UIView! {
@@ -97,8 +95,6 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
         let notificationCenter = NSNotificationCenter.defaultCenter()
         notificationCenter.addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
         notificationCenter.addObserver(self, selector: "keyboardDidShow:", name: UIKeyboardDidShowNotification, object: nil)
-        
-        self.dateFormatter.dateFormat = "yyyy.MM.dd"
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -106,7 +102,7 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
         
         if 0 == commentList.count {
             if let id = voice?.id {
-                commentModel.getComment(20, queryTimes: self.queryTimes, issueId: id, block: { (comments, error) -> Void in
+                commentModel.getComment(20, queryTimes: self.queryTimes, voiceId: id, block: { (comments, error) -> Void in
                     if nil == error {
                         if let list = comments {
                             self.commentList = list
@@ -119,8 +115,8 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
                                     if let results = objects {
                                         for comment in self.commentList {
                                             for user in results {
-                                                print("User:\(user.name)")
-                                                if comment.userEmail == user.email {
+                                                print("User:\(user.userEmail)")
+                                                if comment.userEmail == user.userEmail {
                                                     comment.user = user
                                                 }
                                             }
@@ -163,14 +159,14 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
             identifier = "DetailTitle"
             let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as! VoiceTitleTableViewCell
             
-            if let currentIssue = voice, issueUser = voice?.user {
-                cell.Abstract.text = currentIssue.content
-                cell.CommentUser.text = currentIssue.userName
-                cell.Reputation.text = "\(issueUser.resume)"
-                cell.Classify.text = currentIssue.classify.rawValue
-                cell.UpdateTime.text = self.dateFormatter.stringFromDate(currentIssue.time!)
+            if let currentVoice = voice, voiceUser = voice?.user {
+                cell.Abstract.text = currentVoice.content
+                cell.CommentUser.text = voiceUser.userName
+                cell.Reputation.text = "\(voiceUser.resume)"
+                cell.Classify.text = currentVoice.classify.rawValue
+                cell.UpdateTime.text = currentVoice.dateStr
                 
-                if let image = issueUser.avatar {
+                if let image = voiceUser.avatar {
                     cell.Avatar.image = image
                 } else {
                     cell.Avatar.image = UIImage(named: "avatar")
@@ -178,7 +174,7 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
                 //  cell.ClassifyKind.image = UIImage(named: "\(issue?.classify)")
                 imagesBinder(cell.ImgesContainer, images: (voice?.images)!)
             } else {
-                print("Current Issue is nil")
+                print("Current Voice is nil")
             }
             
             return cell
@@ -186,7 +182,7 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
         } else {
             identifier = "DetailComment"
             let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as! VoiceDetailTableViewCell
-            dataBinder(cell, issueComment: self.commentList[indexPath.row-1])
+            dataBinder(cell, voiceComment: self.commentList[indexPath.row-1])
             return cell
         }
         
@@ -200,7 +196,7 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
         let userEmail = PFUser.currentUser()?.email
         let userName = PFUser.currentUser()?.username
         let id = self.voice?.id
-        let newComment = Comment(email: userEmail!, name: userName!, time: nil, id: id!, content: content)
+        let newComment = Comment(emailFromLocal: userEmail!, name: userName!, voiceId: id!, content: content)
         
         commentModel.addNewComment(newComment) { (isSuccess, error) -> Void in
             if nil == error {
@@ -226,12 +222,12 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
 //MARK:- Data binder
 //TODO:- bind every comment data to the view
 
-    func dataBinder(cell: VoiceDetailTableViewCell,issueComment:Comment) {
-        cell.CommentContent.text = issueComment.content
-        cell.CommentTime.text = self.dateFormatter.stringFromDate(issueComment.time!)
+    func dataBinder(cell: VoiceDetailTableViewCell,voiceComment:Comment) {
+        cell.CommentContent.text = voiceComment.content
+        cell.CommentTime.text = voiceComment.dateStr
         
-        if let user = issueComment.user {
-            cell.CommentUserName.text = user.name
+        if let user = voiceComment.user {
+            cell.CommentUserName.text = user.userName
             cell.CommentUserResume.text = "\(user.resume)"
             if let image = user.avatar {
                 cell.CommentUserAvatar.image = image

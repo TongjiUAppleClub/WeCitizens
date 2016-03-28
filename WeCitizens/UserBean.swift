@@ -9,20 +9,19 @@
 import Foundation
 import UIKit
 
-class User {
+class User: Bean {
     var avatar:UIImage?
-    var name:String
-    var email:String
     var resume:Int
     var voiceNum:Int
     var focusNum:Int
     
-    init(image:UIImage?, name:String, email:String, resume:Int, voiceNum:Int, focusNum:Int) {
+    init(imageFromRemote image:UIImage?, name:String, email:String, resume:Int, voiceNum:Int, focusNum:Int) {
         self.avatar = image
-        self.name = name
-        self.email = email
+
         self.resume = resume
         self.voiceNum = voiceNum
         self.focusNum = focusNum
+        
+        super.init(email: email, name: name)
     }
 }
