@@ -101,26 +101,26 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="500" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lwp-LI-Y2S">
-                                            <rect key="frame" x="12" y="80" width="572" height="74"/>
+                                            <rect key="frame" x="12" y="80" width="572" height="77"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uce-pY-925">
-                                            <rect key="frame" x="12" y="162" width="572" height="150"/>
+                                            <rect key="frame" x="12" y="165" width="572" height="150"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="150" id="kmo-9o-Buw"/>
                                             </constraints>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="800" verticalHuggingPriority="251" horizontalCompressionResistancePriority="800" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0UI-2t-C4K">
-                                            <rect key="frame" x="279" y="320" width="31" height="15"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <rect key="frame" x="277" y="323" width="27" height="12"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                             <color key="textColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xhy-uP-Bfg">
-                                            <rect key="frame" x="318" y="327" width="263" height="1"/>
+                                            <rect key="frame" x="312" y="329" width="269" height="1"/>
                                             <color key="backgroundColor" red="0.12549019610000001" green="0.70196078429999997" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="21" id="qcD-FV-328"/>
@@ -132,7 +132,7 @@
                                             </variation>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fQZ-xG-9c9">
-                                            <rect key="frame" x="8" y="327" width="263" height="1"/>
+                                            <rect key="frame" x="0.0" y="329" width="269" height="1"/>
                                             <color key="backgroundColor" red="0.12549019610000001" green="0.70196078429999997" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="6dZ-cc-HEw"/>
@@ -232,7 +232,7 @@
                                         <constraint firstAttribute="bottomMargin" secondItem="6t4-uu-0Q3" secondAttribute="bottom" constant="-9" id="S18-R5-EkE"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="fQZ-xG-9c9" secondAttribute="bottom" constant="8" id="SHh-w8-Ji2"/>
                                         <constraint firstItem="fQZ-xG-9c9" firstAttribute="height" secondItem="xhy-uP-Bfg" secondAttribute="height" id="Shd-Em-kFF"/>
-                                        <constraint firstItem="fQZ-xG-9c9" firstAttribute="leading" secondItem="Yv5-Pq-haJ" secondAttribute="leadingMargin" id="TGC-Me-dFW"/>
+                                        <constraint firstItem="fQZ-xG-9c9" firstAttribute="leading" secondItem="Yv5-Pq-haJ" secondAttribute="leadingMargin" constant="-8" id="TGC-Me-dFW"/>
                                         <constraint firstAttribute="topMargin" secondItem="2wE-GN-iTa" secondAttribute="top" id="TNv-2i-uqW"/>
                                         <constraint firstItem="0UI-2t-C4K" firstAttribute="top" relation="greaterThanOrEqual" secondItem="lwp-LI-Y2S" secondAttribute="bottom" constant="8" symbolic="YES" id="TS3-mB-I4M"/>
                                         <constraint firstItem="m1d-Ix-Wuc" firstAttribute="centerY" secondItem="OCq-3h-CHD" secondAttribute="centerY" id="Tzu-4E-v10"/>
