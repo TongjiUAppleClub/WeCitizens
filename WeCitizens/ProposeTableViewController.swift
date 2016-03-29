@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MJRefresh
 import CoreLocation
 
 class ProposeTableViewController: UITableViewController,CLLocationManagerDelegate{
@@ -39,6 +40,25 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
         tableView.rowHeight = UITableViewAutomaticDimension
         self.clearsSelectionOnViewWillAppear = false
         initLocation()
+        
+        tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
+            print("Refreshing")
+        
+            dispatch_async(dispatch_get_main_queue()) { () -> Void in
+             
+                self.tableView.mj_header.endRefreshing()
+            }
+        })
+        
+        tableView.mj_footer = MJRefreshBackNormalFooter(refreshingBlock: { () -> Void in
+            print("Refreshing")
+            dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                self.tableView.mj_footer.endRefreshing()
+            }
+        })
+        
+        tableView.mj_header.automaticallyChangeAlpha = true
+
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -103,7 +123,7 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
     }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 7
+        return 4
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

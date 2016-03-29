@@ -37,24 +37,16 @@ class CommentTableViewCell: UITableViewCell,UITextViewDelegate,UIScrollViewDeleg
 //MARK:- Configure UI
     func UIconfigure()
     {
-        self.layer.cornerRadius = 8
-        self.layer.borderWidth = 1.2
+        self.layer.cornerRadius = 10
         self.layer.borderColor = UIColor.clearColor().CGColor
         
-        
-       // self.layer.addBorder(.Bottom, color: UIColor(red: 124/255, green: 124/255, blue: 124/255, alpha: 1.0), thickness: 1.8)
-        //make avatar circle
-        Avatar.layer.masksToBounds = false
-        Avatar.layer.borderWidth = 1
-        Avatar.layer.borderColor = UIColor.clearColor().CGColor
-        Avatar.layer.cornerRadius = Avatar.frame.height/2
-        Avatar.clipsToBounds = true
-        // make reputation circle
-        Reputation.layer.masksToBounds = false
-        Reputation.layer.borderWidth = 0.2
-        Reputation.layer.borderColor = UIColor(red: 249/255, green: 251/255, blue: 255/255, alpha: 1.0).CGColor
+        Avatar = UIImageView.lxd_CircleImage(Avatar, borderColor: UIColor.clearColor(), borderWidth: 1.0)
+        CommentUser.textColor = UIColor.lxd_FontColor()
+        Reputation.backgroundColor = UIColor.lxd_YellowColor()
         Reputation.layer.cornerRadius = Reputation.frame.height/2
         Reputation.clipsToBounds = true
+        Reputation.textColor = UIColor.lxd_FontColor()
+        UpdateTime.textColor = UIColor.lxd_FontColor()
         // Images Containter
         ImgesContainer.layer.masksToBounds = false
         ImgesContainer.layer.cornerRadius = 10
@@ -64,32 +56,4 @@ class CommentTableViewCell: UITableViewCell,UITextViewDelegate,UIScrollViewDeleg
     }
 }
 
-extension CALayer {
-    
-    func addBorder(edge: UIRectEdge, color: UIColor, thickness: CGFloat) {
-        
-        let border = CALayer()
-        
-        switch edge {
-        case UIRectEdge.Top:
-            border.frame = CGRectMake(0, 0, CGRectGetWidth(self.frame), thickness)
-            break
-        case UIRectEdge.Bottom:
-            border.frame = CGRectMake(0, CGRectGetHeight(self.frame) - thickness, CGRectGetWidth(self.frame), thickness)
-            break
-        case UIRectEdge.Left:
-            border.frame = CGRectMake(0, 0, thickness, CGRectGetHeight(self.frame))
-            break
-        case UIRectEdge.Right:
-            border.frame = CGRectMake(CGRectGetWidth(self.frame) - thickness, 0, thickness, CGRectGetHeight(self.frame))
-            break
-        default:
-            break
-        }
-        
-        border.backgroundColor = color.CGColor;
-        
-        self.addSublayer(border)
-    }
-}
 
