@@ -11,11 +11,7 @@ import MJRefresh
 import CoreLocation
 
 class ProposeTableViewController: UITableViewController,CLLocationManagerDelegate{
-
-//TODO:- Get the comment list  
-// I will give the example data and show how to use it
-    let COMMENT_NUM = 3
-    
+  
     let tmpAvatar =  UIImage(named: "avatar")
     let testImages = [UIImage(named: "logo")!,UIImage(named: "logo")!]    
     

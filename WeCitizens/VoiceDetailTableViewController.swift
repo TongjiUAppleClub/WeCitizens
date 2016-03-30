@@ -27,7 +27,6 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
     var sendButton:UIButton!
     
     
-//TODO:- 从前面的那个segue中传过来，不要从网络上拿了，但是内容还有评论要从网络上获取
     let commentModel = CommentModel()
     let userModel = UserModel()
     var queryTimes = 0
@@ -144,18 +143,62 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
     
 // MARK:- Table view data source && delegate
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return 2
+    }
+    
+    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 48
+    }
+    
+    override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if (section == 0 )
+        {
+            let footerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 48))
+            footerView.backgroundColor = UIColor.lxd_MainBlueColor()
+            
+            let likeButton = UIButton(type: .Custom)
+            likeButton.frame = CGRect(x: 0, y: 8, width: 64, height: 32)
+            likeButton.setImage(UIImage(named: "like"), forState: .Normal)
+            likeButton.setImage(UIImage(named: "like_chosen"), forState: .Disabled)
+
+            likeButton.backgroundColor = UIColor.whiteColor()
+            likeButton.addTarget(self, action: "Like:", forControlEvents: .TouchUpInside)
+            
+            let dislikeButton = UIButton(frame: CGRect(x: 64, y: 8, width: 64, height: 32))
+            dislikeButton.setImage(UIImage(named: "dislike"), forState: .Normal)
+            dislikeButton.setImage(UIImage(named: "dislike_chosen"), forState: .Selected)
+            dislikeButton.backgroundColor = UIColor.whiteColor()
+            
+            let followButton = UIButton(frame: CGRect(x: 64*2, y: 8, width: 64, height: 32))
+            followButton.setImage(UIImage(named: "unwatched_eye"), forState: .Normal)
+            followButton.setImage(UIImage(named: "watched_eye"), forState: .Highlighted)
+            followButton.backgroundColor = UIColor.whiteColor()
+            
+            footerView.addSubview(likeButton)
+            footerView.addSubview(dislikeButton)
+            footerView.addSubview(followButton)
+            
+            return footerView
+        }
+        return nil
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return commentList.count + 1
+        if (section == 0)
+        {
+            return 1
+        }
+        else
+        {
+          return commentList.count
+        }
     }
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var identifier = ""
         
-        if( indexPath.row == 0 ) {
+        if( indexPath.section == 0 ) {
             identifier = "DetailTitle"
             let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as! VoiceTitleTableViewCell
             
@@ -182,13 +225,11 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
         } else {
             identifier = "DetailComment"
             let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as! VoiceDetailTableViewCell
-            dataBinder(cell, voiceComment: self.commentList[indexPath.row-1])
+            dataBinder(cell, voiceComment: self.commentList[indexPath.row])
             return cell
         }
         
-        
     }
-    
 
     func SendComment() {
         print(self.textView.text)
@@ -214,9 +255,10 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
     }
     
     
-    @IBAction func Like(sender: UIBarButtonItem)
+    @IBAction func Like(sender: UIButton)
     {
-        print("Like action")
+        sender.enabled = false
+        print("Like")
     }
 
 //MARK:- Data binder
@@ -238,8 +280,6 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
             print("There is no comment user")
         }
     }
-    
-    
     
     func imagesBinder(containter:UIView,images:[UIImage])
     {
