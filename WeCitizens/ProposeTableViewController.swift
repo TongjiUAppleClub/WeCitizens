@@ -42,9 +42,9 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
         tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
             print("RefreshingHeader")
             
+            //上拉刷新，在获取数据后清空旧数据，并做缓存
             self.queryTimes = 0
-            self.voiceList = []
-            self.getVoice(self.number, times: self.queryTimes, city: "shanghai", isFirstOpen: true)
+            self.getVoiceFromRemote()
             
             dispatch_async(dispatch_get_main_queue()) { () -> Void in
                 
@@ -55,8 +55,23 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
         tableView.mj_footer = MJRefreshBackNormalFooter(refreshingBlock: { () -> Void in
             print("RefreshingFooter")
             
-            self.getVoice(self.number, times: self.queryTimes, city: "shanghai", isFirstOpen: self.isAppFirstOpen)
-            //如果没数据了怎么给提示？
+            //1.下拉加载数据，将新数据append到数组中，不缓存
+            self.voiceModel.getVoice(self.number, queryTimes: self.queryTimes, cityName: "shanghai", needStore: false, resultHandler: { (results, error) -> Void in
+                if let _ = error {
+                    //有错误，给用户提示
+                    print("get voice fail with error:\(error!.userInfo)")
+                } else {
+                    if let voices = results {
+                        voices.forEach({ (voice) -> () in
+                            self.voiceList.append(voice)
+                        })
+                        self.tableView.reloadData()
+                        self.queryTimes++
+                    } else {
+                        print("no data in refreshing footer")
+                    }
+                }
+            })
             
             dispatch_async(dispatch_get_main_queue()) { () -> Void in
                 self.tableView.mj_footer.endRefreshing()
@@ -65,120 +80,44 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
         
         tableView.mj_header.automaticallyChangeAlpha = true
         
-        //在这里读缓存，如果有数据的话在tableView中填数据
-        voiceModel.getVoiceFromLocal(resultHandler: appendResultFromLocal)
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
+        //1.读缓存，如果有数据的话在tableView中填数据
+        self.voiceModel.getVoice("shanghai") { (results, error) -> Void in
+            if let _ = error {
+                //有错误，给用户提示
+                print("get voice from local fail with error:\(error!.userInfo)")
+            } else {
+                if let voices = results {
+                    self.voiceList = voices
+                    self.tableView.reloadData()
+                } else {
+                    //没取到数据
+                    print("no data from local")
+                }
+            }
+        }
         
-        //如果是第一次打开应用则获取新数据
-        if isAppFirstOpen {
-            getVoice(number, times: queryTimes, city: "shanghai", isFirstOpen: true)
-            isAppFirstOpen = false
-        }
+        //2.向后台请求数据，返回数据时做缓存
+        getVoiceFromRemote()
     }
     
-    func appendResult(voices: [Voice]?, error: NSError?) {
-        if error == nil {
-            if let list = voices {
-                var userList = [String]()
-                for object in list {
-//                    print("Voice内容:\(object.content)")
-                    userList.append(object.userEmail)
-                    self.voiceList.append(object)
+    func getVoiceFromRemote() {
+        self.voiceModel.getVoice(self.number, queryTimes: self.queryTimes, cityName: "shanghai", needStore: true, resultHandler: { (results, error) -> Void in
+            if let _ = error {
+                //有错误，给用户提示
+                print("get voice fail with error:\(error!.userInfo)")
+            } else {
+                if let voices = results {
+                    self.voiceList = voices
+                    self.tableView.reloadData()
+                    self.queryTimes++
+                } else {
+                    //没取到数据
+                    print("no data in refreshing header")
                 }
-                self.userModel.getUsersInfo(userList, needStore: self.isAppFirstOpen, resultHandler: { (objects, error) -> Void in
-                    if nil == error {
-                        if let results = objects {
-                            for voice in self.voiceList {
-                                for user in results {
-                                    print("User:\(user.userName)")
-                                    if voice.userEmail == user.userEmail {
-                                        voice.user = user
-                                    }
-                                }
-                            }
-                            self.tableView.reloadData()
-                            print("User List length:\(results.count)")//0
-                            self.queryTimes++;
-                        } else {
-                            print("no users")
-                        }
-                    } else {
-                        print("Get User info Propose Error: \(error!) \(error!.userInfo)")
-                    }
-                })
             }
-        } else {
-            print("Get Voice info Propose Error: \(error!) \(error!.userInfo)")
-        }
-
+        })
     }
     
-    func appendResultFromLocal(voices: [Voice]?, error: NSError?) {
-        if error == nil {
-            if let list = voices {
-                var userList = [String]()
-                for object in list {
-                    self.voiceList.append(object)
-                    userList.append(object.userEmail)
-                }
-                self.userModel.getUsersInfo(fromLocal: userList, resultHandler: { (objects, error) -> Void in
-                    if nil == error {
-                        if let results = objects {
-                            
-                            if 0 == results.count {
-                                self.userModel.getUsersInfo(userList, needStore: true, resultHandler: { (userResult, remoteError) -> Void in
-                                    if nil == remoteError {
-                                        if let remoteUsers = userResult {
-                                            for voice in self.voiceList {
-                                                for user in remoteUsers {
-                                                    if voice.userEmail == user.userEmail {
-                                                        voice.user = user
-                                                    }
-                                                }
-                                            }
-                                            self.tableView.reloadData()
-                                            print("Local user List length:\(results.count)")//0
-                                            self.queryTimes++;
-                                        }
-                                    }
-                                })
-                            } else {
-                                for voice in self.voiceList {
-                                    for user in results {
-                                        print("User:\(user.userName)")
-                                        if voice.userEmail == user.userEmail {
-                                            voice.user = user
-                                        }
-                                    }
-                                }
-                                self.tableView.reloadData()
-                                print("Local user List length:\(results.count)")
-                                self.queryTimes++;
-                            }
-                        } else {
-                            print("no users")
-                        }
-                    } else {
-                        print("Get User info Propose Error: \(error!) \(error!.userInfo)")
-                    }
-                })
-            }
-        } else {
-            print("Get Voice info Propose Error: \(error!) \(error!.userInfo)")
-        }
-
-    }
-    
-    func getVoice(queryNum: Int, times: Int, city:String, isFirstOpen:Bool) {
-        if isFirstOpen {
-            voiceModel.getVoice(queryNum, queryTimes: times, cityName: city, needStore: isFirstOpen, resultHandler: appendResultFromLocal)
-        } else {
-            voiceModel.getVoice(queryNum, queryTimes: times, cityName: city, needStore: isFirstOpen, resultHandler: appendResult)
-        }
-    }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()

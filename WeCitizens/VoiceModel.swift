@@ -19,7 +19,7 @@ class VoiceModel: DataModel {
         
         query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
             if error == nil {
-                print("Successfully retrieved \(objects!.count) voices.")
+                print("Successfully retrieved \(objects!.count) voice from remote.")
                 
                 if let results = objects {
                     
@@ -28,8 +28,88 @@ class VoiceModel: DataModel {
                     }
                     
                     let voice = self.convertPFObjectToVoice(results)
+                    let emails = voice.map({ (tmp) -> String in
+                        return tmp.userEmail
+                    })
                     
-                    resultHandler(voice, nil)
+                    UserModel().getUsersInfo(emails, needStore: needStore, resultHandler: { (users, userError) -> Void in
+                        if let _ = userError {
+                            resultHandler(voice, userError)
+                        }
+                        if let newUsers = users {
+                            voice.forEach({ (currentVoice) -> () in
+                                for user in newUsers {
+                                    if user.userEmail == currentVoice.userEmail {
+                                        currentVoice.user = user
+                                        break
+                                    }
+                                }
+                            })
+                            resultHandler(voice, nil)
+                        }
+                    })
+                } else {
+                    resultHandler(nil, nil)
+                }
+            } else {
+                print("Get voice from remote Error: \(error!) \(error!.userInfo)")
+                resultHandler(nil, error)
+            }
+        }
+    }
+    
+    func getVoice(city:String, fromLocal resultHandler: ([Voice]?, NSError?) -> Void) {
+        let query = PFQuery(className: "Voice")
+        query.fromLocalDatastore()
+        query.whereKey("city", equalTo: city)
+        
+        query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
+            if error == nil {
+                print("Successfully retrieved \(objects!.count) voice from local")
+                
+                if let results = objects {
+                    
+                    let voice = self.convertPFObjectToVoice(results)
+                    let emails = voice.map({ (tmp) -> String in
+                        return tmp.userEmail
+                    })
+                    
+                    let userModel = UserModel()
+                    
+                    userModel.getUsersInfo(fromLocal: emails, resultHandler: { (users, userError) -> Void in
+                        if let _ = userError {
+                            resultHandler(voice, userError)
+                        }
+                        if let newUsers = users {
+                            voice.forEach({ (currentVoice) -> () in
+                                for user in newUsers {
+                                    if user.userEmail == currentVoice.userEmail {
+                                        currentVoice.user = user
+                                        break
+                                    }
+                                }
+                            })
+                            resultHandler(voice, nil)
+                        } else {
+                            print("get user from local fail")
+                            userModel.getUsersInfo(emails, needStore: false, resultHandler: { (users, userError) -> Void in
+                                if let _ = userError {
+                                    resultHandler(voice, userError)
+                                }
+                                if let newUsers = users {
+                                    voice.forEach({ (currentVoice) -> () in
+                                        for user in newUsers {
+                                            if user.userEmail == currentVoice.userEmail {
+                                                currentVoice.user = user
+                                                break
+                                            }
+                                        }
+                                    })
+                                    resultHandler(voice, nil)
+                                }
+                            })
+                        }
+                    })
                 } else {
                     resultHandler(nil, nil)
                 }
@@ -67,44 +147,6 @@ class VoiceModel: DataModel {
             voice.append(newVoice)
         }
         return voice
-    }
-    
-    func getVoiceFromLocal(resultHandler resultHandler: ([Voice]?, NSError?) -> Void) {
-        let query = PFQuery(className: "Voice")
-        query.fromLocalDatastore()
-        
-        query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
-            if error == nil {
-                print("Successfully retrieved \(objects!.count) voices.")
-                
-                if let results = objects {
-                    
-                    let voice = self.convertPFObjectToVoice(results)
-                    resultHandler(voice, nil)
-                } else {
-                    resultHandler(nil, nil)
-                }
-            } else {
-                //Log details of the failure
-                print("Error: \(error!) \(error!.userInfo)")
-                resultHandler(nil, error)
-            }
-        }
-        
-//        let result = query.findObjectsInBackground().continueWithBlock { (task) -> AnyObject? in
-//            if nil == task.error {
-//                //Got Cached
-////                let results = task.result as! [PFObject]
-////                
-////                let voice = self.convertPFObjectToVoice(results)
-//                print("task in block:\(task.result!.count)")
-//                return task
-//            }
-//            //There was an error
-//            return task
-//        }
-//        
-//        print("task result:\(result.result)")
     }
     
     //新建Voice, code complete
@@ -180,7 +222,7 @@ class VoiceModel: DataModel {
     }
     
     //根据voiceId获取voice
-    func getVoice(voiceId:String, resultHandler: (Voice?, NSError?) -> Void) {
+    func getVoice(withId voiceId:String, resultHandler: (Voice?, NSError?) -> Void) {
         let query = PFQuery(className: "Voice")
         
         query.getObjectInBackgroundWithId(voiceId) { (object, error) -> Void in
