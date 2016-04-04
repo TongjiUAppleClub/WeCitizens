@@ -6,10 +6,10 @@ use_frameworks!
 target 'WeCitizens' do
 
 # swift
-pod 'Alamofire'
-pod 'SnapKit'
+pod 'Alamofire', '3.2.0'
+pod 'SnapKit', '0.19.1'
 pod 'FoldingCell'
-pod 'BSImagePicker', '~> 2.2'
+pod 'BSImagePicker', '2.2.0'
 
 # objective-c
 pod 'MBProgressHUD', '~> 0.9.2'

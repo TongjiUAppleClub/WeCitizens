@@ -11,7 +11,7 @@ import Parse
 
 class VoiceModel: DataModel {
     //获取指定数量Voice,code completed
-    func getVoice(queryNum: Int, queryTimes: Int, cityName:String, resultHandler: ([Voice]?, NSError?) -> Void) {
+    func getVoice(queryNum: Int, queryTimes: Int, cityName:String, needStore:Bool, resultHandler: ([Voice]?, NSError?) -> Void) {
         let query = PFQuery(className:"Voice")
         query.whereKey("city", equalTo: cityName)
         query.limit = queryNum
@@ -23,30 +23,12 @@ class VoiceModel: DataModel {
                 
                 if let results = objects {
                     
-                    var voice = [Voice]()
-                    
-                    for result in results {
-                        let name = result.objectForKey("userName") as! String
-                        let email = result.objectForKey("userEmail") as! String
-                        
-                        let id = result.objectId!
-                        let time = result.createdAt!
-                        let title = result.objectForKey("title") as! String
-                        let abstract = result.objectForKey("abstract") as! String
-                        let content = result.objectForKey("content") as! String
-                        let status = result.objectForKey("status") as! Bool
-                        let classifyStr = result.objectForKey("classify") as! String
-                        let focusNum = result.objectForKey("focusNum") as! Int
-                        let city = result.objectForKey("city") as! String
-                        let isReplied = result.objectForKey("isReplied") as! Bool
-                        let images = result.objectForKey("images") as! NSArray
-                        
-                        let imageList = super.convertArrayToImages(images)
-                        
-                        let newVoice = Voice(voiceIdFromRemote: id, email: email, name: name, date: time, title: title, abstract: abstract, content: content, status: status, classify: classifyStr, focusNum: focusNum, city: city, replied: isReplied, images: imageList)
-                        
-                        voice.append(newVoice)
+                    if needStore {
+                        PFObject.pinAllInBackground(results)
                     }
+                    
+                    let voice = self.convertPFObjectToVoice(results)
+                    
                     resultHandler(voice, nil)
                 } else {
                     resultHandler(nil, nil)
@@ -57,6 +39,72 @@ class VoiceModel: DataModel {
                 resultHandler(nil, error)
             }
         }
+    }
+    
+    func convertPFObjectToVoice(objects: [PFObject]) -> [Voice] {
+        var voice = [Voice]()
+        
+        for result in objects {
+            let name = result.objectForKey("userName") as! String
+            let email = result.objectForKey("userEmail") as! String
+            
+            let id = result.objectId!
+            let time = result.createdAt!
+            let title = result.objectForKey("title") as! String
+            let abstract = result.objectForKey("abstract") as! String
+            let content = result.objectForKey("content") as! String
+            let status = result.objectForKey("status") as! Bool
+            let classifyStr = result.objectForKey("classify") as! String
+            let focusNum = result.objectForKey("focusNum") as! Int
+            let city = result.objectForKey("city") as! String
+            let isReplied = result.objectForKey("isReplied") as! Bool
+            let images = result.objectForKey("images") as! NSArray
+            
+            let imageList = super.convertArrayToImages(images)
+            
+            let newVoice = Voice(voiceIdFromRemote: id, email: email, name: name, date: time, title: title, abstract: abstract, content: content, status: status, classify: classifyStr, focusNum: focusNum, city: city, replied: isReplied, images: imageList)
+            
+            voice.append(newVoice)
+        }
+        return voice
+    }
+    
+    func getVoiceFromLocal(resultHandler resultHandler: ([Voice]?, NSError?) -> Void) {
+        let query = PFQuery(className: "Voice")
+        query.fromLocalDatastore()
+        
+        query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
+            if error == nil {
+                print("Successfully retrieved \(objects!.count) voices.")
+                
+                if let results = objects {
+                    
+                    let voice = self.convertPFObjectToVoice(results)
+                    resultHandler(voice, nil)
+                } else {
+                    resultHandler(nil, nil)
+                }
+            } else {
+                //Log details of the failure
+                print("Error: \(error!) \(error!.userInfo)")
+                resultHandler(nil, error)
+            }
+        }
+        
+//        let result = query.findObjectsInBackground().continueWithBlock { (task) -> AnyObject? in
+//            if nil == task.error {
+//                //Got Cached
+////                let results = task.result as! [PFObject]
+////                
+////                let voice = self.convertPFObjectToVoice(results)
+//                print("task in block:\(task.result!.count)")
+//                return task
+//            }
+//            //There was an error
+//            return task
+//        }
+//        
+//        print("task result:\(result.result)")
     }
     
     //新建Voice, code complete

@@ -26,7 +26,9 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
     var voiceList = [Voice]()
     let voiceModel = VoiceModel()
     let userModel = UserModel()
+    let number = 10
     var queryTimes = 0
+    var isAppFirstOpen = true
     
     
 //MARK:- Life cycle
@@ -38,68 +40,143 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
         initLocation()
         
         tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
-            print("Refreshing")
-        
+            print("RefreshingHeader")
+            
+            self.queryTimes = 0
+            self.voiceList = []
+            self.getVoice(self.number, times: self.queryTimes, city: "shanghai", isFirstOpen: true)
+            
             dispatch_async(dispatch_get_main_queue()) { () -> Void in
-             
+                
                 self.tableView.mj_header.endRefreshing()
             }
         })
         
         tableView.mj_footer = MJRefreshBackNormalFooter(refreshingBlock: { () -> Void in
-            print("Refreshing")
+            print("RefreshingFooter")
+            
+            self.getVoice(self.number, times: self.queryTimes, city: "shanghai", isFirstOpen: self.isAppFirstOpen)
+            //如果没数据了怎么给提示？
+            
             dispatch_async(dispatch_get_main_queue()) { () -> Void in
                 self.tableView.mj_footer.endRefreshing()
             }
         })
         
         tableView.mj_header.automaticallyChangeAlpha = true
-
+        
+        //在这里读缓存，如果有数据的话在tableView中填数据
+        voiceModel.getVoiceFromLocal(resultHandler: appendResultFromLocal)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        //获取当前城市或用户设置城市
-        let cityName = "shanghai"
-        
-        if 0 == voiceList.count {
-            voiceModel.getVoice(20, queryTimes: self.queryTimes, cityName: cityName, resultHandler: { (voices, error) -> Void in
-                if error == nil {
-                    if let list = voices {
-                        self.voiceList = list
-                        var userList = [String]()
-                        for object in list {
-                            print("Voice内容:\(object.content)")
-                            userList.append(object.userEmail)
+        //如果是第一次打开应用则获取新数据
+        if isAppFirstOpen {
+            getVoice(number, times: queryTimes, city: "shanghai", isFirstOpen: true)
+            isAppFirstOpen = false
+        }
+    }
+    
+    func appendResult(voices: [Voice]?, error: NSError?) {
+        if error == nil {
+            if let list = voices {
+                var userList = [String]()
+                for object in list {
+//                    print("Voice内容:\(object.content)")
+                    userList.append(object.userEmail)
+                    self.voiceList.append(object)
+                }
+                self.userModel.getUsersInfo(userList, needStore: self.isAppFirstOpen, resultHandler: { (objects, error) -> Void in
+                    if nil == error {
+                        if let results = objects {
+                            for voice in self.voiceList {
+                                for user in results {
+                                    print("User:\(user.userName)")
+                                    if voice.userEmail == user.userEmail {
+                                        voice.user = user
+                                    }
+                                }
+                            }
+                            self.tableView.reloadData()
+                            print("User List length:\(results.count)")//0
+                            self.queryTimes++;
+                        } else {
+                            print("no users")
                         }
-                        self.userModel.getUsersAvatar(userList, resultHandler: { (objects, error) -> Void in
-                            if nil == error {
-                                if let results = objects {
-                                    for voice in self.voiceList {
-                                        for user in results {
-                                            print("User:\(user.userName)")
-                                            if voice.userEmail == user.userEmail {
-                                                voice.user = user
-                                                
+                    } else {
+                        print("Get User info Propose Error: \(error!) \(error!.userInfo)")
+                    }
+                })
+            }
+        } else {
+            print("Get Voice info Propose Error: \(error!) \(error!.userInfo)")
+        }
+
+    }
+    
+    func appendResultFromLocal(voices: [Voice]?, error: NSError?) {
+        if error == nil {
+            if let list = voices {
+                var userList = [String]()
+                for object in list {
+                    self.voiceList.append(object)
+                    userList.append(object.userEmail)
+                }
+                self.userModel.getUsersInfo(fromLocal: userList, resultHandler: { (objects, error) -> Void in
+                    if nil == error {
+                        if let results = objects {
+                            
+                            if 0 == results.count {
+                                self.userModel.getUsersInfo(userList, needStore: true, resultHandler: { (userResult, remoteError) -> Void in
+                                    if nil == remoteError {
+                                        if let remoteUsers = userResult {
+                                            for voice in self.voiceList {
+                                                for user in remoteUsers {
+                                                    if voice.userEmail == user.userEmail {
+                                                        voice.user = user
+                                                    }
+                                                }
                                             }
+                                            self.tableView.reloadData()
+                                            print("Local user List length:\(results.count)")//0
+                                            self.queryTimes++;
                                         }
                                     }
-                                    self.tableView.reloadData()
-                                    print("User List length:\(results.count)")//0
-                                    self.queryTimes++;
-                                } else {
-                                    print("no users")
-                                }
+                                })
                             } else {
-                                print("Get User info Propose Error: \(error!) \(error!.userInfo)")
+                                for voice in self.voiceList {
+                                    for user in results {
+                                        print("User:\(user.userName)")
+                                        if voice.userEmail == user.userEmail {
+                                            voice.user = user
+                                        }
+                                    }
+                                }
+                                self.tableView.reloadData()
+                                print("Local user List length:\(results.count)")
+                                self.queryTimes++;
                             }
-                        })
+                        } else {
+                            print("no users")
+                        }
+                    } else {
+                        print("Get User info Propose Error: \(error!) \(error!.userInfo)")
                     }
-                } else {
-                    print("Get Voice info Propose Error: \(error!) \(error!.userInfo)")
-                }
-            })
+                })
+            }
+        } else {
+            print("Get Voice info Propose Error: \(error!) \(error!.userInfo)")
+        }
+
+    }
+    
+    func getVoice(queryNum: Int, times: Int, city:String, isFirstOpen:Bool) {
+        if isFirstOpen {
+            voiceModel.getVoice(queryNum, queryTimes: times, cityName: city, needStore: isFirstOpen, resultHandler: appendResultFromLocal)
+        } else {
+            voiceModel.getVoice(queryNum, queryTimes: times, cityName: city, needStore: isFirstOpen, resultHandler: appendResult)
         }
     }
     
@@ -206,6 +283,7 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
                     let placemark = validPlacemark as CLPlacemark;
                     if let city = placemark.addressDictionary!["City"] as? NSString {
                         self.currentLocal = city as String
+                        print("location:\(self.currentLocal)")
                     }
                 }
             }
@@ -218,7 +296,7 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
 
     func dataBinder(cell:CommentTableViewCell,voice:Voice) {
         cell.VoiceTitle.text = voice.title
-        if let image = voice.user!.avatar {
+        if let image = voice.user?.avatar {
             cell.Avatar.image = image
         } else {
             cell.Avatar.image = tmpAvatar

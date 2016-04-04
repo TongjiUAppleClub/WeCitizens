@@ -48,7 +48,7 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
                             self.replyList.append(reply)
                             userList.append(reply.userEmail)
                         }
-                        self.userModel.getUsersAvatar(userList, resultHandler: { (objects, error) -> Void in
+                        self.userModel.getUsersInfo(userList, needStore: true, resultHandler: { (objects, error) -> Void in
                             if nil == error {
                                 if let results = objects {
                                     for reply in self.replyList {

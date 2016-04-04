@@ -383,7 +383,7 @@
 				TargetAttributes = {
 					E7CE059A1C6353FB00E8CCAB = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = 62D9VYM54C;
+						DevelopmentTeam = XPXAPTEPJX;
 					};
 					E7CE05AE1C6353FC00E8CCAB = {
 						CreatedOnToolsVersion = 7.2;
@@ -773,10 +773,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = WeCitizens/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.HaroldLiu.WeCitizens;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Teng.WeCitizens;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -786,10 +788,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = WeCitizens/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.HaroldLiu.WeCitizens;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Teng.WeCitizens;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
