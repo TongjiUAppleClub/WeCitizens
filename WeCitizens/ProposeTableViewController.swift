@@ -9,6 +9,7 @@
 import UIKit
 import MJRefresh
 import CoreLocation
+import MBProgressHUD
 
 class ProposeTableViewController: UITableViewController,CLLocationManagerDelegate{
   
@@ -28,6 +29,7 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
     let userModel = UserModel()
     let number = 10
     var queryTimes = 0
+//    var hud:MBProgressHUD!
     
     
 //MARK:- Life cycle
@@ -59,6 +61,7 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
                 if let _ = error {
                     //有错误，给用户提示
                     print("get voice fail with error:\(error!.userInfo)")
+                    self.processError(error!.code)
                 } else {
                     if let voices = results {
                         voices.forEach({ (voice) -> () in
@@ -84,6 +87,7 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
             if let _ = error {
                 //有错误，给用户提示
                 print("get voice from local fail with error:\(error!.userInfo)")
+                self.processError(error!.code)
             } else {
                 if let voices = results {
                     self.voiceList = voices
@@ -104,6 +108,7 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
             if let _ = error {
                 //有错误，给用户提示
                 print("get voice fail with error:\(error!.userInfo)")
+                self.processError(error!.code)
             } else {
                 if let voices = results {
                     self.voiceList = voices
@@ -115,6 +120,21 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
                 }
             }
         })
+    }
+    
+    func processError(errorCode:Int) {
+        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud.mode = .Text
+        let errorMessage:(label:String, detail:String) = convertPFNSErrorToMssage(errorCode)
+        hud.labelText = errorMessage.label
+        hud.detailsLabelText = errorMessage.detail
+        hud.hide(true, afterDelay: 2.0)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        
     }
     
     

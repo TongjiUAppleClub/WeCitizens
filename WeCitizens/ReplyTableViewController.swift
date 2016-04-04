@@ -9,6 +9,7 @@
 import UIKit
 import MJRefresh
 import FoldingCell
+import MBProgressHUD
 
 class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDelegate{
 
@@ -57,6 +58,7 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
                 if let _ = error {
                     //有错误，给用户提示
                     print("get reply fail with error:\(error!.userInfo)")
+                    self.processError(error!.code)
                 } else {
                     if let replies = results {
                         replies.forEach({ (reply) -> () in
@@ -83,6 +85,7 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
             if let _ = error {
                 //有错误，给用户提示
                 print("get reply from local fail with error:\(error!.userInfo)")
+                self.processError(error!.code)
             } else {
                 if let replies = results {
                     self.replyList = replies
@@ -104,6 +107,7 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
             if let _ = error {
                 //有错误，给用户提示
                 print("get voice fail with error:\(error!.userInfo)")
+                self.processError(error!.code)
             } else {
                 if let replies = results {
                     self.replyList = replies
@@ -116,6 +120,15 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
                 }
             }
         })
+    }
+    
+    func processError(errorCode:Int) {
+        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud.mode = .Text
+        let errorMessage:(label:String, detail:String) = convertPFNSErrorToMssage(errorCode)
+        hud.labelText = errorMessage.label
+        hud.detailsLabelText = errorMessage.detail
+        hud.hide(true, afterDelay: 2.0)
     }
     
     override func viewDidLayoutSubviews() {

@@ -52,33 +52,6 @@ class UserModel:DataModel {
     
     //获取用户数据
     func getUsersInfo(emails:[String], needStore:Bool, resultHandler:([User]?, NSError?) -> Void) {
-//        print("USER")
-//        let query = PFQuery(className: "_User")
-//        
-//        print("emails\(emails)")
-////        query.whereKey("email", containsAllObjectsInArray: emails)
-//        query.whereKey("email", containedIn: emails)
-//        query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
-//            print("into block")
-//            if nil == error {
-//                print("Successfully retrieved \(objects!.count) Users.")
-//                
-//                if let results = objects {
-//                    if needStore {
-//                        PFObject.pinAllInBackground(results)
-//                    }
-//                    let newUserList = self.convertPFObjectToUser(results)
-//                    resultHandler(newUserList, nil)
-//                } else {
-//                    resultHandler(nil, nil)
-//                }
-//            } else {
-//                resultHandler(nil, error)
-//            }
-//
-//        }
-        
-        
         PFCloud.callFunctionInBackground("getAvatars", withParameters: ["users": emails]) { (response, error) -> Void in
             if nil == error {
                 let result = response as! NSDictionary
@@ -124,10 +97,7 @@ class UserModel:DataModel {
             let avatarImage = super.convertPFFileToImage(avatarFile)
             let voiceNum = result["voiceNum"] as! Int
             let focusNum = result["focusNum"] as! Int
-            
-            print("NAME: \(name),\(email)")
-            print("what the fuck")
-            
+
             let newUser = User(imageFromRemote: avatarImage, name: name, email: email, resume: resume, voiceNum: voiceNum, focusNum: focusNum)
             newUserList.append(newUser)
             
