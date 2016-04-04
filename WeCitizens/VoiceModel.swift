@@ -91,7 +91,7 @@ class VoiceModel: DataModel {
                             })
                             resultHandler(voice, nil)
                         } else {
-                            print("get user from local fail")
+                            print("get user from local fail when getting voice")
                             userModel.getUsersInfo(emails, needStore: false, resultHandler: { (users, userError) -> Void in
                                 if let _ = userError {
                                     resultHandler(voice, userError)
@@ -114,8 +114,7 @@ class VoiceModel: DataModel {
                     resultHandler(nil, nil)
                 }
             } else {
-                //Log details of the failure
-                print("Error: \(error!) \(error!.userInfo)")
+                print("Get voice from local Error: \(error!) \(error!.userInfo)")
                 resultHandler(nil, error)
             }
         }

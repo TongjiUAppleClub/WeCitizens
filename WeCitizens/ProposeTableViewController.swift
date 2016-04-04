@@ -28,7 +28,6 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
     let userModel = UserModel()
     let number = 10
     var queryTimes = 0
-    var isAppFirstOpen = true
     
     
 //MARK:- Life cycle
