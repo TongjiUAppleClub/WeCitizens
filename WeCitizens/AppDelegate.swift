@@ -67,7 +67,10 @@ public extension UIColor
     
     class func lxd_FontColor() -> UIColor {
         return UIColor(red: 54/255, green: 54/255, blue: 54/255, alpha: 1.0)
-        
+    }
+    
+    class func lxd_lightGreyColor() -> UIColor {
+        return UIColor(red: 234/255, green: 234/255, blue: 234/255, alpha: 1.0)
     }
     
 }

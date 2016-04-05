@@ -89,11 +89,11 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
     }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 7
+        return 2
     }
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = UIView(frame: (CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 7)) )
+        let view = UIView(frame: (CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 0)) )
         view.backgroundColor = UIColor.clearColor()
         return view
     }

@@ -13,6 +13,7 @@ class ReplyTableViewCell: FoldingCell,SSRadioButtonControllerDelegate{
 
 //Foreground View
     
+    @IBOutlet weak var Back: UIView!
     @IBOutlet weak var Favatar: UIImageView!
     @IBOutlet weak var imgContainer: UIView!
     @IBOutlet weak var ResponseTitle: UILabel!
@@ -66,26 +67,20 @@ class ReplyTableViewCell: FoldingCell,SSRadioButtonControllerDelegate{
     func configureUI()
     {
         foregroundView.layer.cornerRadius = 8
-        
-        Favatar.layer.masksToBounds = false
-        Favatar.layer.cornerRadius = Favatar.frame.height/2
-        Favatar.clipsToBounds = true
-        
+        Back.layer.cornerRadius = 8
+        Favatar = UIImageView.lxd_CircleImage(Favatar, borderColor: UIColor.clearColor(), borderWidth: 0)
         imgContainer.layer.cornerRadius = 5
-        
         containerView.layer.cornerRadius = 8
+        CAvatar = UIImageView.lxd_CircleImage(CAvatar, borderColor: UIColor.clearColor(), borderWidth: 0)
         
-        CAvatar.layer.masksToBounds = false
-        CAvatar.layer.cornerRadius = CAvatar.frame.height/2
-        CAvatar.clipsToBounds = true
         CimgContainer.layer.cornerRadius = 5
         CContent.backgroundColor = UIColor.clearColor()
-        CResponseButton.layer.borderColor = UIColor(red: 243.0/255, green: 77/255, blue: 54/255, alpha: 1.0).CGColor
+        CResponseButton.layer.borderColor = UIColor.lxd_MainBlueColor().CGColor
         CResponseButton.layer.borderWidth = 1.3
         CResponseButton.layer.cornerRadius = CResponseButton.frame.height/2
         
         SubmitButton.layer.cornerRadius = SubmitButton.frame.height/2
-        SubmitButton.layer.borderColor = UIColor(red: 112/255, green: 83/255, blue: 88/255, alpha: 1.0).CGColor
+        SubmitButton.layer.borderColor = UIColor.lxd_MainBlueColor().CGColor
         SubmitButton.layer.borderWidth = 1.3
         
     }
@@ -100,7 +95,7 @@ class ReplyTableViewCell: FoldingCell,SSRadioButtonControllerDelegate{
             let frame = CGRect(x: -20, y:y, width:width , height: 20)
             
             let barView = UIView(frame: frame)
-            barView.backgroundColor = UIColor(red: 206/255, green: 141/255, blue: 110/255, alpha: 1.0)
+            barView.backgroundColor = UIColor.lxd_YellowColor()
             barView.layer.cornerRadius = barView.frame.size.height/2
             
             var labelFrame = frame

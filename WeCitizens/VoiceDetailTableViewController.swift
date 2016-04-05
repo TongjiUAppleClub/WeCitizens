@@ -55,7 +55,9 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
                 sendButton.enabled = false
                 sendButton.titleLabel?.font = UIFont.boldSystemFontOfSize(17)
                 sendButton.setTitle("评论", forState: .Normal)
-                sendButton.setTitleColor(UIColor(red: 243.0/255, green: 77/255, blue: 54/255, alpha: 1.0), forState: .Normal)
+                sendButton.backgroundColor = UIColor.lxd_MainBlueColor()
+            
+                sendButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
                 sendButton.setTitleColor(UIColor(red: 142/255, green: 142/255, blue: 147/255, alpha: 1),forState: .Disabled)
                 sendButton.contentEdgeInsets = UIEdgeInsets(top: 6, left: 6, bottom: 6, right: 6)
                 sendButton.addTarget(self, action: "SendComment", forControlEvents: UIControlEvents.TouchUpInside)
@@ -153,34 +155,60 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
     override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         if (section == 0 )
         {
+            let WIDTH = tableView.frame.width/5
+            
+            
             let footerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 48))
-            footerView.backgroundColor = UIColor.lxd_MainBlueColor()
+            footerView.backgroundColor = UIColor.lxd_lightGreyColor()
             
             let likeButton = UIButton(type: .Custom)
-            likeButton.frame = CGRect(x: 0, y: 8, width: 64, height: 32)
+            likeButton.frame = CGRect(x: 0, y: 8, width: WIDTH, height: 32)
             likeButton.setImage(UIImage(named: "like"), forState: .Normal)
-            likeButton.setImage(UIImage(named: "like_chosen"), forState: .Disabled)
+            likeButton.setImage(UIImage(named: "like_chosen"), forState: .Selected)
 
             likeButton.backgroundColor = UIColor.whiteColor()
             likeButton.addTarget(self, action: "Like:", forControlEvents: .TouchUpInside)
             
-            let dislikeButton = UIButton(frame: CGRect(x: 64, y: 8, width: 64, height: 32))
+            let dislikeButton = UIButton(frame: CGRect(x: WIDTH, y: 8, width: WIDTH, height: 32))
             dislikeButton.setImage(UIImage(named: "dislike"), forState: .Normal)
             dislikeButton.setImage(UIImage(named: "dislike_chosen"), forState: .Selected)
             dislikeButton.backgroundColor = UIColor.whiteColor()
+            dislikeButton.addTarget(self, action: "Dislike:", forControlEvents: .TouchUpInside)
+
             
-            let followButton = UIButton(frame: CGRect(x: 64*2, y: 8, width: 64, height: 32))
+            let followButton = UIButton(frame: CGRect(x: WIDTH*2, y: 8, width: WIDTH+2, height: 32))
             followButton.setImage(UIImage(named: "unwatched_eye"), forState: .Normal)
-            followButton.setImage(UIImage(named: "watched_eye"), forState: .Highlighted)
+            followButton.setImage(UIImage(named: "watched_eye"), forState: .Selected)
             followButton.backgroundColor = UIColor.whiteColor()
+             followButton.addTarget(self, action: "Follow:", forControlEvents: .TouchUpInside)
+            
+            
+            let line = UIView(frame: CGRect(x: WIDTH*3, y: 10,width:2,height:28))
+            line.backgroundColor = UIColor.lxd_lightGreyColor()
+            
+            let followNum = UILabel(frame: CGRect(x: WIDTH*3+1, y: 8, width: WIDTH*2, height: 16))
+            followNum.text = "关注数       123"
+            followNum.font = followNum.font.fontWithSize(10)
+            followNum.backgroundColor = UIColor.whiteColor()
+            followNum.textAlignment = .Center
+            
+            let agreeNum = UILabel(frame: CGRect(x: WIDTH*3+1, y: 23, width: WIDTH*2, height: 16+1))
+            agreeNum.text = "赞同数       123"
+            agreeNum.font = followNum.font.fontWithSize(10)
+            agreeNum.backgroundColor = UIColor.whiteColor()
+            agreeNum.textAlignment = .Center
             
             footerView.addSubview(likeButton)
             footerView.addSubview(dislikeButton)
             footerView.addSubview(followButton)
+            footerView.addSubview(line)
+            footerView.addSubview(followNum)
+            footerView.addSubview(agreeNum)
+            
             
             return footerView
         }
-        return nil
+        return UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -230,7 +258,7 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
         }
         
     }
-
+//MARK:- Actions
     func SendComment() {
         print(self.textView.text)
         let content = self.textView.text
@@ -254,12 +282,26 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
         }
     }
     
+    func Dislike(sender: UIButton)
+    {
+        sender.selected = !sender.selected
+        print("Dislike")
+    }
+    
+    func Follow(sender:UIButton)
+    {
+        sender.selected = !sender.selected
+        print("Follow")
+    }
+    
     
     @IBAction func Like(sender: UIButton)
     {
-        sender.enabled = false
+        sender.selected = !sender.selected
         print("Like")
     }
+    
+    
 
 //MARK:- Data binder
 //TODO:- bind every comment data to the view

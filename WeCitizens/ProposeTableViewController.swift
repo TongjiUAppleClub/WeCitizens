@@ -13,11 +13,11 @@ import CoreLocation
 class ProposeTableViewController: UITableViewController,CLLocationManagerDelegate{
   
     let tmpAvatar =  UIImage(named: "avatar")
-    let testImages = [UIImage(named: "logo")!,UIImage(named: "logo")!]    
+    let testImages = [UIImage(named: "logo_1")!,UIImage(named: "logo_1")!]
     
     let locationManager = CLLocationManager()
     let locationLabel = UILabel(frame: (CGRectMake(0, 0, 110, 44)))
-    var currentLocal:String = "－－－－" {
+    var currentLocal:String = "－－－－ " {
         didSet{
             locationLabel.text = currentLocal
         }
