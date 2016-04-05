@@ -115,8 +115,8 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("FoldingCell", forIndexPath: indexPath) as! ReplyTableViewCell
         
-        imagesBinder(cell.imgContainer, images: [UIImage(named: "logo")!,UIImage(named: "logo")!])
-        imagesBinder(cell.CimgContainer, images: [UIImage(named: "logo")!,UIImage(named: "logo")!])
+        imagesBinder(cell.imgContainer, images: [UIImage(named: "logo_1")!,UIImage(named: "logo_1")!])
+        imagesBinder(cell.CimgContainer, images: [UIImage(named: "logo_1")!,UIImage(named: "logo_1")!])
         
         dataBinder(cell, reply: self.replyList[indexPath.section])
         
