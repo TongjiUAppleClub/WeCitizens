@@ -40,7 +40,7 @@
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dGs-aJ-VXd" id="Yuf-2A-Mu2">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -55,7 +55,58 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e5T-kr-TSy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2210" y="-1462"/>
+            <point key="canvasLocation" x="2922" y="-58"/>
+        </scene>
+        <!--Map View Controller-->
+        <scene sceneID="R9R-Tl-SHC">
+            <objects>
+                <viewController id="Fnm-T7-nRB" customClass="MapViewController" customModule="WeCitizens" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="vMe-nU-Qx5"/>
+                        <viewControllerLayoutGuide type="bottom" id="gKQ-8f-3sT"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Sod-Zc-w5J">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="dXV-8I-sKU">
+                                <rect key="frame" x="0.0" y="64" width="600" height="487"/>
+                            </mapView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="muI-lG-OJE">
+                                <rect key="frame" x="199" y="72" width="200" height="29"/>
+                                <segments>
+                                    <segment title="标准地图"/>
+                                    <segment title="卫星地图"/>
+                                </segments>
+                                <connections>
+                                    <action selector="ChangeMapType:" destination="Fnm-T7-nRB" eventType="valueChanged" id="3DN-SP-dqu"/>
+                                </connections>
+                            </segmentedControl>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="dXV-8I-sKU" firstAttribute="top" secondItem="vMe-nU-Qx5" secondAttribute="bottom" id="B6P-wD-UCo"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="muI-lG-OJE" secondAttribute="trailing" id="OAr-yD-N7w"/>
+                            <constraint firstItem="muI-lG-OJE" firstAttribute="top" secondItem="vMe-nU-Qx5" secondAttribute="bottom" constant="8" id="SyJ-7N-eFq"/>
+                            <constraint firstItem="muI-lG-OJE" firstAttribute="centerX" secondItem="Sod-Zc-w5J" secondAttribute="centerX" id="ZW3-9w-WM5"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="dXV-8I-sKU" secondAttribute="trailing" constant="-20" id="enK-a9-Cq9"/>
+                            <constraint firstItem="dXV-8I-sKU" firstAttribute="leading" secondItem="Sod-Zc-w5J" secondAttribute="leadingMargin" constant="-20" id="is3-oL-SNe"/>
+                            <constraint firstItem="gKQ-8f-3sT" firstAttribute="top" secondItem="dXV-8I-sKU" secondAttribute="bottom" id="yqN-OR-qQk"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="OAr-yD-N7w"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <navigationItem key="navigationItem" id="kpK-dr-Z5H"/>
+                    <connections>
+                        <outlet property="MapView" destination="dXV-8I-sKU" id="bBq-lr-3Eq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dB0-FZ-aMl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2239" y="-1478"/>
         </scene>
         <!--Propose Table View Controller-->
         <scene sceneID="K3Z-44-CAE">
@@ -71,7 +122,7 @@
                                 <rect key="frame" x="0.0" y="92" width="600" height="352"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6nZ-9q-hbZ" id="Yv5-Pq-haJ">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="351"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="352"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="255" verticalHuggingPriority="251" text="Classify" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m1d-Ix-Wuc">
@@ -333,7 +384,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="pki-oE-VWh">
-                        <barButtonItem key="leftBarButtonItem" title="地图" id="ESt-E8-sjH"/>
+                        <barButtonItem key="leftBarButtonItem" title="地图" id="ESt-E8-sjH">
+                            <connections>
+                                <segue destination="Fnm-T7-nRB" kind="push" identifier="ShowMap" id="76v-7l-Npb"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="compose" id="gmg-4V-Xnd">
                             <connections>
                                 <segue destination="Zki-Lq-Lrl" kind="push" identifier="PushVoice" id="boD-Ol-bjz"/>
@@ -344,7 +399,7 @@
                     <size key="freeformSize" width="600" height="600"/>
                     <connections>
                         <segue destination="522-2N-Ggf" kind="push" identifier="ShowDetail" id="Xze-BA-qys"/>
-                        <segue destination="rHX-Lg-0Js" kind="push" identifier="ChangLocation" id="WAr-15-PQZ"/>
+                        <segue destination="rHX-Lg-0Js" kind="push" identifier="LocationList" id="WAr-15-PQZ"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="74U-AC-lva" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -366,7 +421,7 @@
                                         <rect key="frame" x="0.0" y="64" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bMK-wF-KKx" id="U9g-h1-2fn">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="   标题" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qgq-3j-8vT">
@@ -392,7 +447,7 @@
                                         <rect key="frame" x="0.0" y="136" width="600" height="465"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Zyb-ve-GDG" id="dRV-NV-n1Y">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="464"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="465"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="04a-cP-RCA">
@@ -459,7 +514,7 @@
                                 <rect key="frame" x="0.0" y="92" width="600" height="410"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="B1V-a3-UDb" id="NCt-V8-lNB">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="409"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="410"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar" translatesAutoresizingMaskIntoConstraints="NO" id="xc9-Pm-F67">
@@ -656,7 +711,7 @@
                                 <rect key="frame" x="0.0" y="502" width="600" height="136"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eAt-NX-mXa" id="1C5-Do-tEd">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="135"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="136"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar" translatesAutoresizingMaskIntoConstraints="NO" id="MMX-bj-KLQ">
@@ -760,13 +815,7 @@
                             <outlet property="delegate" destination="522-2N-Ggf" id="jdX-yW-RP2"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="qSo-g7-Wpt">
-                        <barButtonItem key="rightBarButtonItem" title="收藏" id="YIQ-mf-ILD">
-                            <connections>
-                                <action selector="Like:" destination="522-2N-Ggf" id="fwY-Si-5AV"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="qSo-g7-Wpt"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mwz-rV-id9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -786,7 +835,7 @@
                                 <rect key="frame" x="0.0" y="92" width="600" height="734"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KKZ-Xm-LyM" id="TNX-TD-eR1">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="733"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="734"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O0H-Jj-TcN" userLabel="Foreground" customClass="RotatedView" customModule="FoldingCell">
@@ -1434,7 +1483,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="回应" id="Sby-Vf-FEn">
-                        <barButtonItem key="rightBarButtonItem" title="关注列表" id="H2Y-C6-Vfe"/>
+                        <barButtonItem key="rightBarButtonItem" title="关注列表" id="H2Y-C6-Vfe">
+                            <connections>
+                                <segue destination="rHX-Lg-0Js" kind="push" identifier="FollowList" id="NNM-V3-sc3"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="800"/>
@@ -1456,7 +1509,7 @@
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LSJ-qu-Prj" id="aoH-2w-kqQ">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -1807,4 +1860,7 @@
         <image name="voice_chosen" width="25" height="25"/>
         <image name="安全" width="23" height="26"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="WAr-15-PQZ"/>
+    </inferredMetricsTieBreakers>
 </document>

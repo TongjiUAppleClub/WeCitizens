@@ -58,6 +58,7 @@
 		E7CE05A61C6353FC00E8CCAB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E7CE05A51C6353FC00E8CCAB /* Assets.xcassets */; };
 		E7CE05A91C6353FC00E8CCAB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7CE05A71C6353FC00E8CCAB /* LaunchScreen.storyboard */; };
 		E7CE05BF1C6353FC00E8CCAB /* WeCitizensUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CE05BE1C6353FC00E8CCAB /* WeCitizensUITests.swift */; };
+		E7E414381CB4FB3200A19F0B /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E414371CB4FB3200A19F0B /* MapViewController.swift */; };
 		E7E6F1221C6CAE2200EB1179 /* ProposeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E6F1211C6CAE2200EB1179 /* ProposeTableViewController.swift */; };
 		E7E6F1241C6CB11000EB1179 /* MainTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E6F1231C6CB11000EB1179 /* MainTabbarController.swift */; };
 		E7E6F1261C6CB48200EB1179 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E6F1251C6CB48200EB1179 /* CommentTableViewCell.swift */; };
@@ -132,6 +133,7 @@
 		E7CE05BA1C6353FC00E8CCAB /* WeCitizensUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeCitizensUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7CE05BE1C6353FC00E8CCAB /* WeCitizensUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeCitizensUITests.swift; sourceTree = "<group>"; };
 		E7CE05C01C6353FC00E8CCAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E7E414371CB4FB3200A19F0B /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		E7E6F1211C6CAE2200EB1179 /* ProposeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProposeTableViewController.swift; sourceTree = "<group>"; };
 		E7E6F1231C6CB11000EB1179 /* MainTabbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabbarController.swift; sourceTree = "<group>"; };
 		E7E6F1251C6CB48200EB1179 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 				E74BA49F1C7E082B00FC1BA6 /* ReplyTableViewController.swift */,
 				E74BA49D1C7E081200FC1BA6 /* ReplyTableViewCell.swift */,
 				E7A2B1CA1CA7BE80001A4CAB /* MineViewController.swift */,
+				E7E414371CB4FB3200A19F0B /* MapViewController.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -612,6 +615,7 @@
 				E73CAEEC1C79B8010099DF2D /* AddVoiceTableViewController.swift in Sources */,
 				A4597DDE1C952A110069B317 /* CityBean.swift in Sources */,
 				E71BFF631C75E5C3001A00E5 /* WelcomeViewController.swift in Sources */,
+				E7E414381CB4FB3200A19F0B /* MapViewController.swift in Sources */,
 				A4D22B0D1C8854F900C200F2 /* DataModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

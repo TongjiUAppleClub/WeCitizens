@@ -44,7 +44,6 @@ class LoginViewController: PFLogInViewController {
         logInView?.usernameField!.layer.cornerRadius = (logInView?.usernameField?.frame.height)!/2
         
         
-        
         var passframe = userframe
         passframe?.origin.y += (userframe?.size.height)! + 32
         
