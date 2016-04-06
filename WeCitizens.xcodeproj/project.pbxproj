@@ -214,6 +214,7 @@
 				E7E6F1231C6CB11000EB1179 /* MainTabbarController.swift */,
 				E7E6F1211C6CAE2200EB1179 /* ProposeTableViewController.swift */,
 				E7E6F1251C6CB48200EB1179 /* CommentTableViewCell.swift */,
+				E7E414371CB4FB3200A19F0B /* MapViewController.swift */,
 				E73CAEEB1C79B8010099DF2D /* AddVoiceTableViewController.swift */,
 				E73CAEED1C79ECB30099DF2D /* VoiceDetailTableViewController.swift */,
 				E73CAEEF1C7B37730099DF2D /* VoiceTitleTableViewCell.swift */,
@@ -221,7 +222,6 @@
 				E74BA49F1C7E082B00FC1BA6 /* ReplyTableViewController.swift */,
 				E74BA49D1C7E081200FC1BA6 /* ReplyTableViewCell.swift */,
 				E7A2B1CA1CA7BE80001A4CAB /* MineViewController.swift */,
-				E7E414371CB4FB3200A19F0B /* MapViewController.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";

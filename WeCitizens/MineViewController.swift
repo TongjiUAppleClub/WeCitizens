@@ -46,6 +46,12 @@ class MineViewController: UITableViewController {
         UIconfigure()
     }
     
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        navigationController?.navigationBarHidden = false
+    }
+    
+    
     func UIconfigure() {
       tableView.backgroundView = UIImageView(image: UIImage(named: "mine_view_background"))
       self.navigationController?.navigationBar.hidden = true
@@ -72,6 +78,23 @@ class MineViewController: UITableViewController {
         return view
     }
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        print(indexPath.row)
+        switch indexPath.row
+        {
+            
+        case 3:
+            navigationController?.pushViewController((storyboard?.instantiateViewControllerWithIdentifier("About"))!, animated: true)
+            break
+        case 4:
+            PFUser.logOut()
+            presentViewController((storyboard?.instantiateViewControllerWithIdentifier("WelcomeView"))!, animated: true, completion: nil)
+            break
+        default:
+            break
+        }
+        
+    }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
