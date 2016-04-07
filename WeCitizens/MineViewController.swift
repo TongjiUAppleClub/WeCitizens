@@ -38,6 +38,7 @@ class MineViewController: UITableViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: true)
         
     }
     
@@ -48,13 +49,13 @@ class MineViewController: UITableViewController {
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
-        navigationController?.navigationBarHidden = false
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     
     func UIconfigure() {
       tableView.backgroundView = UIImageView(image: UIImage(named: "mine_view_background"))
-      self.navigationController?.navigationBar.hidden = true
+
       HeadView.backgroundColor = UIColor.lxd_MainBlueColor()
       Avatar = UIImageView.lxd_CircleImage(Avatar, borderColor: UIColor.clearColor(), borderWidth: 1.0)
       Reputation.backgroundColor = UIColor.lxd_YellowColor()
@@ -82,7 +83,9 @@ class MineViewController: UITableViewController {
         print(indexPath.row)
         switch indexPath.row
         {
-            
+        case 1:
+            navigationController?.pushViewController((storyboard?.instantiateViewControllerWithIdentifier("EditInfo"))!, animated: true)
+            break
         case 3:
             navigationController?.pushViewController((storyboard?.instantiateViewControllerWithIdentifier("About"))!, animated: true)
             break
