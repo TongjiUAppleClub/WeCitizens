@@ -51,6 +51,8 @@
 		E74BA49E1C7E081200FC1BA6 /* ReplyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74BA49D1C7E081200FC1BA6 /* ReplyTableViewCell.swift */; };
 		E74BA4A01C7E082B00FC1BA6 /* ReplyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74BA49F1C7E082B00FC1BA6 /* ReplyTableViewController.swift */; };
 		E754A20D1CB678A9009D861D /* EditUserInfoControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E754A20C1CB678A9009D861D /* EditUserInfoControler.swift */; };
+		E75CBD781CB928C8001A1EDD /* MyActivitiesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75CBD771CB928C8001A1EDD /* MyActivitiesTableViewController.swift */; };
+		E75CBD7A1CB92F84001A1EDD /* MyActivityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75CBD791CB92F84001A1EDD /* MyActivityCell.swift */; };
 		E79F33A51C72FCFF009D1F1A /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79F33A41C72FCFF009D1F1A /* SignUpViewController.swift */; };
 		E7A2B1CB1CA7BE80001A4CAB /* MineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A2B1CA1CA7BE80001A4CAB /* MineViewController.swift */; };
 		E7CE059F1C6353FC00E8CCAB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CE059E1C6353FC00E8CCAB /* AppDelegate.swift */; };
@@ -121,6 +123,8 @@
 		E74BA49D1C7E081200FC1BA6 /* ReplyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyTableViewCell.swift; sourceTree = "<group>"; };
 		E74BA49F1C7E082B00FC1BA6 /* ReplyTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyTableViewController.swift; sourceTree = "<group>"; };
 		E754A20C1CB678A9009D861D /* EditUserInfoControler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditUserInfoControler.swift; sourceTree = "<group>"; };
+		E75CBD771CB928C8001A1EDD /* MyActivitiesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyActivitiesTableViewController.swift; sourceTree = "<group>"; };
+		E75CBD791CB92F84001A1EDD /* MyActivityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyActivityCell.swift; sourceTree = "<group>"; };
 		E79F33A41C72FCFF009D1F1A /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		E7A2B1CA1CA7BE80001A4CAB /* MineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineViewController.swift; sourceTree = "<group>"; };
 		E7CE059B1C6353FC00E8CCAB /* WeCitizens.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeCitizens.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -232,6 +236,8 @@
 			children = (
 				E7A2B1CA1CA7BE80001A4CAB /* MineViewController.swift */,
 				E754A20C1CB678A9009D861D /* EditUserInfoControler.swift */,
+				E75CBD771CB928C8001A1EDD /* MyActivitiesTableViewController.swift */,
+				E75CBD791CB92F84001A1EDD /* MyActivityCell.swift */,
 			);
 			name = Mine;
 			sourceTree = "<group>";
@@ -633,6 +639,7 @@
 			files = (
 				E79F33A51C72FCFF009D1F1A /* SignUpViewController.swift in Sources */,
 				A43CCCBC1C91C2FA00CDB782 /* UserModel.swift in Sources */,
+				E75CBD7A1CB92F84001A1EDD /* MyActivityCell.swift in Sources */,
 				A492DBFA1C93D49100C93FE2 /* VoiceBean.swift in Sources */,
 				E7CE05A11C6353FC00E8CCAB /* LoginViewController.swift in Sources */,
 				A4B5ABA11C97B08700350616 /* UserBean.swift in Sources */,
@@ -643,6 +650,7 @@
 				E754A20D1CB678A9009D861D /* EditUserInfoControler.swift in Sources */,
 				E72C16E11C857DF200E871B0 /* SSRadioButtonsController.swift in Sources */,
 				E72C16E01C857DF200E871B0 /* SSRadioButton.swift in Sources */,
+				E75CBD781CB928C8001A1EDD /* MyActivitiesTableViewController.swift in Sources */,
 				A492DBFD1C93D4D900C93FE2 /* ReplyBean.swift in Sources */,
 				E7A2B1CB1CA7BE80001A4CAB /* MineViewController.swift in Sources */,
 				E7E6F1221C6CAE2200EB1179 /* ProposeTableViewController.swift in Sources */,

@@ -83,6 +83,9 @@ class MineViewController: UITableViewController {
         print(indexPath.row)
         switch indexPath.row
         {
+        case 0:
+            navigationController?.pushViewController((storyboard?.instantiateViewControllerWithIdentifier("MyActivity"))!, animated: true)
+            break
         case 1:
             navigationController?.pushViewController((storyboard?.instantiateViewControllerWithIdentifier("EditInfo"))!, animated: true)
             break

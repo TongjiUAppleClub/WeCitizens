@@ -34,7 +34,7 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
         super.viewDidLoad()
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
-        self.clearsSelectionOnViewWillAppear = false
+        self.clearsSelectionOnViewWillAppear = true
         initLocation()
         
         tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
