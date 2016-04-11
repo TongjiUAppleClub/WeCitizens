@@ -89,10 +89,10 @@ class MineViewController: UITableViewController {
         case 1:
             navigationController?.pushViewController((storyboard?.instantiateViewControllerWithIdentifier("EditInfo"))!, animated: true)
             break
-        case 3:
+        case 2:
             navigationController?.pushViewController((storyboard?.instantiateViewControllerWithIdentifier("About"))!, animated: true)
             break
-        case 4:
+        case 3:
             PFUser.logOut()
             presentViewController((storyboard?.instantiateViewControllerWithIdentifier("WelcomeView"))!, animated: true, completion: nil)
             break
@@ -103,13 +103,13 @@ class MineViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 4
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell")! as UITableViewCell
-        let titles                            = ["我的动态", "编辑个人信息", "设置", "关于", "退出登陆"]
-        let images                            = ["time", "personal_info", "setting", "about", "exit"]
+        let titles                            = ["我的动态", "编辑个人信息", "关于", "退出登陆"]
+        let images                            = ["time", "personal_info",  "about", "exit"]
         let imgWidthScale = 16 / (UIImage(named: images[indexPath.row])?.size.width)!
         let imgHeightScale = 16 / (UIImage(named: images[indexPath.row])?.size.height)!
         

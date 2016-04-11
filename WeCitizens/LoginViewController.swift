@@ -27,10 +27,13 @@ class LoginViewController: PFLogInViewController {
         let offsetX = CGFloat(30)
         let TheColor = UIColor.lxd_MainBlueColor()
         // logo
+        
         var logoF = logInView?.logo?.frame
         logoF?.origin.y -= 50
         
+        
         logInView?.logo?.frame = logoF!
+        
         
         var userframe = logInView?.usernameField?.frame
         userframe!.size.width -= offsetX * 2
