@@ -41,7 +41,7 @@ class AddVoiceTableViewController: UITableViewController,UITextViewDelegate, UII
     func configureUI() {
 
      VoiceTitle.backgroundColor = UIColor.clearColor()
-     BodyCell.frame.size.height += 40
+   //  BodyCell.frame.size.height += 40
      Content.backgroundColor = UIColor.clearColor()
     
     }

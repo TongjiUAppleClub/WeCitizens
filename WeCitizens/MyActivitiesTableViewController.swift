@@ -16,7 +16,7 @@ class MyActivitiesTableViewController: UITableViewController {
     override func viewDidLoad()
     {
      super.viewDidLoad()
-     navigationController?.title = "我的动态"
+     self.title = "我的动态"
      tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
             print("Refreshing")
             dispatch_async(dispatch_get_main_queue()) { () -> Void in

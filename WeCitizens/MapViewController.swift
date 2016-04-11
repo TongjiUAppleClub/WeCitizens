@@ -15,6 +15,7 @@ class MapViewController: UIViewController,MKMapViewDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "地图"
         MapView.delegate = self
         MapView.showsUserLocation = true
         MapView.userTrackingMode = MKUserTrackingMode.Follow
