@@ -10,6 +10,7 @@ import UIKit
 import Parse
 import BSImagePicker
 import Photos
+import MBProgressHUD
 
 class AddVoiceTableViewController: UITableViewController,UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -38,6 +39,10 @@ class AddVoiceTableViewController: UITableViewController,UITextViewDelegate, UII
         configureUI()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
     func configureUI() {
 
      VoiceTitle.backgroundColor = UIColor.clearColor()
@@ -62,19 +67,30 @@ class AddVoiceTableViewController: UITableViewController,UITextViewDelegate, UII
         
         let newVoice = Voice(emailFromLocal: userEmail, name: userName, title: title, abstract: abstract, content: content, classify: voiceType, city: "shanghai", images: newImages)
         
+        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+//        hud.mode = .AnnularDeterminate
+        hud.labelText = "发布中"
+        hud.show(true)
+        
         voiceModel.addNewVoice(newVoice) { (success, error) -> Void in
             if nil == error {
                 if success {
                     print("Add new voice success")
+                    hud.hide(true)
                     self.navigationController?.popViewControllerAnimated(true)
                     //给用户提示
                 }
             } else {
-                //Log details of the failure
-                print("Error: \(error!) \(error!.userInfo)")
+                hud.mode = .Text
+                print("Add new voice Error: \(error!) \(error!.userInfo)")
+                let errorMessage:(label:String, detail:String) = convertPFNSErrorToMssage(error!.code)
+                hud.labelText = errorMessage.label
+                hud.detailsLabelText = errorMessage.detail
+                hud.hide(true, afterDelay: 1.5)
                 //给用户提示
             }
         }
+        
     }
     
     @IBAction func PickImages(sender: UIBarButtonItem) {
