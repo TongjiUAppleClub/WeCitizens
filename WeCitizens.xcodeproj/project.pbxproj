@@ -36,10 +36,16 @@
 		A4B06A4D1CA96E3B00603910 /* CityModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B06A4C1CA96E3B00603910 /* CityModelTests.swift */; };
 		A4B5ABA11C97B08700350616 /* UserBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B5ABA01C97B08700350616 /* UserBean.swift */; };
 		A4B5ABA21C97B08700350616 /* UserBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B5ABA01C97B08700350616 /* UserBean.swift */; };
+		A4CFD6691CB2A9160005FB7B /* PFError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CFD6681CB2A9160005FB7B /* PFError.swift */; };
+		A4CFD66A1CB2A9160005FB7B /* PFError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CFD6681CB2A9160005FB7B /* PFError.swift */; };
 		A4D22B0D1C8854F900C200F2 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D22B0C1C8854F900C200F2 /* DataModel.swift */; };
 		A4D22B0E1C8854F900C200F2 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D22B0C1C8854F900C200F2 /* DataModel.swift */; };
 		A4D22B101C88553100C200F2 /* DataModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D22B0F1C88553100C200F2 /* DataModelTests.swift */; };
 		DCE16C21AF496E09102A50E3 /* Pods_WeCitizensUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CAEBD8D59879FCEBDBA99B4 /* Pods_WeCitizensUITests.framework */; };
+		E71A51251CCFA94800626ADD /* RRAddTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71A51221CCFA94800626ADD /* RRAddTagView.swift */; };
+		E71A51261CCFA94800626ADD /* RRTagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71A51231CCFA94800626ADD /* RRTagCollectionViewCell.swift */; };
+		E71A51271CCFA94800626ADD /* RRTagController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71A51241CCFA94800626ADD /* RRTagController.swift */; };
+		E71A51291CCFA9FE00626ADD /* TagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71A51281CCFA9FE00626ADD /* TagViewController.swift */; };
 		E71BFF631C75E5C3001A00E5 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71BFF621C75E5C3001A00E5 /* WelcomeViewController.swift */; };
 		E72C16E01C857DF200E871B0 /* SSRadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72C16DE1C857DF200E871B0 /* SSRadioButton.swift */; };
 		E72C16E11C857DF200E871B0 /* SSRadioButtonsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72C16DF1C857DF200E871B0 /* SSRadioButtonsController.swift */; };
@@ -108,10 +114,15 @@
 		A4B06A4A1CA96B9500603910 /* CommentModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentModelTests.swift; sourceTree = "<group>"; };
 		A4B06A4C1CA96E3B00603910 /* CityModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityModelTests.swift; sourceTree = "<group>"; };
 		A4B5ABA01C97B08700350616 /* UserBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserBean.swift; sourceTree = "<group>"; };
+		A4CFD6681CB2A9160005FB7B /* PFError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PFError.swift; sourceTree = "<group>"; };
 		A4D22B0C1C8854F900C200F2 /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		A4D22B0F1C88553100C200F2 /* DataModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModelTests.swift; sourceTree = "<group>"; };
 		BCF7812ECE9CDC04BD0787F1 /* Pods-WeCitizens.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeCitizens.release.xcconfig"; path = "Pods/Target Support Files/Pods-WeCitizens/Pods-WeCitizens.release.xcconfig"; sourceTree = "<group>"; };
 		D07F166F4C2495CA9E9D5435 /* Pods-WeCitizensUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeCitizensUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WeCitizensUITests/Pods-WeCitizensUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		E71A51221CCFA94800626ADD /* RRAddTagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RRAddTagView.swift; sourceTree = "<group>"; };
+		E71A51231CCFA94800626ADD /* RRTagCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RRTagCollectionViewCell.swift; sourceTree = "<group>"; };
+		E71A51241CCFA94800626ADD /* RRTagController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RRTagController.swift; sourceTree = "<group>"; };
+		E71A51281CCFA9FE00626ADD /* TagViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagViewController.swift; sourceTree = "<group>"; };
 		E71BFF621C75E5C3001A00E5 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		E72C16DE1C857DF200E871B0 /* SSRadioButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSRadioButton.swift; sourceTree = "<group>"; };
 		E72C16DF1C857DF200E871B0 /* SSRadioButtonsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSRadioButtonsController.swift; sourceTree = "<group>"; };
@@ -211,15 +222,14 @@
 			name = DataModel;
 			sourceTree = "<group>";
 		};
-		E73CAEEA1C79B7B80099DF2D /* ViewController */ = {
+		E71A51211CCFA8FE00626ADD /* RRTagController */ = {
 			isa = PBXGroup;
 			children = (
-				E754A20B1CB6786F009D861D /* Welcome */,
-				E754A2091CB67821009D861D /* Voice */,
-				E754A20A1CB67853009D861D /* Reply */,
-				E754A2071CB6774B009D861D /* Mine */,
+				E71A51221CCFA94800626ADD /* RRAddTagView.swift */,
+				E71A51231CCFA94800626ADD /* RRTagCollectionViewCell.swift */,
+				E71A51241CCFA94800626ADD /* RRTagController.swift */,
 			);
-			name = ViewController;
+			name = RRTagController;
 			sourceTree = "<group>";
 		};
 		E74A7F6D1C8F032C00872D6D /* View */ = {
@@ -245,7 +255,11 @@
 		E754A2081CB6775E009D861D /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				E73CAEEA1C79B7B80099DF2D /* ViewController */,
+				E71A51211CCFA8FE00626ADD /* RRTagController */,
+				E754A20B1CB6786F009D861D /* Welcome */,
+				E754A2091CB67821009D861D /* Voice */,
+				E754A20A1CB67853009D861D /* Reply */,
+				E754A2071CB6774B009D861D /* Mine */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -260,6 +274,7 @@
 				E73CAEF11C7B37850099DF2D /* VoiceDetailTableViewCell.swift */,
 				E7E414371CB4FB3200A19F0B /* MapViewController.swift */,
 				E7E6F1251C6CB48200EB1179 /* CommentTableViewCell.swift */,
+				E71A51281CCFA9FE00626ADD /* TagViewController.swift */,
 			);
 			name = Voice;
 			sourceTree = "<group>";
@@ -293,6 +308,7 @@
 				A4597DDD1C952A110069B317 /* CityBean.swift */,
 				A4B5ABA01C97B08700350616 /* UserBean.swift */,
 				A49F8D251CA91B750084F7D8 /* Bean.swift */,
+				A4CFD6681CB2A9160005FB7B /* PFError.swift */,
 			);
 			name = Bean;
 			sourceTree = "<group>";
@@ -435,7 +451,7 @@
 				TargetAttributes = {
 					E7CE059A1C6353FB00E8CCAB = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = 62D9VYM54C;
+						DevelopmentTeam = XPXAPTEPJX;
 					};
 					E7CE05AE1C6353FC00E8CCAB = {
 						CreatedOnToolsVersion = 7.2;
@@ -638,6 +654,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E79F33A51C72FCFF009D1F1A /* SignUpViewController.swift in Sources */,
+				E71A51251CCFA94800626ADD /* RRAddTagView.swift in Sources */,
 				A43CCCBC1C91C2FA00CDB782 /* UserModel.swift in Sources */,
 				E75CBD7A1CB92F84001A1EDD /* MyActivityCell.swift in Sources */,
 				A492DBFA1C93D49100C93FE2 /* VoiceBean.swift in Sources */,
@@ -652,15 +669,19 @@
 				E72C16E01C857DF200E871B0 /* SSRadioButton.swift in Sources */,
 				E75CBD781CB928C8001A1EDD /* MyActivitiesTableViewController.swift in Sources */,
 				A492DBFD1C93D4D900C93FE2 /* ReplyBean.swift in Sources */,
+				E71A51271CCFA94800626ADD /* RRTagController.swift in Sources */,
 				E7A2B1CB1CA7BE80001A4CAB /* MineViewController.swift in Sources */,
+				E71A51261CCFA94800626ADD /* RRTagCollectionViewCell.swift in Sources */,
 				E7E6F1221C6CAE2200EB1179 /* ProposeTableViewController.swift in Sources */,
 				E7E6F1261C6CB48200EB1179 /* CommentTableViewCell.swift in Sources */,
 				A422D36E1CA832950021D9FF /* CommentModel.swift in Sources */,
 				A422D36B1CA832760021D9FF /* ReplyModel.swift in Sources */,
 				E73CAEF21C7B37850099DF2D /* VoiceDetailTableViewCell.swift in Sources */,
+				A4CFD6691CB2A9160005FB7B /* PFError.swift in Sources */,
 				E73CAEF01C7B37730099DF2D /* VoiceTitleTableViewCell.swift in Sources */,
 				A422D3711CA833760021D9FF /* CityModel.swift in Sources */,
 				E7E6F1241C6CB11000EB1179 /* MainTabbarController.swift in Sources */,
+				E71A51291CCFA9FE00626ADD /* TagViewController.swift in Sources */,
 				E7CE059F1C6353FC00E8CCAB /* AppDelegate.swift in Sources */,
 				A422D3681CA8326A0021D9FF /* VoiceModel.swift in Sources */,
 				A49F8D261CA91B750084F7D8 /* Bean.swift in Sources */,
@@ -689,6 +710,7 @@
 				A49F8D271CA91B750084F7D8 /* Bean.swift in Sources */,
 				A4B06A4D1CA96E3B00603910 /* CityModelTests.swift in Sources */,
 				A4B06A471CA96B6900603910 /* VoiceModelTests.swift in Sources */,
+				A4CFD66A1CB2A9160005FB7B /* PFError.swift in Sources */,
 				A4B5ABA21C97B08700350616 /* UserBean.swift in Sources */,
 				A422D36C1CA832760021D9FF /* ReplyModel.swift in Sources */,
 				A492DBFE1C93D4D900C93FE2 /* ReplyBean.swift in Sources */,
@@ -776,7 +798,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -815,7 +837,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -829,10 +851,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = WeCitizens/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.HaroldLiu.WeCitizens;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Teng.WeCitizens;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -842,10 +866,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = WeCitizens/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.HaroldLiu.WeCitizens;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Teng.WeCitizens;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

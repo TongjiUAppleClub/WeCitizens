@@ -111,7 +111,7 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
                             for object in list {
                                 userList.append(object.userEmail)
                             }
-                            self.userModel.getUsersAvatar(userList, resultHandler: { (objects, error) -> Void in
+                            self.userModel.getUsersInfo(userList, needStore: true, resultHandler: { (objects, error) -> Void in
                                 if nil == error {
                                     if let results = objects {
                                         for comment in self.commentList {

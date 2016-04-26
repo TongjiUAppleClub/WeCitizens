@@ -9,6 +9,7 @@
 import UIKit
 import MJRefresh
 import CoreLocation
+import MBProgressHUD
 
 class ProposeTableViewController: UITableViewController,CLLocationManagerDelegate{
   
@@ -26,7 +27,9 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
     var voiceList = [Voice]()
     let voiceModel = VoiceModel()
     let userModel = UserModel()
+    let number = 10
     var queryTimes = 0
+//    var hud:MBProgressHUD!
     
     
 //MARK:- Life cycle
@@ -38,70 +41,102 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
         initLocation()
         
         tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
-            print("Refreshing")
-        
+            print("RefreshingHeader")
+            
+            //上拉刷新，在获取数据后清空旧数据，并做缓存
+            self.queryTimes = 0
+            self.getVoiceFromRemote()
+            
             dispatch_async(dispatch_get_main_queue()) { () -> Void in
-             
+                
                 self.tableView.mj_header.endRefreshing()
             }
         })
         
         tableView.mj_footer = MJRefreshBackNormalFooter(refreshingBlock: { () -> Void in
-            print("Refreshing")
+            print("RefreshingFooter")
+            
+            //1.下拉加载数据，将新数据append到数组中，不缓存
+            self.voiceModel.getVoice(self.number, queryTimes: self.queryTimes, cityName: "shanghai", needStore: false, resultHandler: { (results, error) -> Void in
+                if let _ = error {
+                    //有错误，给用户提示
+                    print("get voice fail with error:\(error!.userInfo)")
+                    self.processError(error!.code)
+                } else {
+                    if let voices = results {
+                        voices.forEach({ (voice) -> () in
+                            self.voiceList.append(voice)
+                        })
+                        self.tableView.reloadData()
+                        self.queryTimes++
+                    } else {
+                        print("no data in refreshing footer")
+                    }
+                }
+            })
+            
             dispatch_async(dispatch_get_main_queue()) { () -> Void in
                 self.tableView.mj_footer.endRefreshing()
             }
         })
         
         tableView.mj_header.automaticallyChangeAlpha = true
-
+        
+        //1.读缓存，如果有数据的话在tableView中填数据
+        self.voiceModel.getVoice("shanghai") { (results, error) -> Void in
+            if let _ = error {
+                //有错误，给用户提示
+                print("get voice from local fail with error:\(error!.userInfo)")
+                self.processError(error!.code)
+            } else {
+                if let voices = results {
+                    self.voiceList = voices
+                    self.tableView.reloadData()
+                } else {
+                    //没取到数据
+                    print("no data from local")
+                }
+            }
+        }
+        
+        //2.向后台请求数据，返回数据时做缓存
+        getVoiceFromRemote()
+    }
+    
+    func getVoiceFromRemote() {
+        self.voiceModel.getVoice(self.number, queryTimes: self.queryTimes, cityName: "shanghai", needStore: true, resultHandler: { (results, error) -> Void in
+            if let _ = error {
+                //有错误，给用户提示
+                print("get voice fail with error:\(error!.userInfo)")
+                self.processError(error!.code)
+            } else {
+                if let voices = results {
+                    self.voiceList = voices
+                    self.tableView.reloadData()
+                    self.queryTimes++
+                } else {
+                    //没取到数据
+                    print("no data in refreshing header")
+                }
+            }
+        })
+    }
+    
+    func processError(errorCode:Int) {
+        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud.mode = .Text
+        let errorMessage:(label:String, detail:String) = convertPFNSErrorToMssage(errorCode)
+        hud.labelText = errorMessage.label
+        hud.detailsLabelText = errorMessage.detail
+        hud.hide(true, afterDelay: 2.0)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        //获取当前城市或用户设置城市
-        let cityName = "shanghai"
         
-        if 0 == voiceList.count {
-            voiceModel.getVoice(20, queryTimes: self.queryTimes, cityName: cityName, resultHandler: { (voices, error) -> Void in
-                if error == nil {
-                    if let list = voices {
-                        self.voiceList = list
-                        var userList = [String]()
-                        for object in list {
-                            print("Voice内容:\(object.content)")
-                            userList.append(object.userEmail)
-                        }
-                        self.userModel.getUsersAvatar(userList, resultHandler: { (objects, error) -> Void in
-                            if nil == error {
-                                if let results = objects {
-                                    for voice in self.voiceList {
-                                        for user in results {
-                                            print("User:\(user.userName)")
-                                            if voice.userEmail == user.userEmail {
-                                                voice.user = user
-                                                
-                                            }
-                                        }
-                                    }
-                                    self.tableView.reloadData()
-                                    print("User List length:\(results.count)")//0
-                                    self.queryTimes++;
-                                } else {
-                                    print("no users")
-                                }
-                            } else {
-                                print("Get User info Propose Error: \(error!) \(error!.userInfo)")
-                            }
-                        })
-                    }
-                } else {
-                    print("Get Voice info Propose Error: \(error!) \(error!.userInfo)")
-                }
-            })
-        }
     }
+    
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -206,6 +241,7 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
                     let placemark = validPlacemark as CLPlacemark;
                     if let city = placemark.addressDictionary!["City"] as? NSString {
                         self.currentLocal = city as String
+                        print("location:\(self.currentLocal)")
                     }
                 }
             }
@@ -218,7 +254,7 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
 
     func dataBinder(cell:CommentTableViewCell,voice:Voice) {
         cell.VoiceTitle.text = voice.title
-        if let image = voice.user!.avatar {
+        if let image = voice.user?.avatar {
             cell.Avatar.image = image
         } else {
             cell.Avatar.image = tmpAvatar

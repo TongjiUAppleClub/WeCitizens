@@ -8,8 +8,8 @@
 
 import UIKit
 import Parse
-import BSImagePicker
 import Photos
+import MBProgressHUD
 
 class AddVoiceTableViewController: UITableViewController,UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -38,13 +38,30 @@ class AddVoiceTableViewController: UITableViewController,UITextViewDelegate, UII
         configureUI()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
     func configureUI() {
 
      VoiceTitle.backgroundColor = UIColor.clearColor()
-   //  BodyCell.frame.size.height += 40
      Content.backgroundColor = UIColor.clearColor()
     
     }
+    
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.row == 1
+        {
+            let tag = ["Albanie", "Allemagne", "Andorre", "Autriche-Hongrie", "Belgique", "Bulgarie", "Danemark", "Espagne", "France", "Grèce", "Italie", "Liechtenstein", "Luxembourg", "Monaco", "Monténégro", "Norvège", "Pays-Bas", "Portugal", "Roumanie", "Royaume-Uni", "Russie", "Saint-Marin", "Serbie", "Suède", "Suisse"]
+            
+            RRTagController.displayTagController(self, tagsString: tag, blockFinish: { (selectedTags, unSelectedTags) -> () in
+            }) { () -> () in
+            }
+
+        }
+    }
+    
     
     @IBAction func PublishVoice(sender: UIBarButtonItem) {
         
@@ -62,40 +79,51 @@ class AddVoiceTableViewController: UITableViewController,UITextViewDelegate, UII
         
         let newVoice = Voice(emailFromLocal: userEmail, name: userName, title: title, abstract: abstract, content: content, classify: voiceType, city: "shanghai", images: newImages)
         
+        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+//        hud.mode = .AnnularDeterminate
+        hud.labelText = "发布中"
+        hud.show(true)
+        
         voiceModel.addNewVoice(newVoice) { (success, error) -> Void in
             if nil == error {
                 if success {
                     print("Add new voice success")
+                    hud.hide(true)
                     self.navigationController?.popViewControllerAnimated(true)
                     //给用户提示
                 }
             } else {
-                //Log details of the failure
-                print("Error: \(error!) \(error!.userInfo)")
+                hud.mode = .Text
+                print("Add new voice Error: \(error!) \(error!.userInfo)")
+                let errorMessage:(label:String, detail:String) = convertPFNSErrorToMssage(error!.code)
+                hud.labelText = errorMessage.label
+                hud.detailsLabelText = errorMessage.detail
+                hud.hide(true, afterDelay: 1.5)
                 //给用户提示
             }
         }
+        
     }
     
     @IBAction func PickImages(sender: UIBarButtonItem) {
         
-        self.ts_presentImagePickerController(
-            maxNumberOfSelections: 4,
-            select: { (asset: PHAsset) -> Void in
-            }, deselect: { (asset: PHAsset) -> Void in
-            }, cancel: { (assets: [PHAsset]) -> Void in
-            }, finish: { (assets: [PHAsset]) -> Void in
-                for (index,asset) in assets.enumerate()
-                {
-                    let image = asset.getUIImage()
-                    self.newImages.append(image!)
-                    print(image)
-                }
-                
-            }, completion: { () -> Void in
-                print("completion")
-        })
-        
+//        self.ts_presentImagePickerController(
+//            maxNumberOfSelections: 4,
+//            select: { (asset: PHAsset) -> Void in
+//            }, deselect: { (asset: PHAsset) -> Void in
+//            }, cancel: { (assets: [PHAsset]) -> Void in
+//            }, finish: { (assets: [PHAsset]) -> Void in
+//                for (index,asset) in assets.enumerate()
+//                {
+//                    let image = asset.getUIImage()
+//                    self.newImages.append(image!)
+//                    print(image)
+//                }
+//                
+//            }, completion: { () -> Void in
+//                print("completion")
+//        })
+//        
         
     }
     
@@ -122,19 +150,19 @@ public extension UIViewController {
      - parameter cancel:                取消按钮
      - parameter finish:                完成按钮
      - parameter completion:            dimiss回掉完成
-     */
-    func ts_presentImagePickerController(maxNumberOfSelections maxNumberOfSelections: Int, select: ((asset: PHAsset) -> Void)?, deselect: ((asset: PHAsset) -> Void)?, cancel: (([PHAsset]) -> Void)?, finish: (([PHAsset]) -> Void)?, completion: (() -> Void)?) {
-        
-        let viewController = BSImagePickerViewController()
-        viewController.maxNumberOfSelections = maxNumberOfSelections
-        viewController.albumButton.tintColor = UIColor.redColor()
-        viewController.cancelButton.tintColor = UIColor.redColor()
-        viewController.doneButton.tintColor = UIColor.redColor()
-        
-        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: false)
-        self.bs_presentImagePickerController(viewController, animated: true,
-            select: select, deselect: deselect, cancel: cancel, finish: finish, completion:nil)
-    }
+//     */
+//    func ts_presentImagePickerController(maxNumberOfSelections maxNumberOfSelections: Int, select: ((asset: PHAsset) -> Void)?, deselect: ((asset: PHAsset) -> Void)?, cancel: (([PHAsset]) -> Void)?, finish: (([PHAsset]) -> Void)?, completion: (() -> Void)?) {
+//        
+//        let viewController = BSImagePickerViewController()
+//        viewController.maxNumberOfSelections = maxNumberOfSelections
+//        viewController.albumButton.tintColor = UIColor.redColor()
+//        viewController.cancelButton.tintColor = UIColor.redColor()
+//        viewController.doneButton.tintColor = UIColor.redColor()
+//        
+//        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: false)
+//        self.bs_presentImagePickerController(viewController, animated: true,
+//            select: select, deselect: deselect, cancel: cancel, finish: finish, completion:nil)
+//    }
     
 }
 

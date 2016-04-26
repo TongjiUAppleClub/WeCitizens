@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import MJRefresh
 import FoldingCell
+import MBProgressHUD
 
 class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDelegate{
 
-//    let kRowsCount = 10
     let kCloseCellHeight:CGFloat = 280
     let kOpenCellHeight:CGFloat = 940
     
@@ -27,51 +28,107 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
     var replyModel = ReplyModel()
     var userModel = UserModel()
     var queryTimes = 0
+    let number = 10
 
 //MARK:- Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
+        tableView.estimatedRowHeight = tableView.rowHeight
+        tableView.rowHeight = UITableViewAutomaticDimension
+        self.clearsSelectionOnViewWillAppear = false
         
-        //获取当前城市或用户设置城市
-        let cityName = "shanghai"
-        print("get reply")
-        if 0 == replyList.count {
-            replyModel.getReply(20, queryTimes: queryTimes, cityName: cityName, resultHandler: { (replies, error) -> Void in
-                if error == nil {
-                    if let list = replies {
-                        var userList = [String]()
-                        for reply in list {
-                            self.replyList.append(reply)
-                            userList.append(reply.userEmail)
-                        }
-                        self.userModel.getUsersAvatar(userList, resultHandler: { (objects, error) -> Void in
-                            if nil == error {
-                                if let results = objects {
-                                    for reply in self.replyList {
-                                        for user in results {
-                                            if reply.userEmail == user.userEmail {
-                                                reply.user = user
-                                            }
-                                        }
-                                    }
-                                    for _ in 0...self.replyList.count {
-                                        self.cellHeights.append(self.kCloseCellHeight)
-                                    }
-                                    self.tableView.reloadData()
-                                    self.queryTimes++
-                                }
-                            }
-                        })
-                    }
+        tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
+            print("RefreshingHeader")
+            
+            //上拉刷新，在获取数据后清空旧数据，并做缓存
+            self.queryTimes = 0
+            self.getReplyFromRemote()
+            
+            dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                
+                self.tableView.mj_header.endRefreshing()
+            }
+        })
+        
+        tableView.mj_footer = MJRefreshBackNormalFooter(refreshingBlock: { () -> Void in
+            print("RefreshingFooter")
+            
+            //1.下拉加载数据，将新数据append到数组中，不缓存
+            self.replyModel.getReply(self.number, queryTimes: self.queryTimes, cityName: "shanghai", needStore: false, resultHandler: { (results, error) -> Void in
+                if let _ = error {
+                    //有错误，给用户提示
+                    print("get reply fail with error:\(error!.userInfo)")
+                    self.processError(error!.code)
                 } else {
-                    print("Propose Error: \(error!) \(error!.userInfo)")
+                    if let replies = results {
+                        replies.forEach({ (reply) -> () in
+                            self.replyList.append(reply)
+                        })
+                        self.cellHeights = [CGFloat](count: self.replyList.count, repeatedValue: self.kCloseCellHeight)
+                        self.tableView.reloadData()
+                        self.queryTimes++
+                    } else {
+                        print("no data in refreshing footer")
+                    }
                 }
             })
+            
+            dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                self.tableView.mj_footer.endRefreshing()
+            }
+        })
+        
+        tableView.mj_header.automaticallyChangeAlpha = true
+        
+        //1.读缓存，如果有数据的话在tableView中填数据
+        self.replyModel.getReply("shanghai") { (results, error) -> () in
+            if let _ = error {
+                //有错误，给用户提示
+                print("get reply from local fail with error:\(error!.userInfo)")
+                self.processError(error!.code)
+            } else {
+                if let replies = results {
+                    self.replyList = replies
+                    self.cellHeights = [CGFloat](count: self.replyList.count, repeatedValue: self.kCloseCellHeight)
+                    self.tableView.reloadData()
+                } else {
+                    //没取到数据
+                    print("no data from local")
+                }
+            }
         }
+        
+        //2.向后台请求数据，返回数据时做缓存
+        getReplyFromRemote()
+    }
+    
+    func getReplyFromRemote() {
+        self.replyModel.getReply(self.number, queryTimes: self.queryTimes, cityName: "shanghai", needStore: true, resultHandler: { (results, error) -> Void in
+            if let _ = error {
+                //有错误，给用户提示
+                print("get voice fail with error:\(error!.userInfo)")
+                self.processError(error!.code)
+            } else {
+                if let replies = results {
+                    self.replyList = replies
+                    self.cellHeights = [CGFloat](count: self.replyList.count, repeatedValue: self.kCloseCellHeight)
+                    self.tableView.reloadData()
+                    self.queryTimes++
+                } else {
+                    //没取到数据
+                    print("no data in refreshing header")
+                }
+            }
+        })
+    }
+    
+    func processError(errorCode:Int) {
+        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud.mode = .Text
+        let errorMessage:(label:String, detail:String) = convertPFNSErrorToMssage(errorCode)
+        hud.labelText = errorMessage.label
+        hud.detailsLabelText = errorMessage.detail
+        hud.hide(true, afterDelay: 2.0)
     }
     
     override func viewDidLayoutSubviews() {

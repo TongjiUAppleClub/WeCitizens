@@ -25,7 +25,7 @@ class VoiceModelTests: XCTestCase {
     }
     
     func testGetVoice() {
-        testVoiceModel.getVoice(20, queryTimes: 0, cityName: "shanghai") { (objects, error) -> Void in
+        testVoiceModel.getVoice(20, queryTimes: 0, cityName: "shanghai", needStore: false) { (objects, error) -> Void in
             XCTAssertNil(error)
             XCTAssertNotNil(objects)
             if nil == error {

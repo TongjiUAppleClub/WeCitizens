@@ -12,7 +12,7 @@ class UserModelTests: XCTestCase {
     
     let testUserModel = UserModel()
     var expectation:XCTestExpectation? = nil
-    let users = ["843018739@qq.com", "843018739@qq.com", "843018739@qq.com"]
+    let users = ["843018739@qq.com", "xudongliutjuer@163.com", "7lxd@tongji.edu.cn"]
 
 
     override func setUp() {
@@ -52,22 +52,20 @@ class UserModelTests: XCTestCase {
     }
 
     func testGetUserData() {
-        testUserModel.getUsersAvatar(users) { (objects, error) -> Void in
+        testUserModel.getUsersInfo(users, needStore: true) { (objects, error) -> Void in
             XCTAssertNil(error)
             if error == nil {
                 XCTAssertNotNil(objects)
                 if let users = objects {
                     for user in users {
-                        print("User:\(user.userName)")
+                        print("Got User Info:\(user.userName)")
                     }
                 }
             } else {
-                print("Error: \(error!) \(error!.userInfo)")
+                print("Get User Info Error: \(error!) \(error!.userInfo)")
             }
             self.expectation!.fulfill()
         }
-        self.waitForExpectationsWithTimeout(10.0) { (error) -> Void in
-            print("Error: \(error)")
-        }
+        self.waitForExpectationsWithTimeout(10.0, handler: nil)
     }
 }
