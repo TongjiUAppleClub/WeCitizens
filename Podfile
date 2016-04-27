@@ -9,6 +9,7 @@ target 'WeCitizens' do
 pod 'Alamofire', '~> 3.2.0'
 pod 'SnapKit', '~> 0.19.1'
 pod 'FoldingCell'
+pod "BSImagePicker", "~> 2.3"
 
 # objective-c
 pod 'MBProgressHUD', '~> 0.9.2'

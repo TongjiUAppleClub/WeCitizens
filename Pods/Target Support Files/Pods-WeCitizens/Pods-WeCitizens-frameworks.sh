@@ -85,6 +85,8 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-WeCitizens/Alamofire.framework"
+  install_framework "Pods-WeCitizens/BSGridCollectionViewLayout.framework"
+  install_framework "Pods-WeCitizens/BSImagePicker.framework"
   install_framework "Pods-WeCitizens/Bolts.framework"
   install_framework "Pods-WeCitizens/FoldingCell.framework"
   install_framework "Pods-WeCitizens/MBProgressHUD.framework"
@@ -92,9 +94,12 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-WeCitizens/Parse.framework"
   install_framework "Pods-WeCitizens/ParseUI.framework"
   install_framework "Pods-WeCitizens/SnapKit.framework"
+  install_framework "Pods-WeCitizens/UIImageViewModeScaleAspect.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-WeCitizens/Alamofire.framework"
+  install_framework "Pods-WeCitizens/BSGridCollectionViewLayout.framework"
+  install_framework "Pods-WeCitizens/BSImagePicker.framework"
   install_framework "Pods-WeCitizens/Bolts.framework"
   install_framework "Pods-WeCitizens/FoldingCell.framework"
   install_framework "Pods-WeCitizens/MBProgressHUD.framework"
@@ -102,4 +107,5 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-WeCitizens/Parse.framework"
   install_framework "Pods-WeCitizens/ParseUI.framework"
   install_framework "Pods-WeCitizens/SnapKit.framework"
+  install_framework "Pods-WeCitizens/UIImageViewModeScaleAspect.framework"
 fi
