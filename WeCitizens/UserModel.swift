@@ -128,7 +128,7 @@ class UserModel:DataModel {
         }
     }
     
-    //获取指定用户数据
+    //根据邮箱获取用户信息
     func getUserInfo(email:String, resultHandler:(User?, NSError?) -> Void) {
         let query = PFQuery(className: "User")
         
@@ -154,5 +154,11 @@ class UserModel:DataModel {
                 resultHandler(nil, error)
             }
         }
+    }
+    
+    
+    //更新用户资料
+    func updateUserInfo() {
+        
     }
 }

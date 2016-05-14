@@ -11,7 +11,7 @@ import MJRefresh
 import CoreLocation
 import MBProgressHUD
 
-class ProposeTableViewController: UITableViewController,CLLocationManagerDelegate{
+class ProposeTableViewController: UITableViewController,CLLocationManagerDelegate, NewLocationDelegate{
   
     let tmpAvatar =  UIImage(named: "avatar")
     let testImages = [UIImage(named: "logo_1")!,UIImage(named: "logo_1")!]
@@ -144,6 +144,11 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
         
     }
     
+    func setNewLocation(newLocation: String) {
+        print("locaiton:\(newLocation)")
+    }
+    
+    
 // MARK:- Table view data source && delegate
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
@@ -205,6 +210,7 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
         switchButton.setImage(UIImage(named: "switch"), forState: .Normal)
     
         switchButton.addTarget(self, action: "ChangeLocation:", forControlEvents: UIControlEvents.TouchUpInside)
+        //如何获取到controller？
         
         titleView.addSubview(locationLabel)
         titleView.addSubview(switchButton)

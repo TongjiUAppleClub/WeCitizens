@@ -22,6 +22,7 @@
 		A4597DDE1C952A110069B317 /* CityBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4597DDD1C952A110069B317 /* CityBean.swift */; };
 		A4597DDF1C952A110069B317 /* CityBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4597DDD1C952A110069B317 /* CityBean.swift */; };
 		A4597DE11C9555B60069B317 /* UserModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4597DE01C9555B60069B317 /* UserModelTests.swift */; };
+		A47D54451CC7DC5E00904EB0 /* LocationListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47D54441CC7DC5E00904EB0 /* LocationListTableViewController.swift */; };
 		A492DBFA1C93D49100C93FE2 /* VoiceBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A492DBF91C93D49100C93FE2 /* VoiceBean.swift */; };
 		A492DBFB1C93D49100C93FE2 /* VoiceBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A492DBF91C93D49100C93FE2 /* VoiceBean.swift */; };
 		A492DBFD1C93D4D900C93FE2 /* ReplyBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A492DBFC1C93D4D900C93FE2 /* ReplyBean.swift */; };
@@ -101,6 +102,7 @@
 		A43CCCBB1C91C2FA00CDB782 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		A4597DDD1C952A110069B317 /* CityBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityBean.swift; sourceTree = "<group>"; };
 		A4597DE01C9555B60069B317 /* UserModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModelTests.swift; sourceTree = "<group>"; };
+		A47D54441CC7DC5E00904EB0 /* LocationListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationListTableViewController.swift; sourceTree = "<group>"; };
 		A492DBF91C93D49100C93FE2 /* VoiceBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoiceBean.swift; sourceTree = "<group>"; };
 		A492DBFC1C93D4D900C93FE2 /* ReplyBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyBean.swift; sourceTree = "<group>"; };
 		A492DBFF1C94032900C93FE2 /* CommentBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentBean.swift; sourceTree = "<group>"; };
@@ -257,6 +259,7 @@
 			isa = PBXGroup;
 			children = (
 				E7E6F1211C6CAE2200EB1179 /* ProposeTableViewController.swift */,
+				A47D54441CC7DC5E00904EB0 /* LocationListTableViewController.swift */,
 				E73CAEEB1C79B8010099DF2D /* AddVoiceTableViewController.swift */,
 				E73CAEED1C79ECB30099DF2D /* VoiceDetailTableViewController.swift */,
 				E73CAEEF1C7B37730099DF2D /* VoiceTitleTableViewCell.swift */,
@@ -651,6 +654,7 @@
 				A492DC001C94032900C93FE2 /* CommentBean.swift in Sources */,
 				E74BA4A01C7E082B00FC1BA6 /* ReplyTableViewController.swift in Sources */,
 				E73CAEEE1C79ECB30099DF2D /* VoiceDetailTableViewController.swift in Sources */,
+				A47D54451CC7DC5E00904EB0 /* LocationListTableViewController.swift in Sources */,
 				E754A20D1CB678A9009D861D /* EditUserInfoControler.swift in Sources */,
 				E72C16E11C857DF200E871B0 /* SSRadioButtonsController.swift in Sources */,
 				E72C16E01C857DF200E871B0 /* SSRadioButton.swift in Sources */,
