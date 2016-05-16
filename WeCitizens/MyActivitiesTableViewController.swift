@@ -12,6 +12,7 @@ import MJRefresh
 
 class MyActivitiesTableViewController: UITableViewController {
 
+    var activityList:NSArray? = nil
     
     override func viewDidLoad()
     {

@@ -9,6 +9,14 @@
 import Foundation
 import Parse
 
+// TODO:1.修改昵称的接口
+//      2.获取用户动态的接口
+//      3.增加用户动态接口
+//      4.数据库修改：考虑如何添加用户关注
+//      5.数据库修改：添加用户动态
+//      6.地图显示Voice位置
+
+
 class UserModel:DataModel {
     func userSetNewAvatar(newAvatar:UIImage, resultHandler:(Bool, NSError)) {
         
@@ -139,6 +147,7 @@ class UserModel:DataModel {
         query.getFirstObjectInBackgroundWithBlock { (object, error) -> Void in
             if nil == error {
                 if let result = object {
+                    print("user:\(result)")
 //                    let avatarFile = result.valueForKey("avatar") as! PFFile//需要处理头像为空的情况
 //                    let avatarImage = super.convertPFFileToImage(avatarFile)
                     let name = result.valueForKey("username") as! String

@@ -29,7 +29,7 @@ class MineViewController: UITableViewController {
             print("Email:\(userEmail)")
             if nil == error {
                 if let user = currentUser {
-                    print("user:\(user.userName)")
+                    print("user:\(user)")
                     self.user = user
                     self.setUserData()
                 } else {
@@ -96,10 +96,17 @@ class MineViewController: UITableViewController {
         print(indexPath.row)
         switch indexPath.row {
         case 0:
-            navigationController?.pushViewController((storyboard?.instantiateViewControllerWithIdentifier("MyActivity"))!, animated: true)
+            let controller = storyboard?.instantiateViewControllerWithIdentifier("MyActivity") as! MyActivitiesTableViewController
+            // TODO:初始化数据
+
+            self.navigationController?.pushViewController(controller, animated: true)
+            
             break
         case 1:
-            navigationController?.pushViewController((storyboard?.instantiateViewControllerWithIdentifier("EditInfo"))!, animated: true)
+            
+            let controller = storyboard?.instantiateViewControllerWithIdentifier("EditInfo") as! EditUserInfoControler
+            controller.user = self.user
+            self.navigationController?.pushViewController(controller, animated: true)
             break
         case 3:
             navigationController?.pushViewController((storyboard?.instantiateViewControllerWithIdentifier("About"))!, animated: true)
