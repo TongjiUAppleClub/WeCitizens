@@ -68,7 +68,7 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
                             self.voiceList.append(voice)
                         })
                         self.tableView.reloadData()
-                        self.queryTimes++
+                        self.queryTimes += 1
                     } else {
                         print("no data in refreshing footer")
                     }
@@ -113,7 +113,7 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
                 if let voices = results {
                     self.voiceList = voices
                     self.tableView.reloadData()
-                    self.queryTimes++
+                    self.queryTimes += 1
                 } else {
                     //没取到数据
                     print("no data in refreshing header")

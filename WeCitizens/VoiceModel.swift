@@ -191,7 +191,8 @@ class VoiceModel: DataModel {
             
             var currentNum = result.valueForKey("focusNum") as! Int
             print("current number:\(currentNum)")
-            result.setValue(++currentNum, forKey: "focusNum")
+            currentNum += 1
+            result.setValue(currentNum, forKey: "focusNum")
             
             result.saveInBackgroundWithBlock(resultHandler)
         } catch {
@@ -211,7 +212,8 @@ class VoiceModel: DataModel {
             
             var currentNum = result.valueForKey("focusNum") as! Int
             print("current number:\(currentNum)")
-            result.setValue(--currentNum, forKey: "focusNum")
+            currentNum -= 1
+            result.setValue(currentNum, forKey: "focusNum")
             
             result.saveInBackgroundWithBlock(resultHandler)
         } catch {

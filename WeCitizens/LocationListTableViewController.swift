@@ -61,7 +61,7 @@ class LocationListTableViewController: UITableViewController {
                 if let cities = results {
                     self.cityList.appendContentsOf(cities)
                     self.tableView.reloadData()
-                    self.queryTimes++
+                    self.queryTimes += 1
                 } else {
                     //没取到数据
                     print("no data in refreshing header")

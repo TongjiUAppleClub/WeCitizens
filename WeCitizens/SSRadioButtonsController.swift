@@ -57,7 +57,7 @@ class SSRadioButtonsController : NSObject
     func removeButton(aButton: UIButton) {
         var iteration = 0
         var iteratingButton: UIButton? = nil
-        for( ; iteration<buttonsArray.count; iteration++) {
+        for( ; iteration<buttonsArray.count; iteration += 1) {
             iteratingButton = buttonsArray[iteration]
             if(iteratingButton == aButton) {
                 break
