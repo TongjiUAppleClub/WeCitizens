@@ -166,7 +166,7 @@ class ReplyModel: DataModel {
             switch (attitude) {
             case 1:
                 current = currentLevel.valueForKey("level1") as! Int
-                current++
+                current += 1
                 currentLevel.setValue(current, forKey: "level1")
             case 2:
                 current = currentLevel.valueForKey("level2") as! Int

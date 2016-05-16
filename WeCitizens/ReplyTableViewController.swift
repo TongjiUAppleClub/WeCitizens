@@ -66,7 +66,7 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
                         })
                         self.cellHeights = [CGFloat](count: self.replyList.count, repeatedValue: self.kCloseCellHeight)
                         self.tableView.reloadData()
-                        self.queryTimes++
+                        self.queryTimes += 1
                     } else {
                         print("no data in refreshing footer")
                     }
@@ -113,7 +113,7 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
                     self.replyList = replies
                     self.cellHeights = [CGFloat](count: self.replyList.count, repeatedValue: self.kCloseCellHeight)
                     self.tableView.reloadData()
-                    self.queryTimes++
+                    self.queryTimes += 1
                 } else {
                     //没取到数据
                     print("no data in refreshing header")

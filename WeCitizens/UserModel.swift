@@ -9,6 +9,14 @@
 import Foundation
 import Parse
 
+// TODO:1.修改昵称的接口
+//      2.获取用户动态的接口
+//      3.增加用户动态接口
+//      4.数据库修改：考虑如何添加用户关注
+//      5.数据库修改：添加用户动态
+//      6.地图显示Voice位置
+
+
 class UserModel:DataModel {
     func userSetNewAvatar(newAvatar:UIImage, resultHandler:(Bool, NSError)) {
         
@@ -24,7 +32,8 @@ class UserModel:DataModel {
             let result = try query.getFirstObject()
             
             var currentNum = result.valueForKey("resume") as! Int
-            result.setValue(++currentNum, forKey: "resume")
+            currentNum += 1
+            result.setValue(currentNum, forKey: "resume")
             result.saveInBackgroundWithBlock(resultHandler)
         } catch {
             print("Add user resume error!!!!!!!!")
@@ -42,7 +51,8 @@ class UserModel:DataModel {
             let result = try query.getFirstObject()
             
             var currentNum = result.valueForKey("resume") as! Int
-            result.setValue(--currentNum, forKey: "resume")
+            currentNum -= 1
+            result.setValue(currentNum, forKey: "resume")
             result.saveInBackgroundWithBlock(resultHandler)
         } catch {
             print("Minus user resume error!!!!!!!!")
@@ -128,16 +138,18 @@ class UserModel:DataModel {
         }
     }
     
-    //获取指定用户数据
+    //根据邮箱获取用户信息
+    // TODO:有bug，头像为空时会crash
     func getUserInfo(email:String, resultHandler:(User?, NSError?) -> Void) {
-        let query = PFQuery(className: "User")
+        let query = PFUser.query()!//PFQuery(className: "User")
         
         query.whereKey("email", equalTo: email)
         query.getFirstObjectInBackgroundWithBlock { (object, error) -> Void in
             if nil == error {
                 if let result = object {
-                    let avatarFile = result.valueForKey("avatar") as! PFFile
-                    let avatarImage = super.convertPFFileToImage(avatarFile)
+                    print("user:\(result)")
+//                    let avatarFile = result.valueForKey("avatar") as! PFFile//需要处理头像为空的情况
+//                    let avatarImage = super.convertPFFileToImage(avatarFile)
                     let name = result.valueForKey("username") as! String
                     let email = result.valueForKey("email") as! String
                     let resume = result.valueForKey("resume") as! Int
@@ -145,7 +157,7 @@ class UserModel:DataModel {
                     let focusNum = result.valueForKey("focusNum") as! Int
                     
                     
-                    let newUser = User(imageFromRemote: avatarImage, name: name, email: email, resume: resume, voiceNum: voiceNum, focusNum: focusNum)
+                    let newUser = User(imageFromRemote: nil, name: name, email: email, resume: resume, voiceNum: voiceNum, focusNum: focusNum)
                     resultHandler(newUser, nil)
                 } else {
                     resultHandler(nil, nil)
@@ -154,5 +166,11 @@ class UserModel:DataModel {
                 resultHandler(nil, error)
             }
         }
+    }
+    
+    
+    //更新用户资料
+    func updateUserInfo() {
+        
     }
 }

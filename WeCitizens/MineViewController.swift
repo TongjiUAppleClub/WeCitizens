@@ -15,8 +15,10 @@ class MineViewController: UITableViewController {
     @IBOutlet weak var Avatar: UIImageView!
     @IBOutlet weak var UserName: UILabel!
     @IBOutlet weak var Reputation: UILabel!
+    @IBOutlet weak var VoiceStatisticsLabel: UILabel!
     
     let userModel = UserModel()
+    var user:User? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,16 +26,27 @@ class MineViewController: UITableViewController {
         let userEmail = PFUser.currentUser()?.email
         
         userModel.getUserInfo(userEmail!) { (currentUser, error) -> Void in
+            print("Email:\(userEmail)")
             if nil == error {
                 if let user = currentUser {
-                    //获取到user信息
+                    print("user:\(user)")
+                    self.user = user
+                    self.setUserData()
                 } else {
-                    //获取信息失败
+                    //获取user信息失败，给用户提示
+                    print("获取user信息失败")
                 }
             } else {
-                //获取信息失败
+                //获取信息失败，给用户提示
+                print("获取user信息失败：\(error)")
             }
         }
+    }
+    
+    func setUserData() {
+        UserName.text = self.user!.userName
+        VoiceStatisticsLabel.text = "已发布\(self.user!.voiceNum)个心声，获得\(self.user!.focusNum)个关注"
+        Reputation.text = "\(self.user!.resume)"
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -81,13 +94,19 @@ class MineViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print(indexPath.row)
-        switch indexPath.row
-        {
+        switch indexPath.row {
         case 0:
-            navigationController?.pushViewController((storyboard?.instantiateViewControllerWithIdentifier("MyActivity"))!, animated: true)
+            let controller = storyboard?.instantiateViewControllerWithIdentifier("MyActivity") as! MyActivitiesTableViewController
+            // TODO:初始化数据
+
+            self.navigationController?.pushViewController(controller, animated: true)
+            
             break
         case 1:
-            navigationController?.pushViewController((storyboard?.instantiateViewControllerWithIdentifier("EditInfo"))!, animated: true)
+            
+            let controller = storyboard?.instantiateViewControllerWithIdentifier("EditInfo") as! EditUserInfoControler
+            controller.user = self.user
+            self.navigationController?.pushViewController(controller, animated: true)
             break
         case 2:
             navigationController?.pushViewController((storyboard?.instantiateViewControllerWithIdentifier("About"))!, animated: true)

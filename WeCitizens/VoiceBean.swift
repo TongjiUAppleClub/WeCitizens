@@ -38,6 +38,10 @@ class Voice: Bean {
     var status:Bool = false
     var images:[UIImage] = []
     
+    var latitude = 30.0//纬度
+    var longitude = 130.0//经度
+    
+    
     init(emailFromLocal email:String, name: String, title:String, abstract:String, content:String, classify:String, city:String, images:[UIImage]) {
         
         self.title = title

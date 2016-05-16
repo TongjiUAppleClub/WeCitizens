@@ -124,7 +124,7 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
                                         }
                                         self.tableView.reloadData()
                                         print("User List length:\(results.count)")//0
-                                        self.queryTimes++;
+                                        self.queryTimes += 1;
                                     } else {
                                         print("no users")
                                     }

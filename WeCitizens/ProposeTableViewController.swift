@@ -11,7 +11,7 @@ import MJRefresh
 import CoreLocation
 import MBProgressHUD
 
-class ProposeTableViewController: UITableViewController,CLLocationManagerDelegate{
+class ProposeTableViewController: UITableViewController,CLLocationManagerDelegate, NewLocationDelegate{
   
     let tmpAvatar =  UIImage(named: "avatar")
     let testImages = [UIImage(named: "logo_1")!,UIImage(named: "logo_1")!]
@@ -68,7 +68,7 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
                             self.voiceList.append(voice)
                         })
                         self.tableView.reloadData()
-                        self.queryTimes++
+                        self.queryTimes += 1
                     } else {
                         print("no data in refreshing footer")
                     }
@@ -113,7 +113,7 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
                 if let voices = results {
                     self.voiceList = voices
                     self.tableView.reloadData()
-                    self.queryTimes++
+                    self.queryTimes += 1
                 } else {
                     //没取到数据
                     print("no data in refreshing header")
@@ -143,6 +143,11 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
         configureUI()
         
     }
+    
+    func setNewLocation(newLocation: String) {
+        print("locaiton:\(newLocation)")
+    }
+    
     
 // MARK:- Table view data source && delegate
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -205,6 +210,7 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
         switchButton.setImage(UIImage(named: "switch"), forState: .Normal)
     
         switchButton.addTarget(self, action: "ChangeLocation:", forControlEvents: UIControlEvents.TouchUpInside)
+        //如何获取到controller？
         
         titleView.addSubview(locationLabel)
         titleView.addSubview(switchButton)
