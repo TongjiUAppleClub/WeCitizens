@@ -183,13 +183,15 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "ShowDetail") {
             let controller = segue.destinationViewController as! VoiceDetailTableViewController
-            let row = ( sender as! NSIndexPath ).row
+            let row = ( sender as! NSIndexPath ).section
             controller.title = self.voiceList[row].title
             controller.voice = self.voiceList[row]
-        
         } else if (segue.identifier == "PushVoice") {
             let controller = segue.destinationViewController as! AddVoiceTableViewController
             controller.currentLocation = self.currentLocal
+        } else if (segue.identifier == "ShowMap") {
+            let controller = segue.destinationViewController as! MapViewController
+            controller.voiceList = self.voiceList
         }
     }
     

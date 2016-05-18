@@ -32,7 +32,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="LocationTable" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rHX-Lg-0Js" customClass="LocationListTableViewController" customModule="WeCitizens" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="FsG-xU-PtP">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="800"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -2346,6 +2346,6 @@
         <image name="安全" width="23" height="26"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="NNM-V3-sc3"/>
+        <segue reference="WAr-15-PQZ"/>
     </inferredMetricsTieBreakers>
 </document>
