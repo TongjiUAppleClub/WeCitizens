@@ -14,7 +14,6 @@ import Parse
 //      3.增加用户动态接口
 //      4.数据库修改：考虑如何添加用户关注
 //      5.数据库修改：添加用户动态
-//      6.地图显示Voice位置
 
 
 class UserModel:DataModel {
@@ -168,9 +167,17 @@ class UserModel:DataModel {
         }
     }
     
-    
-    //更新用户资料
-    func updateUserInfo() {
+    //修改用户昵称
+    func modifyUserName(name:String) {
+        // 需要先登录，再修改
+        do {
+            let user = try PFUser.logInWithUsername("my_username", password:"my_password")
+            user.username = "my_new_username" // attempt to change username
+            try user.save() // This succeeds, since the user was authenticated on the device
+
+        } catch {
+            
+        }
         
     }
 }

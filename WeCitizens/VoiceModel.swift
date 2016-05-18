@@ -9,6 +9,11 @@
 import Foundation
 import Parse
 
+// TODO:1. 地图显示Voice位置
+//      2. 添加Voice 时候要获取当前位置信息
+//      3. Voice添加经纬度信息
+//      4. Voice添加赞同数量
+
 class VoiceModel: DataModel {
     //获取指定数量Voice,code completed
     func getVoice(queryNum: Int, queryTimes: Int, cityName:String, needStore:Bool, resultHandler: ([Voice]?, NSError?) -> Void) {
@@ -137,11 +142,15 @@ class VoiceModel: DataModel {
             let focusNum = result.objectForKey("focusNum") as! Int
             let city = result.objectForKey("city") as! String
             let isReplied = result.objectForKey("isReplied") as! Bool
+            
+            let lat = result.objectForKey("latitude") as! Double
+            let lon = result.objectForKey("longitude") as! Double
+            
             let images = result.objectForKey("images") as! NSArray
             
             let imageList = super.convertArrayToImages(images)
             
-            let newVoice = Voice(voiceIdFromRemote: id, email: email, name: name, date: time, title: title, abstract: abstract, content: content, status: status, classify: classifyStr, focusNum: focusNum, city: city, replied: isReplied, images: imageList)
+            let newVoice = Voice(voiceIdFromRemote: id, email: email, name: name, date: time, title: title, abstract: abstract, content: content, status: status, classify: classifyStr, focusNum: focusNum, city: city, replied: isReplied, latitude: lat, longitude: lon, images: imageList)
             
             voice.append(newVoice)
         }
@@ -160,11 +169,14 @@ class VoiceModel: DataModel {
         voice["abstract"] = newVoice.abstract
         voice["content"] = newVoice.content
         voice["status"] = newVoice.status
-        voice["classify"] = newVoice.classify.rawValue
+        voice["classify"] = newVoice.classify
         voice["focusNum"] = newVoice.focusNum
         voice["city"] = newVoice.city
         voice["isReplied"] = newVoice.isReplied
         voice["replyId"] = newVoice.replyId
+        voice["latitude"] = newVoice.latitude
+        voice["longitude"] = newVoice.longitude
+        
         voice["images"] = self.convertImageToPFFile(newVoice.images)
         
         voice.saveInBackgroundWithBlock { (success, error) -> Void in
@@ -243,10 +255,13 @@ class VoiceModel: DataModel {
                     let city = result.objectForKey("city") as! String
                     let isReplied = result.objectForKey("isReplied") as! Bool
                     
+                    let lat = result.objectForKey("latitude") as! Double
+                    let lon = result.objectForKey("longitude") as! Double
+                    
                     let images = result.objectForKey("images") as! NSArray
                     let imageList = super.convertArrayToImages(images)
                     
-                    let newVoice = Voice(voiceIdFromRemote: id, email: email, name: name, date: time, title: title, abstract: abstract, content: content, status: status, classify: classifyStr, focusNum: focusNum, city: city, replied: isReplied, images: imageList)
+                    let newVoice = Voice(voiceIdFromRemote: id, email: email, name: name, date: time, title: title, abstract: abstract, content: content, status: status, classify: classifyStr, focusNum: focusNum, city: city, replied: isReplied, latitude: lat, longitude: lon, images: imageList)
                     
                     resultHandler(newVoice, nil)
                 } else {

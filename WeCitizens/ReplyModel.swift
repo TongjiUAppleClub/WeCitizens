@@ -170,15 +170,15 @@ class ReplyModel: DataModel {
                 currentLevel.setValue(current, forKey: "level1")
             case 2:
                 current = currentLevel.valueForKey("level2") as! Int
-                current++
+                current += 1
                 currentLevel.setValue(current, forKey: "level2")
             case 3:
                 current = currentLevel.valueForKey("level3") as! Int
-                current++
+                current += 1
                 currentLevel.setValue(current, forKey: "level3")
             case 4:
                 current = currentLevel.valueForKey("level4") as! Int
-                current++
+                current += 1
                 currentLevel.setValue(current, forKey: "level4")
             default:
                 print("")

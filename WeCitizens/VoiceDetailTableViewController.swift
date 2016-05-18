@@ -234,7 +234,7 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
                 cell.Abstract.text = currentVoice.content
                 cell.CommentUser.text = voiceUser.userName
                 cell.Reputation.text = "\(voiceUser.resume)"
-                cell.Classify.text = currentVoice.classify.rawValue
+                cell.Classify.text = currentVoice.classify
                 cell.UpdateTime.text = currentVoice.dateStr
                 
                 if let image = voiceUser.avatar {

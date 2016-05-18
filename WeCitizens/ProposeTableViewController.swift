@@ -269,7 +269,7 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
         cell.CommentUser.text = "\(voice.user!.userName)"
         cell.UpdateTime.text = voice.dateStr
         cell.Abstract.text = voice.abstract
-        cell.Classify.text = voice.classify.rawValue
+        cell.Classify.text = voice.classify
     }
     
     func imagesBinder(containter:UIView,images:[UIImage]) {
