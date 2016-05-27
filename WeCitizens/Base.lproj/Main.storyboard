@@ -32,7 +32,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="LocationTable" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rHX-Lg-0Js" customClass="LocationListTableViewController" customModule="WeCitizens" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="FsG-xU-PtP">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="800"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -665,7 +665,7 @@
         <!--Voice Detail Table View Controller-->
         <scene sceneID="Q84-0a-91U">
             <objects>
-                <tableViewController id="522-2N-Ggf" customClass="VoiceDetailTableViewController" customModule="WeCitizens" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="VoiceDetailTableView" id="522-2N-Ggf" customClass="VoiceDetailTableViewController" customModule="WeCitizens" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="409" sectionHeaderHeight="28" sectionFooterHeight="28" id="8HN-Z2-x6y">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1274,6 +1274,9 @@
                                                             <state key="normal" title="查看相关提议 &gt;">
                                                                 <color key="titleColor" red="0.12549019610000001" green="0.70196078429999997" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                                                             </state>
+                                                            <connections>
+                                                                <action selector="jumpVoice:" destination="KKZ-Xm-LyM" eventType="touchUpInside" id="Z91-FO-nmw"/>
+                                                            </connections>
                                                         </button>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FbS-Jo-c7d">
                                                             <rect key="frame" x="0.0" y="143" width="278" height="1"/>
@@ -2349,6 +2352,6 @@
         <image name="安全" width="23" height="26"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="NNM-V3-sc3"/>
+        <segue reference="WAr-15-PQZ"/>
     </inferredMetricsTieBreakers>
 </document>

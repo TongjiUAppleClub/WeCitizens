@@ -265,7 +265,20 @@ class VoiceModel: DataModel {
                     
                     let newVoice = Voice(voiceIdFromRemote: id, email: email, name: name, date: time, title: title, abstract: abstract, content: content, status: status, classify: classifyStr, focusNum: focusNum, city: city, replied: isReplied, replyId: replyId,  latitude: lat, longitude: lon, images: imageList)
                     
-                    resultHandler(newVoice, nil)
+                    UserModel().getUserInfo(email, resultHandler: { (newUser, error) in
+                        if let _ = error {
+                            print("get user error when get voice with id")
+                            resultHandler(nil, error)
+                        } else {
+                            if let user = newUser {
+                                newVoice.user = user
+                                resultHandler(newVoice, nil)
+                            } else {
+                                print("do not get user when get voice with id")
+                                resultHandler(nil, nil)
+                            }
+                        }
+                    })
                 } else {
                     //没找到voice
                     resultHandler(nil, nil)

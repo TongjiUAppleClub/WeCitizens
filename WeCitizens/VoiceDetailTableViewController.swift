@@ -29,10 +29,12 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate, 
     
     let commentModel = CommentModel()
     let userModel = UserModel()
+    var voiceModel = VoiceModel()
     var queryTimes = 0
     var voice:Voice?
     var commentList = [Comment]()
     
+    var voiceId:String?
     
     override var inputAccessoryView:UIView! {
         get{
@@ -95,11 +97,31 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate, 
         let notificationCenter = NSNotificationCenter.defaultCenter()
         notificationCenter.addObserver(self, selector: #selector(VoiceDetailTableViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
         notificationCenter.addObserver(self, selector: #selector(VoiceDetailTableViewController.keyboardDidShow(_:)), name: UIKeyboardDidShowNotification, object: nil)
+        
+        if let id = voiceId {
+            voiceModel.getVoice(withId: id, resultHandler: { (result, error) in
+                if let _ = error {
+                    print("error when get voice detail with id: \(error)")
+                } else {
+                    if let voice = result {
+                        self.voice = voice
+                        self.tableView.reloadData()
+                        self.getComments()
+                    } else {
+                        print("do not get voice detail with id")
+                    }
+                }
+            })
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        getComments()
+    }
+    
+    func getComments() {
         if 0 == commentList.count {
             if let id = voice?.id {
                 commentModel.getComment(20, queryTimes: self.queryTimes, voiceId: id, block: { (comments, error) -> Void in
@@ -136,6 +158,7 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate, 
                 })
             }
         }
+
     }
     
     override func viewDidLayoutSubviews() {

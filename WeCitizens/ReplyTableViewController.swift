@@ -11,7 +11,7 @@ import MJRefresh
 import FoldingCell
 import MBProgressHUD
 
-class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDelegate{
+class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDelegate, JumpVoiceDelegate{
 
     let kCloseCellHeight:CGFloat = 280
     let kOpenCellHeight:CGFloat = 940
@@ -144,6 +144,13 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
         })
     }
     
+    func jumpVoiceDetail(voiceId:String) {
+        let controller = storyboard?.instantiateViewControllerWithIdentifier("VoiceDetailTableView") as! VoiceDetailTableViewController
+        controller.voiceId = voiceId
+        print("voice id: \(voiceId)")
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
     func processError(errorCode:Int) {
         let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         hud.mode = .Text
@@ -208,7 +215,6 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
         let cell = tableView.cellForRowAtIndexPath(indexPath) as! FoldingCell
         
         if cell.isAnimating() {
@@ -263,6 +269,9 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
 //MARK:- Data Binder
     func dataBinder(cell:ReplyTableViewCell,reply: Reply) {
         let user = reply.user!
+        
+        cell.voiceId = reply.voiceId
+        cell.delegate = self
         
         if let image = user.avatar {
             cell.Favatar.image = image
