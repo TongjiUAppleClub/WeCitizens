@@ -24,6 +24,8 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
 
     }
     
+    var replyId:String? = nil
+    
     var replyList = [Reply]()
     var replyModel = ReplyModel()
     var userModel = UserModel()
@@ -37,69 +39,89 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
         tableView.rowHeight = UITableViewAutomaticDimension
         self.clearsSelectionOnViewWillAppear = false
         
-        tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
-            print("RefreshingHeader")
-            
-            //上拉刷新，在获取数据后清空旧数据，并做缓存
-            self.queryTimes = 0
-            self.getReplyFromRemote()
-            
-            dispatch_async(dispatch_get_main_queue()) { () -> Void in
-                
-                self.tableView.mj_header.endRefreshing()
-            }
-        })
-        
-        tableView.mj_footer = MJRefreshBackNormalFooter(refreshingBlock: { () -> Void in
-            print("RefreshingFooter")
-            
-            //1.下拉加载数据，将新数据append到数组中，不缓存
-            self.replyModel.getReply(self.number, queryTimes: self.queryTimes, cityName: "shanghai", needStore: false, resultHandler: { (results, error) -> Void in
+        if let id = replyId {
+            // 根据ID获取reply
+            replyModel.getReply(withId: id, resultHandler: { (result, error) in
                 if let _ = error {
-                    //有错误，给用户提示
-                    print("get reply fail with error:\(error!.userInfo)")
-                    self.processError(error!.code)
+                    print("get reply with id error: \(error)")
                 } else {
-                    if let replies = results {
-                        replies.forEach({ (reply) -> () in
-                            self.replyList.append(reply)
-                        })
+                    if let reply = result {
+                        print("get reply with id")
+                        print(reply.user)
+                        
+                        self.replyList.append(reply)
                         self.cellHeights = [CGFloat](count: self.replyList.count, repeatedValue: self.kCloseCellHeight)
                         self.tableView.reloadData()
-                        self.queryTimes += 1
-                    } else {
-                        print("no data in refreshing footer")
                     }
                 }
             })
             
-            dispatch_async(dispatch_get_main_queue()) { () -> Void in
-                self.tableView.mj_footer.endRefreshing()
-            }
-        })
-        
-        tableView.mj_header.automaticallyChangeAlpha = true
-        
-        //1.读缓存，如果有数据的话在tableView中填数据
-        self.replyModel.getReply("shanghai") { (results, error) -> () in
-            if let _ = error {
-                //有错误，给用户提示
-                print("get reply from local fail with error:\(error!.userInfo)")
-                self.processError(error!.code)
-            } else {
-                if let replies = results {
-                    self.replyList = replies
-                    self.cellHeights = [CGFloat](count: self.replyList.count, repeatedValue: self.kCloseCellHeight)
-                    self.tableView.reloadData()
+        } else {
+            tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
+                print("RefreshingHeader")
+                
+                //上拉刷新，在获取数据后清空旧数据，并做缓存
+                self.queryTimes = 0
+                self.getReplyFromRemote()
+                
+                dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                    
+                    self.tableView.mj_header.endRefreshing()
+                }
+            })
+            
+            tableView.mj_footer = MJRefreshBackNormalFooter(refreshingBlock: { () -> Void in
+                print("RefreshingFooter")
+                
+                //1.下拉加载数据，将新数据append到数组中，不缓存
+                self.replyModel.getReply(self.number, queryTimes: self.queryTimes, cityName: "shanghai", needStore: false, resultHandler: { (results, error) -> Void in
+                    if let _ = error {
+                        //有错误，给用户提示
+                        print("get reply fail with error:\(error!.userInfo)")
+                        self.processError(error!.code)
+                    } else {
+                        if let replies = results {
+                            replies.forEach({ (reply) -> () in
+                                self.replyList.append(reply)
+                            })
+                            self.cellHeights = [CGFloat](count: self.replyList.count, repeatedValue: self.kCloseCellHeight)
+                            self.tableView.reloadData()
+                            self.queryTimes += 1
+                        } else {
+                            print("no data in refreshing footer")
+                        }
+                    }
+                })
+                
+                dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                    self.tableView.mj_footer.endRefreshing()
+                }
+            })
+            
+            tableView.mj_header.automaticallyChangeAlpha = true
+            
+            //1.读缓存，如果有数据的话在tableView中填数据
+            self.replyModel.getReply("shanghai") { (results, error) -> () in
+                if let _ = error {
+                    //有错误，给用户提示
+                    print("get reply from local fail with error:\(error!.userInfo)")
+                    self.processError(error!.code)
                 } else {
-                    //没取到数据
-                    print("no data from local")
+                    if let replies = results {
+                        self.replyList = replies
+                        self.cellHeights = [CGFloat](count: self.replyList.count, repeatedValue: self.kCloseCellHeight)
+                        self.tableView.reloadData()
+                    } else {
+                        //没取到数据
+                        print("no data from local")
+                    }
                 }
             }
+            
+            //2.向后台请求数据，返回数据时做缓存
+            getReplyFromRemote()
         }
         
-        //2.向后台请求数据，返回数据时做缓存
-        getReplyFromRemote()
     }
     
     func getReplyFromRemote() {

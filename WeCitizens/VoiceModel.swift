@@ -142,6 +142,7 @@ class VoiceModel: DataModel {
             let focusNum = result.objectForKey("focusNum") as! Int
             let city = result.objectForKey("city") as! String
             let isReplied = result.objectForKey("isReplied") as! Bool
+            let replyId = result.objectForKey("replyId") as! String
             
             let lat = result.objectForKey("latitude") as! Double
             let lon = result.objectForKey("longitude") as! Double
@@ -150,7 +151,7 @@ class VoiceModel: DataModel {
             
             let imageList = super.convertArrayToImages(images)
             
-            let newVoice = Voice(voiceIdFromRemote: id, email: email, name: name, date: time, title: title, abstract: abstract, content: content, status: status, classify: classifyStr, focusNum: focusNum, city: city, replied: isReplied, latitude: lat, longitude: lon, images: imageList)
+            let newVoice = Voice(voiceIdFromRemote: id, email: email, name: name, date: time, title: title, abstract: abstract, content: content, status: status, classify: classifyStr, focusNum: focusNum, city: city, replied: isReplied, replyId: replyId, latitude: lat, longitude: lon, images: imageList)
             
             voice.append(newVoice)
         }
@@ -254,6 +255,7 @@ class VoiceModel: DataModel {
                     let focusNum = result.objectForKey("focusNum") as! Int
                     let city = result.objectForKey("city") as! String
                     let isReplied = result.objectForKey("isReplied") as! Bool
+                    let replyId = result.objectForKey("replyId") as! String
                     
                     let lat = result.objectForKey("latitude") as! Double
                     let lon = result.objectForKey("longitude") as! Double
@@ -261,7 +263,7 @@ class VoiceModel: DataModel {
                     let images = result.objectForKey("images") as! NSArray
                     let imageList = super.convertArrayToImages(images)
                     
-                    let newVoice = Voice(voiceIdFromRemote: id, email: email, name: name, date: time, title: title, abstract: abstract, content: content, status: status, classify: classifyStr, focusNum: focusNum, city: city, replied: isReplied, latitude: lat, longitude: lon, images: imageList)
+                    let newVoice = Voice(voiceIdFromRemote: id, email: email, name: name, date: time, title: title, abstract: abstract, content: content, status: status, classify: classifyStr, focusNum: focusNum, city: city, replied: isReplied, replyId: replyId,  latitude: lat, longitude: lon, images: imageList)
                     
                     resultHandler(newVoice, nil)
                 } else {

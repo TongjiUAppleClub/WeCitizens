@@ -29,8 +29,6 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
     let userModel = UserModel()
     let number = 10
     var queryTimes = 0
-//    var hud:MBProgressHUD!
-    
     
 //MARK:- Life cycle
     override func viewDidLoad() {
@@ -211,7 +209,7 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
         
         switchButton.setImage(UIImage(named: "switch"), forState: .Normal)
     
-        switchButton.addTarget(self, action: "ChangeLocation:", forControlEvents: UIControlEvents.TouchUpInside)
+        switchButton.addTarget(self, action: #selector(ProposeTableViewController.ChangeLocation(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         //如何获取到controller？
         
         titleView.addSubview(locationLabel)

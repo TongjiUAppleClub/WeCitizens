@@ -34,7 +34,7 @@ class Voice: Bean {
     var focusNum:Int = 1
     var city:String
     var isReplied:Bool = false
-    var replyId = ""
+    var replyId:String
     var status:Bool = false
     var images:[UIImage] = []
     
@@ -48,6 +48,7 @@ class Voice: Bean {
         self.abstract = abstract
         self.content = content
         self.classify = classify//VoiceType(rawValue: classify)!
+        self.replyId = ""
         self.city = city
         
         self.latitude = latitude
@@ -58,7 +59,7 @@ class Voice: Bean {
         super.init(email: email, name: name)
     }
     
-    init(voiceIdFromRemote voiceId:String, email:String, name:String, date:NSDate, title:String, abstract:String, content:String, status:Bool, classify:String, focusNum:Int, city:String, replied:Bool, latitude:Double, longitude:Double, images:[UIImage]) {
+    init(voiceIdFromRemote voiceId:String, email:String, name:String, date:NSDate, title:String, abstract:String, content:String, status:Bool, classify:String, focusNum:Int, city:String, replied:Bool, replyId:String, latitude:Double, longitude:Double, images:[UIImage]) {
         
         self.id = voiceId
         self.title = title
@@ -68,6 +69,7 @@ class Voice: Bean {
         self.focusNum = focusNum
         self.city = city
         self.isReplied = replied
+        self.replyId = replyId
         self.status = status
         
         self.latitude = latitude

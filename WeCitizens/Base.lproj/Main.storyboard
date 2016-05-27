@@ -32,7 +32,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="LocationTable" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rHX-Lg-0Js" customClass="LocationListTableViewController" customModule="WeCitizens" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="FsG-xU-PtP">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="800"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -759,6 +759,9 @@
                                             <state key="normal" title="查看相关回应 &gt;">
                                                 <color key="titleColor" red="0.12549019610000001" green="0.70196078429999997" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
+                                            <connections>
+                                                <action selector="jumpReply:" destination="B1V-a3-UDb" eventType="touchUpInside" id="84A-QE-v3Q"/>
+                                            </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="344" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PWB-Ct-NnG">
                                             <rect key="frame" x="60" y="30" width="16" height="12"/>
@@ -985,7 +988,7 @@
         <!--回应-->
         <scene sceneID="Pmf-hq-rTy">
             <objects>
-                <tableViewController id="cVT-Gm-WM5" customClass="ReplyTableViewController" customModule="WeCitizens" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ReplyTableView" id="cVT-Gm-WM5" customClass="ReplyTableViewController" customModule="WeCitizens" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="734" sectionHeaderHeight="28" sectionFooterHeight="28" id="Fn6-YX-l4D">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="800"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2346,6 +2349,6 @@
         <image name="安全" width="23" height="26"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="WAr-15-PQZ"/>
+        <segue reference="NNM-V3-sc3"/>
     </inferredMetricsTieBreakers>
 </document>

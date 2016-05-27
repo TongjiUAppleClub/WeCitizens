@@ -139,11 +139,6 @@ class AddVoiceTableViewController: UITableViewController,UITextViewDelegate, UII
         let title = VoiceTitle.text!
         let content = Content.text
         
-//        var abstract = content
-//        if content.characters.count >= 140 {
-//            let endIndex = content.startIndex.advancedBy(-140)
-//            abstract = content.substringWithRange(Range<String.Index>(start: content.startIndex, end: endIndex))
-//        }
         var abstract = content
         if content.characters.count >= 140 {
             let endIndex = content.startIndex.advancedBy(140)

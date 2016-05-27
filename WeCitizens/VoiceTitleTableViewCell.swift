@@ -8,12 +8,25 @@
 
 import UIKit
 
+protocol JumpReplyDelegate {
+    func jumpReplyDetail()
+}
+
 class VoiceTitleTableViewCell: CommentTableViewCell {
 
 //MARK:- Params
+    var delegate:JumpReplyDelegate?
+    
     
     @IBOutlet weak var CheckResponseButton: UIButton!
 
+    
+    @IBAction func jumpReply(sender: AnyObject) {
+        print("test delegate")
+        
+        delegate!.jumpReplyDetail()
+    }
+    
     
     
     override func awakeFromNib() {
@@ -21,8 +34,7 @@ class VoiceTitleTableViewCell: CommentTableViewCell {
         ConfigureUI()
     }
 
-    func ConfigureUI()
-    {
+    func ConfigureUI() {
         self.backgroundColor = UIColor(red: 249/255, green: 251/255, blue: 255/255, alpha: 1.0)
        
         //Configure the Button

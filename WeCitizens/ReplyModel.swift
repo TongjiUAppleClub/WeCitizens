@@ -241,9 +241,26 @@ class ReplyModel: DataModel {
                     let images = result.objectForKey("images") as! NSArray
                     let imageList = super.convertArrayToImages(images)
                     
+                    
+                    
+                    
+                    
                     let newReply = Reply(emailFromRemote: email, name: name, title: title, date: time, voiceId: id, content: content, city: city, satisfyLevel: satisfy, images: imageList)
                     
-                    resultHandler(newReply, nil)
+                    UserModel().getUserInfo(email, resultHandler: { (newUser, error) in
+                        if let _ = error {
+                            print("get user error when get reply with id")
+                            resultHandler(nil, error)
+                        } else {
+                            if let user = newUser {
+                                newReply.user = user
+                                resultHandler(newReply, nil)
+                            } else {
+                                print("do not get user when get reply with id")
+                                resultHandler(nil, nil)
+                            }
+                        }
+                    })
                 } else {
                     resultHandler(nil, nil)
                 }
