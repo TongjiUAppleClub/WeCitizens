@@ -12,6 +12,7 @@ import Photos
 import MBProgressHUD
 import BSImagePicker
 import CoreLocation
+import PromiseKit
 
 class AddVoiceTableViewController: UITableViewController,UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate {
 
@@ -39,6 +40,7 @@ class AddVoiceTableViewController: UITableViewController,UITextViewDelegate, UII
    
     let imagePickerController = UIImagePickerController()
     let voiceModel = VoiceModel()
+    let activityModel = ActivityModel()
     
     var locationManager:CLLocationManager? = nil
     var pointLocation:CLLocation? = nil
@@ -155,23 +157,22 @@ class AddVoiceTableViewController: UITableViewController,UITextViewDelegate, UII
             hud.labelText = "发布中"
             hud.show(true)
             
-            voiceModel.addNewVoice(newVoice) { (success, error) -> Void in
-                if nil == error {
-                    if success {
-                        print("Add new voice success")
-                        hud.hide(true)
-                        self.navigationController?.popViewControllerAnimated(true)
-                        //给用户提示
-                    }
-                } else {
-                    hud.mode = .Text
-                    print("Add new voice Error: \(error!) \(error!.userInfo)")
-                    let errorMessage:(label:String, detail:String) = convertPFNSErrorToMssage(error!.code)
-                    hud.labelText = errorMessage.label
-                    hud.detailsLabelText = errorMessage.detail
-                    hud.hide(true, afterDelay: 1.5)
-                    //给用户提示
-                }
+            let user = PFUser.currentUser()!
+            let activity = Activity(email: user.email!, name: user.username!, title: "\(user.username!)推送了一条新的Voice", content: newVoice.content)
+            
+            voiceModel.addNewVoice(newVoice).then { result in
+                return self.activityModel.addNewActivity(activity)
+            } .then { isSuccess -> Void in
+                print("add new activity succes")
+                hud.hide(true)
+            } .error { err in
+                print("add new voice error:\(err)")
+                hud.mode = .Text
+                
+                let errorMessage:(label:String, detail:String) = convertPFNSErrorToMssage(101)
+                hud.labelText = errorMessage.label
+                hud.detailsLabelText = errorMessage.detail
+                hud.hide(true, afterDelay: 1.5)
             }
         } else {
             print("还没有获取到定位数据")

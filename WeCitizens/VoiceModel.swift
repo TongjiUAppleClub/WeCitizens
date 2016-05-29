@@ -8,6 +8,7 @@
 
 import Foundation
 import Parse
+import PromiseKit
 
 // TODO:1. Voice添加赞同数量
 
@@ -155,8 +156,8 @@ class VoiceModel: DataModel {
         return voice
     }
     
-    //新建Voice, code complete
-    func addNewVoice(newVoice: Voice, resultHandler: (Bool, NSError?) -> Void) {
+    //新建Voice
+    func addNewVoice(newVoice: Voice) -> Promise<Bool> {
         let voice = PFObject(className: "Voice")
         
         //给voice赋值...
@@ -177,17 +178,32 @@ class VoiceModel: DataModel {
         
         voice["images"] = self.convertImageToPFFile(newVoice.images)
         
-        voice.saveInBackgroundWithBlock { (success, error) -> Void in
-            if error == nil {
-                if success {
-                    resultHandler(true, nil)
+        
+        return Promise { fulfill, reject in
+            voice.saveInBackgroundWithBlock{ isSuccess, error in
+                if nil != error {
+                    reject(error!)
                 } else {
-                    resultHandler(false, nil)
+                    if isSuccess {
+                        fulfill(true)
+                    } else {
+                        let err = NSError(domain: "新建voice失败", code: 101, userInfo: nil)
+                        reject(err)
+                    }
                 }
-            } else {
-                resultHandler(false, error)
             }
         }
+//        voice.saveInBackgroundWithBlock { (success, error) -> Void in
+//            if error == nil {
+//                if success {
+//                    resultHandler(true, nil)
+//                } else {
+//                    resultHandler(false, nil)
+//                }
+//            } else {
+//                resultHandler(false, error)
+//            }
+//        }
     }
     
     //为Voice增加一个关注,code complete

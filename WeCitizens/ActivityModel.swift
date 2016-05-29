@@ -8,10 +8,11 @@
 
 import Foundation
 import Parse
+import PromiseKit
 
 class ActivityModel: DataModel {
     
-    func addNewActivity(newActivity: Activity, resultHandler: (Bool, NSError?) -> Void) {
+    func addNewActivity(newActivity: Activity) -> Promise<Bool> {
         let activity = PFObject(className: "Activity")
         
         activity["title"] = newActivity.title
@@ -19,15 +20,18 @@ class ActivityModel: DataModel {
         activity["userName"] = newActivity.userName
         activity["userEmail"] = newActivity.userEmail
         
-        activity.saveInBackgroundWithBlock { (success, error) in
-            if error == nil {
-                if success {
-                    resultHandler(true, nil)
+        return Promise{ fulfill, reject in
+            activity.saveInBackgroundWithBlock { isSuccess, error in
+                if error == nil {
+                    if isSuccess {
+                        fulfill(true)
+                    } else {
+                        let err = NSError(domain: "新增Activity失败", code: 100, userInfo: nil)
+                        reject(err)
+                    }
                 } else {
-                    resultHandler(false, nil)
+                    reject(error!)
                 }
-            } else {
-                resultHandler(false, error)
             }
         }
     }
