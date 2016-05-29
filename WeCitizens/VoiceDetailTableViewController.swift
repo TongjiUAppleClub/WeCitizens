@@ -32,6 +32,7 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate, 
     var voiceModel = VoiceModel()
     var queryTimes = 0
     var voice:Voice?
+    var followed = false
     var commentList = [Comment]()
     
     var voiceId:String?
@@ -112,6 +113,8 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate, 
                     }
                 }
             })
+        } else {
+            voiceId = self.voice?.id
         }
     }
     
@@ -119,6 +122,22 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate, 
         super.viewWillAppear(animated)
         
         getComments()
+        checkVoiceFollow()
+    }
+    
+    func checkVoiceFollow() {
+        userModel.getFocusVoices { (objects, error) in
+            if nil == error {
+                if let results = objects {
+                    results.forEach {
+                        if self.voiceId == $0 {
+                            self.followed = true
+                            self.tableView.reloadData()
+                        }
+                    }
+                }
+            }
+        }
     }
     
     func getComments() {
@@ -207,7 +226,9 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate, 
             followButton.setImage(UIImage(named: "unwatched_eye"), forState: .Normal)
             followButton.setImage(UIImage(named: "watched_eye"), forState: .Selected)
             followButton.backgroundColor = UIColor.whiteColor()
-             followButton.addTarget(self, action: #selector(VoiceDetailTableViewController.Follow(_:)), forControlEvents: .TouchUpInside)
+            followButton.selected = self.followed
+            
+            followButton.addTarget(self, action: #selector(VoiceDetailTableViewController.Follow(_:)), forControlEvents: .TouchUpInside)
             
             
             let line = UIView(frame: CGRect(x: WIDTH*3, y: 10,width:2,height:28))
@@ -325,8 +346,19 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate, 
     }
     
     func Follow(sender:UIButton) {
-        sender.selected = !sender.selected
-        print("Follow")
+        if sender.selected {
+            userModel.deleteVoiceFocus(voice!.id!) { result, error in
+                if (nil == error && result!) {
+                    sender.selected = false
+                }
+            }
+        } else {
+            userModel.addNewFocusVoice(voice!.id!) { result, error in
+                if (nil == error && result!) {
+                    sender.selected = true
+                }
+            }
+        }
     }
     
     

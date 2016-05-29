@@ -67,7 +67,7 @@ class UserModel:DataModel {
                 var newUserList = [User]()
                 var pfUserList = [PFObject]()
                 let userList = result.valueForKey("users") as! NSArray
-                let keys = ["email", "username", "resume", "avatar", "voiceNum", "focusNum"]
+                let keys = ["email", "username", "resume", "avatar", "voiceNum", "focusedNum"]
                 
                 for object in userList {
                     let oneUser = object as! PFObject
@@ -80,9 +80,9 @@ class UserModel:DataModel {
                     let avatarFile = oneUser["avatar"] as? PFFile
                     let avatarImage = super.convertPFFileToImage(avatarFile)
                     let voiceNum = oneUser["voiceNum"] as! Int
-                    let focusNum = oneUser["focusNum"] as! Int
+                    let focusNum = oneUser["focusedNum"] as! Int
                     
-                    let newUser = User(imageFromRemote: avatarImage, name: name, email: email, resume: resume, voiceNum: voiceNum, focusNum: focusNum)
+                    let newUser = User(imageFromRemote: avatarImage, name: name, email: email, resume: resume, voiceNum: voiceNum, focusedNum: focusNum)
                     newUserList.append(newUser)
                 }
                 if needStore {
@@ -105,9 +105,9 @@ class UserModel:DataModel {
             let avatarFile = result["avatar"] as? PFFile
             let avatarImage = super.convertPFFileToImage(avatarFile)
             let voiceNum = result["voiceNum"] as! Int
-            let focusNum = result["focusNum"] as! Int
+            let focusNum = result["focusedNum"] as! Int
 
-            let newUser = User(imageFromRemote: avatarImage, name: name, email: email, resume: resume, voiceNum: voiceNum, focusNum: focusNum)
+            let newUser = User(imageFromRemote: avatarImage, name: name, email: email, resume: resume, voiceNum: voiceNum, focusedNum: focusNum)
             newUserList.append(newUser)
             
         }
@@ -140,23 +140,23 @@ class UserModel:DataModel {
     //根据邮箱获取用户信息
     // TODO:有bug，头像为空时会crash
     func getUserInfo(email:String, resultHandler:(User?, NSError?) -> Void) {
-        let query = PFUser.query()!//PFQuery(className: "User")
+        let query = PFUser.query()!
         
         query.whereKey("email", equalTo: email)
         query.getFirstObjectInBackgroundWithBlock { (object, error) -> Void in
             if nil == error {
                 if let result = object {
                     print("user:\(result)")
-//                    let avatarFile = result.valueForKey("avatar") as! PFFile//需要处理头像为空的情况
+//                    let avatarFile = result.valueForKey("avatar") as? PFFile//需要处理头像为空的情况
 //                    let avatarImage = super.convertPFFileToImage(avatarFile)
                     let name = result.valueForKey("username") as! String
                     let email = result.valueForKey("email") as! String
                     let resume = result.valueForKey("resume") as! Int
                     let voiceNum = result.valueForKey("voiceNum") as! Int
-                    let focusNum = result.valueForKey("focusNum") as! Int
+                    let focusNum = result.valueForKey("focusedNum") as! Int
                     
                     
-                    let newUser = User(imageFromRemote: nil, name: name, email: email, resume: resume, voiceNum: voiceNum, focusNum: focusNum)
+                    let newUser = User(imageFromRemote: nil, name: name, email: email, resume: resume, voiceNum: voiceNum, focusedNum: focusNum)
                     resultHandler(newUser, nil)
                 } else {
                     resultHandler(nil, nil)
@@ -178,6 +178,59 @@ class UserModel:DataModel {
         } catch {
             
         }
+    }
+    
+    // 获取用户的关注Voice数组
+    func getFocusVoices(resultHandler: ([String]?, NSError?) -> Void) {
+        let user = PFUser.currentUser()!
+        let query = PFUser.query()!
         
+        query.whereKey("email", equalTo: user.email!)
+        query.getFirstObjectInBackgroundWithBlock { (object, error) in
+            if nil == error {
+                if let result = object {
+                    let resultList = result.valueForKey("focusVoices") as! NSArray
+                    
+                    let voiceList = resultList.map({ voice -> String in
+                        return (voice as! String)
+                    })
+                    resultHandler(voiceList, nil)
+                } else {
+                    resultHandler(nil, nil)
+                }
+            } else {
+                resultHandler(nil, error)
+            }
+        }
+    }
+    
+    // 给用户新增一个关注的Voice
+    func addNewFocusVoice(voiceId:String, resultHandler:(Bool?, NSError?) -> Void) {
+        let user = PFUser.currentUser()!
+        let voiceArray = user.valueForKey("focusVoices") as! NSArray
+        var voiceList = voiceArray.map { (voice) -> String in
+            return (voice as! String)
+        }
+        voiceList.append(voiceId)
+        
+        user["focusVoices"] = voiceList
+        user.saveInBackgroundWithBlock(resultHandler)
+    }
+    
+    func deleteVoiceFocus(voiceId:String, resultHandler:(Bool?, NSError?) -> Void) {
+        let user = PFUser.currentUser()!
+        let voiceArray = user.valueForKey("focusVoices") as! NSArray
+        var voiceList = voiceArray.map{ $0 as! String }
+        
+        // 删除voice
+        for index in 0 ..< voiceList.count {
+            let id = voiceList[index]
+            if (id == voiceId) {
+                voiceList.removeAtIndex(index)
+            }
+        }
+        
+        user["focusVoices"] = voiceList
+        user.saveInBackgroundWithBlock(resultHandler)
     }
 }

@@ -208,14 +208,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		A41FF6F91CF84474007F0C73 /* Focus */ = {
-			isa = PBXGroup;
-			children = (
-				A41FF6FA1CF84499007F0C73 /* FocusTableViewController.swift */,
-			);
-			name = Focus;
-			sourceTree = "<group>";
-		};
 		A467EA151C7D4A270068880C /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -276,7 +268,6 @@
 		E754A2081CB6775E009D861D /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				A41FF6F91CF84474007F0C73 /* Focus */,
 				E71A51211CCFA8FE00626ADD /* RRTagController */,
 				E754A20B1CB6786F009D861D /* Welcome */,
 				E754A2091CB67821009D861D /* Voice */,
@@ -305,6 +296,7 @@
 		E754A20A1CB67853009D861D /* Reply */ = {
 			isa = PBXGroup;
 			children = (
+				A41FF6FA1CF84499007F0C73 /* FocusTableViewController.swift */,
 				E74BA49F1C7E082B00FC1BA6 /* ReplyTableViewController.swift */,
 				E74BA49D1C7E081200FC1BA6 /* ReplyTableViewCell.swift */,
 			);

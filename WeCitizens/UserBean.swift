@@ -13,14 +13,14 @@ class User: Bean {
     var avatar:UIImage?
     var resume:Int
     var voiceNum:Int
-    var focusNum:Int
+    var focusedNum:Int
     
-    init(imageFromRemote image:UIImage?, name:String, email:String, resume:Int, voiceNum:Int, focusNum:Int) {
+    init(imageFromRemote image:UIImage?, name:String, email:String, resume:Int, voiceNum:Int, focusedNum:Int) {
         self.avatar = image
 
         self.resume = resume
         self.voiceNum = voiceNum
-        self.focusNum = focusNum
+        self.focusedNum = focusedNum
         
         super.init(email: email, name: name)
     }

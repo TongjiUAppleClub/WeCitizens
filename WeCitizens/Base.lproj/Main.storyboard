@@ -66,7 +66,7 @@
             </objects>
             <point key="canvasLocation" x="3627" y="-174"/>
         </scene>
-        <!--Focus Table View Controller-->
+        <!--关注列表-->
         <scene sceneID="g0P-Il-uyE">
             <objects>
                 <tableViewController id="U7G-nI-zml" customClass="FocusTableViewController" customModule="WeCitizens" customModuleProvider="target" sceneMemberID="viewController">
@@ -89,6 +89,7 @@
                             <outlet property="delegate" destination="U7G-nI-zml" id="gZx-dV-7BA"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="关注列表" id="ReF-bj-gl4"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ii7-mt-swK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1679,7 +1680,7 @@
                     <navigationItem key="navigationItem" title="回应" id="Sby-Vf-FEn">
                         <barButtonItem key="rightBarButtonItem" title="关注列表" id="H2Y-C6-Vfe">
                             <connections>
-                                <segue destination="U7G-nI-zml" kind="show" id="8BW-Mq-lg8"/>
+                                <segue destination="U7G-nI-zml" kind="show" id="NBF-up-5Yw"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

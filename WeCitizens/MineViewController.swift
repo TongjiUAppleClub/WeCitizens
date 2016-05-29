@@ -45,7 +45,7 @@ class MineViewController: UITableViewController {
     
     func setUserData() {
         UserName.text = self.user!.userName
-        VoiceStatisticsLabel.text = "已发布\(self.user!.voiceNum)个心声，获得\(self.user!.focusNum)个关注"
+        VoiceStatisticsLabel.text = "已发布\(self.user!.voiceNum)个心声，获得\(self.user!.focusedNum)个关注"
         Reputation.text = "\(self.user!.resume)"
     }
     
