@@ -64,7 +64,35 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e5T-kr-TSy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2967" y="154"/>
+            <point key="canvasLocation" x="3627" y="-174"/>
+        </scene>
+        <!--Focus Table View Controller-->
+        <scene sceneID="g0P-Il-uyE">
+            <objects>
+                <tableViewController id="U7G-nI-zml" customClass="FocusTableViewController" customModule="WeCitizens" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Q5G-6U-XQi">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="800"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="NXU-AS-LLn">
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NXU-AS-LLn" id="vgp-dM-d0K">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="U7G-nI-zml" id="bmN-b9-5HK"/>
+                            <outlet property="delegate" destination="U7G-nI-zml" id="gZx-dV-7BA"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ii7-mt-swK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2980" y="154"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="R9R-Tl-SHC">
@@ -660,7 +688,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="300-Dm-UvO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3029" y="-673"/>
+            <point key="canvasLocation" x="3115" y="-749"/>
         </scene>
         <!--Voice Detail Table View Controller-->
         <scene sceneID="Q84-0a-91U">
@@ -1651,7 +1679,7 @@
                     <navigationItem key="navigationItem" title="回应" id="Sby-Vf-FEn">
                         <barButtonItem key="rightBarButtonItem" title="关注列表" id="H2Y-C6-Vfe">
                             <connections>
-                                <segue destination="rHX-Lg-0Js" kind="push" identifier="FollowList" id="NNM-V3-sc3"/>
+                                <segue destination="U7G-nI-zml" kind="show" id="8BW-Mq-lg8"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -2351,7 +2379,4 @@
         <image name="voice_chosen" width="25" height="25"/>
         <image name="安全" width="23" height="26"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="WAr-15-PQZ"/>
-    </inferredMetricsTieBreakers>
 </document>

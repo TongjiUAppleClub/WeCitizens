@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		9C6FBB46915541B979D42DA6 /* Pods_WeCitizensUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C473DA3E7D18BFBEF6516DE /* Pods_WeCitizensUITests.framework */; };
+		A41224E71CFAC70B0029BDDA /* ActivityModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41224E61CFAC70B0029BDDA /* ActivityModelTests.swift */; };
+		A41224E91CFAC8A80029BDDA /* ActivityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41224E81CFAC8A80029BDDA /* ActivityModel.swift */; };
+		A41224EA1CFAC8A80029BDDA /* ActivityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41224E81CFAC8A80029BDDA /* ActivityModel.swift */; };
+		A41224EC1CFAC8E30029BDDA /* ActivityBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41224EB1CFAC8E30029BDDA /* ActivityBean.swift */; };
+		A41224ED1CFAC8E30029BDDA /* ActivityBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41224EB1CFAC8E30029BDDA /* ActivityBean.swift */; };
+		A41FF6FB1CF84499007F0C73 /* FocusTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41FF6FA1CF84499007F0C73 /* FocusTableViewController.swift */; };
 		A422D3681CA8326A0021D9FF /* VoiceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A422D3671CA8326A0021D9FF /* VoiceModel.swift */; };
 		A422D3691CA8326A0021D9FF /* VoiceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A422D3671CA8326A0021D9FF /* VoiceModel.swift */; };
 		A422D36B1CA832760021D9FF /* ReplyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A422D36A1CA832760021D9FF /* ReplyModel.swift */; };
@@ -21,7 +27,6 @@
 		A4597DDE1C952A110069B317 /* CityBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4597DDD1C952A110069B317 /* CityBean.swift */; };
 		A4597DDF1C952A110069B317 /* CityBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4597DDD1C952A110069B317 /* CityBean.swift */; };
 		A4597DE11C9555B60069B317 /* UserModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4597DE01C9555B60069B317 /* UserModelTests.swift */; };
-		A45AEF501CECAFBF000448AC /* ActivityBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45AEF4F1CECAFBF000448AC /* ActivityBean.swift */; };
 		A47D54451CC7DC5E00904EB0 /* LocationListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47D54441CC7DC5E00904EB0 /* LocationListTableViewController.swift */; };
 		A492DBFA1C93D49100C93FE2 /* VoiceBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A492DBF91C93D49100C93FE2 /* VoiceBean.swift */; };
 		A492DBFB1C93D49100C93FE2 /* VoiceBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = A492DBF91C93D49100C93FE2 /* VoiceBean.swift */; };
@@ -98,6 +103,10 @@
 		6E9922060424804DAE31D738 /* Pods-WeCitizensUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeCitizensUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WeCitizensUITests/Pods-WeCitizensUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		73E05D9DD10E28D075983F6B /* Pods-WeCitizensTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeCitizensTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WeCitizensTests/Pods-WeCitizensTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7C473DA3E7D18BFBEF6516DE /* Pods_WeCitizensUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WeCitizensUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A41224E61CFAC70B0029BDDA /* ActivityModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityModelTests.swift; sourceTree = "<group>"; };
+		A41224E81CFAC8A80029BDDA /* ActivityModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityModel.swift; sourceTree = "<group>"; };
+		A41224EB1CFAC8E30029BDDA /* ActivityBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityBean.swift; sourceTree = "<group>"; };
+		A41FF6FA1CF84499007F0C73 /* FocusTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusTableViewController.swift; sourceTree = "<group>"; };
 		A422D3671CA8326A0021D9FF /* VoiceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoiceModel.swift; sourceTree = "<group>"; };
 		A422D36A1CA832760021D9FF /* ReplyModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyModel.swift; sourceTree = "<group>"; };
 		A422D36D1CA832950021D9FF /* CommentModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentModel.swift; sourceTree = "<group>"; };
@@ -105,7 +114,6 @@
 		A43CCCBB1C91C2FA00CDB782 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		A4597DDD1C952A110069B317 /* CityBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityBean.swift; sourceTree = "<group>"; };
 		A4597DE01C9555B60069B317 /* UserModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModelTests.swift; sourceTree = "<group>"; };
-		A45AEF4F1CECAFBF000448AC /* ActivityBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityBean.swift; sourceTree = "<group>"; };
 		A47D54441CC7DC5E00904EB0 /* LocationListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationListTableViewController.swift; sourceTree = "<group>"; };
 		A492DBF91C93D49100C93FE2 /* VoiceBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoiceBean.swift; sourceTree = "<group>"; };
 		A492DBFC1C93D4D900C93FE2 /* ReplyBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyBean.swift; sourceTree = "<group>"; };
@@ -200,6 +208,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A41FF6F91CF84474007F0C73 /* Focus */ = {
+			isa = PBXGroup;
+			children = (
+				A41FF6FA1CF84499007F0C73 /* FocusTableViewController.swift */,
+			);
+			name = Focus;
+			sourceTree = "<group>";
+		};
 		A467EA151C7D4A270068880C /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -209,6 +225,7 @@
 				A422D36A1CA832760021D9FF /* ReplyModel.swift */,
 				A422D36D1CA832950021D9FF /* CommentModel.swift */,
 				A422D3701CA833760021D9FF /* CityModel.swift */,
+				A41224E81CFAC8A80029BDDA /* ActivityModel.swift */,
 			);
 			name = DataModel;
 			sourceTree = "<group>";
@@ -259,6 +276,7 @@
 		E754A2081CB6775E009D861D /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				A41FF6F91CF84474007F0C73 /* Focus */,
 				E71A51211CCFA8FE00626ADD /* RRTagController */,
 				E754A20B1CB6786F009D861D /* Welcome */,
 				E754A2091CB67821009D861D /* Voice */,
@@ -314,7 +332,7 @@
 				A4B5ABA01C97B08700350616 /* UserBean.swift */,
 				A49F8D251CA91B750084F7D8 /* Bean.swift */,
 				A4CFD6681CB2A9160005FB7B /* PFError.swift */,
-				A45AEF4F1CECAFBF000448AC /* ActivityBean.swift */,
+				A41224EB1CFAC8E30029BDDA /* ActivityBean.swift */,
 			);
 			name = Bean;
 			sourceTree = "<group>";
@@ -361,6 +379,7 @@
 			isa = PBXGroup;
 			children = (
 				A4D22B0F1C88553100C200F2 /* DataModelTests.swift */,
+				A41224E61CFAC70B0029BDDA /* ActivityModelTests.swift */,
 				A4B06A461CA96B6900603910 /* VoiceModelTests.swift */,
 				A4B06A481CA96B7E00603910 /* ReplyModelTests.swift */,
 				A4B06A4A1CA96B9500603910 /* CommentModelTests.swift */,
@@ -667,12 +686,12 @@
 				E7CE05A11C6353FC00E8CCAB /* LoginViewController.swift in Sources */,
 				A4B5ABA11C97B08700350616 /* UserBean.swift in Sources */,
 				E74BA49E1C7E081200FC1BA6 /* ReplyTableViewCell.swift in Sources */,
-				A45AEF501CECAFBF000448AC /* ActivityBean.swift in Sources */,
 				A492DC001C94032900C93FE2 /* CommentBean.swift in Sources */,
 				E74BA4A01C7E082B00FC1BA6 /* ReplyTableViewController.swift in Sources */,
 				E73CAEEE1C79ECB30099DF2D /* VoiceDetailTableViewController.swift in Sources */,
 				A47D54451CC7DC5E00904EB0 /* LocationListTableViewController.swift in Sources */,
 				E754A20D1CB678A9009D861D /* EditUserInfoControler.swift in Sources */,
+				A41224EC1CFAC8E30029BDDA /* ActivityBean.swift in Sources */,
 				E72C16E11C857DF200E871B0 /* SSRadioButtonsController.swift in Sources */,
 				E72C16E01C857DF200E871B0 /* SSRadioButton.swift in Sources */,
 				E75CBD781CB928C8001A1EDD /* MyActivitiesTableViewController.swift in Sources */,
@@ -682,7 +701,9 @@
 				E71A51261CCFA94800626ADD /* RRTagCollectionViewCell.swift in Sources */,
 				E7E6F1221C6CAE2200EB1179 /* ProposeTableViewController.swift in Sources */,
 				E7E6F1261C6CB48200EB1179 /* CommentTableViewCell.swift in Sources */,
+				A41224E91CFAC8A80029BDDA /* ActivityModel.swift in Sources */,
 				A422D36E1CA832950021D9FF /* CommentModel.swift in Sources */,
+				A41FF6FB1CF84499007F0C73 /* FocusTableViewController.swift in Sources */,
 				A422D36B1CA832760021D9FF /* ReplyModel.swift in Sources */,
 				E73CAEF21C7B37850099DF2D /* VoiceDetailTableViewCell.swift in Sources */,
 				A4CFD6691CB2A9160005FB7B /* PFError.swift in Sources */,
@@ -710,9 +731,11 @@
 				A492DBFB1C93D49100C93FE2 /* VoiceBean.swift in Sources */,
 				A422D3691CA8326A0021D9FF /* VoiceModel.swift in Sources */,
 				A4D22B101C88553100C200F2 /* DataModelTests.swift in Sources */,
+				A41224EA1CFAC8A80029BDDA /* ActivityModel.swift in Sources */,
 				A492DC011C94032900C93FE2 /* CommentBean.swift in Sources */,
 				A422D36F1CA832950021D9FF /* CommentModel.swift in Sources */,
 				A422D3721CA833760021D9FF /* CityModel.swift in Sources */,
+				A41224E71CFAC70B0029BDDA /* ActivityModelTests.swift in Sources */,
 				A4597DE11C9555B60069B317 /* UserModelTests.swift in Sources */,
 				A4B06A491CA96B7E00603910 /* ReplyModelTests.swift in Sources */,
 				A49F8D271CA91B750084F7D8 /* Bean.swift in Sources */,
@@ -721,6 +744,7 @@
 				A4CFD66A1CB2A9160005FB7B /* PFError.swift in Sources */,
 				A4B5ABA21C97B08700350616 /* UserBean.swift in Sources */,
 				A422D36C1CA832760021D9FF /* ReplyModel.swift in Sources */,
+				A41224ED1CFAC8E30029BDDA /* ActivityBean.swift in Sources */,
 				A492DBFE1C93D4D900C93FE2 /* ReplyBean.swift in Sources */,
 				A43CCCBD1C91C2FA00CDB782 /* UserModel.swift in Sources */,
 				A4D22B0E1C8854F900C200F2 /* DataModel.swift in Sources */,

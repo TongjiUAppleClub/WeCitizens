@@ -9,10 +9,7 @@
 import Foundation
 import Parse
 
-// TODO:1. 地图显示Voice位置
-//      2. 添加Voice 时候要获取当前位置信息
-//      3. Voice添加经纬度信息
-//      4. Voice添加赞同数量
+// TODO:1. Voice添加赞同数量
 
 class VoiceModel: DataModel {
     //获取指定数量Voice,code completed
