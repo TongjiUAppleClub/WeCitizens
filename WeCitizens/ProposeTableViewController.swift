@@ -129,13 +129,6 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
         hud.hide(true, afterDelay: 2.0)
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        
-    }
-    
-    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         configureUI()

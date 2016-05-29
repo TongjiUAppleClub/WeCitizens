@@ -24,7 +24,7 @@ class ActivityModelTests: XCTestCase {
     }
 
     func testNewActivity() {
-        let newActivity = Activity(email: "test", name: "test", title: "test", content: "test")
+        let newActivity = Activity(email: "test2", name: "test", title: "test", content: "test")
         
         testActivityModel.addNewActivity(newActivity) { (success, error) in
             self.expectation!.fulfill()
@@ -45,7 +45,7 @@ class ActivityModelTests: XCTestCase {
     
     func testGetActivities() {
         
-        testActivityModel.getUserActivitiesFromRemote(10, queryTimes: 0) { (objects, error) in
+        testActivityModel.getUserActivitiesFromRemote(10, queryTimes: 0, userEmail: "test1") { (objects, error) in
             XCTAssertNil(error)
             XCTAssertNotNil(objects)
             if nil == error {

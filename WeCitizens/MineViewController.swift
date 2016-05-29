@@ -98,7 +98,7 @@ class MineViewController: UITableViewController {
         case 0:
             let controller = storyboard?.instantiateViewControllerWithIdentifier("MyActivity") as! MyActivitiesTableViewController
             // TODO:初始化数据
-
+            controller.userEmail = user?.userEmail
             self.navigationController?.pushViewController(controller, animated: true)
             
             break

@@ -32,9 +32,10 @@ class ActivityModel: DataModel {
         }
     }
     
-    func getUserActivitiesFromRemote(queryNum: Int, queryTimes: Int, resultHandler: ([Activity]?, NSError?) -> ()) {
+    func getUserActivitiesFromRemote(queryNum: Int, queryTimes: Int, userEmail:String, resultHandler: ([Activity]?, NSError?) -> ()) {
         let query = PFQuery(className: "Activity")
         
+        query.whereKey("userEmail", equalTo: userEmail)
         query.limit = queryNum
         query.skip = queryTimes
         
