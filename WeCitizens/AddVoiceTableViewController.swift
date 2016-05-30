@@ -160,6 +160,7 @@ class AddVoiceTableViewController: UITableViewController,UITextViewDelegate, UII
             let user = PFUser.currentUser()!
             let activity = Activity(email: user.email!, name: user.username!, title: "\(user.username!)推送了一条新的Voice", content: newVoice.content)
             
+            //TODO: 发布新Voice时需要为用户增加一个voice
             voiceModel.addNewVoice(newVoice).then { result in
                 return self.activityModel.addNewActivity(activity)
             } .then { isSuccess -> Void in
@@ -177,8 +178,6 @@ class AddVoiceTableViewController: UITableViewController,UITextViewDelegate, UII
         } else {
             print("还没有获取到定位数据")
         }
-        
-        
     }
     
     @IBAction func PickImages() {

@@ -24,7 +24,8 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
 
     }
     
-    var replyId:String? = nil
+    var replyId:String?
+    var voiceId:String?
     
     var replyList = [Reply]()
     var replyModel = ReplyModel()
@@ -56,6 +57,15 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
                 }
             })
             
+        } else if let id = voiceId {
+            print("id:\(id)")
+            replyModel.getReplies(id).then { (replies) -> Void in
+                self.replyList = replies
+                self.cellHeights = [CGFloat](count: self.replyList.count, repeatedValue: self.kCloseCellHeight)
+                self.tableView.reloadData()
+            } .error { err in
+                print("用voiceID获取reply时错误\(err)")
+            }
         } else {
             tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
                 print("RefreshingHeader")
@@ -143,7 +153,7 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
             }
         })
     }
-    
+
     func jumpVoiceDetail(voiceId:String) {
         let controller = storyboard?.instantiateViewControllerWithIdentifier("VoiceDetailTableView") as! VoiceDetailTableViewController
         controller.voiceId = voiceId

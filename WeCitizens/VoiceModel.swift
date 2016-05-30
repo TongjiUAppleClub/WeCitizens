@@ -193,17 +193,6 @@ class VoiceModel: DataModel {
                 }
             }
         }
-//        voice.saveInBackgroundWithBlock { (success, error) -> Void in
-//            if error == nil {
-//                if success {
-//                    resultHandler(true, nil)
-//                } else {
-//                    resultHandler(false, nil)
-//                }
-//            } else {
-//                resultHandler(false, error)
-//            }
-//        }
     }
     
     //为Voice增加一个关注,code complete
@@ -300,6 +289,31 @@ class VoiceModel: DataModel {
                 resultHandler(nil, error)
             }
             
+        }
+    }
+    
+    // 根据voiceID获取voicetitle数组，用于在关注列表里显示
+    func getVoiceTitles(voiceIds:[String]) -> Promise<[(String, String)]> {
+        let query = PFQuery(className: "Voice")
+        
+        query.whereKey("objectId", containedIn: voiceIds)
+        return Promise { fulfill, reject in
+            query.findObjectsInBackgroundWithBlock { objects, error in
+                if error == nil {
+                    if let results = objects {
+                        let voices = results.map { (voice) -> (String, String) in
+                            let title = voice.valueForKey("title") as! String
+                            return (title:title, id: voice.objectId!)
+                        }
+                        fulfill(voices)
+                    } else {
+                        let err = NSError(domain: "没有获取到Voice的Title", code: 100, userInfo: nil)
+                        reject(err)
+                    }
+                } else {
+                    reject(error!)
+                }
+            }
         }
     }
 }

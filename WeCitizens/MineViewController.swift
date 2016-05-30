@@ -97,24 +97,18 @@ class MineViewController: UITableViewController {
         switch indexPath.row {
         case 0:
             let controller = storyboard?.instantiateViewControllerWithIdentifier("MyActivity") as! MyActivitiesTableViewController
-            // TODO:初始化数据
             controller.userEmail = user?.userEmail
             self.navigationController?.pushViewController(controller, animated: true)
-            
-            break
         case 1:
             
             let controller = storyboard?.instantiateViewControllerWithIdentifier("EditInfo") as! EditUserInfoControler
             controller.user = self.user
             self.navigationController?.pushViewController(controller, animated: true)
-            break
         case 2:
             navigationController?.pushViewController((storyboard?.instantiateViewControllerWithIdentifier("About"))!, animated: true)
-            break
         case 3:
             PFUser.logOut()
             presentViewController((storyboard?.instantiateViewControllerWithIdentifier("WelcomeView"))!, animated: true, completion: nil)
-            break
         default:
             break
         }

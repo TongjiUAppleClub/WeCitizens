@@ -8,9 +8,10 @@
 
 import Foundation
 import Parse
+import PromiseKit
 
 class ReplyModel: DataModel {
-    //获取指定数量reply,code completed
+    //获取指定数量reply
     func getReply(queryNum:Int, queryTimes:Int, cityName:String, needStore:Bool, resultHandler: ([Reply]?, NSError?) -> Void) {
         let query = PFQuery(className: "Reply")
         
@@ -58,6 +59,7 @@ class ReplyModel: DataModel {
         }
     }
     
+    // 从本地缓存中获取Reply
     func getReply(city:String, fromLocal resultHandler: ([Reply]?, NSError?) -> Void) {
         let query = PFQuery(className: "Reply")
         query.fromLocalDatastore()
@@ -271,5 +273,47 @@ class ReplyModel: DataModel {
         }
     }
 
-
+    // 根据voiceID获取reply
+    func getReplies(voiceId:String) -> Promise<[Reply]> {
+        let query = PFQuery(className: "Reply")
+        query.whereKey("voiceId", equalTo: voiceId)
+        
+        return Promise { fulfill, reject in
+            query.findObjectsInBackgroundWithBlock { (objects, error) in
+                if nil == error {
+                    if let results = objects {
+                        let replies = self.convertPFObjectToReply(results)
+                        let emails = replies.map({ (tmp) -> String in
+                            return tmp.userEmail
+                        })
+                        
+                        
+                        UserModel().getUsersInfo(emails, needStore: false, resultHandler: { (users, userError) -> Void in
+                            if let _ = userError {
+                                reject(userError!)
+                            } else if let newUsers = users {
+                                replies.forEach({ (currentReply) -> () in
+                                    for user in newUsers {
+                                        if user.userEmail == currentReply.userEmail {
+                                            currentReply.user = user
+                                            break
+                                        }
+                                    }
+                                })
+                                fulfill(replies)
+                            } else {
+                                let err = NSError(domain: "", code: 100, userInfo: nil)
+                                reject(err)
+                            }
+                        })
+                    } else {
+                        let err = NSError(domain: "", code: 100, userInfo: nil)
+                        reject(err)
+                    }
+                } else {
+                    reject(error!)
+                }
+            }
+        }
+    }
 }
