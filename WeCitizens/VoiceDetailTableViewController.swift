@@ -187,6 +187,7 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate, 
     func jumpReplyDetail() {
         let controller = storyboard?.instantiateViewControllerWithIdentifier("ReplyTableView") as! ReplyTableViewController
         controller.replyId = self.voice!.replyId
+        controller.navigationItem.rightBarButtonItem = nil
         self.navigationController?.pushViewController(controller, animated: true)
     }
     

@@ -167,7 +167,9 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
       let cell = tableView.dequeueReusableCellWithIdentifier("CommentCell", forIndexPath: indexPath) as! CommentTableViewCell
         
         dataBinder(cell, voice: self.voiceList[indexPath.section])
-        imagesBinder(cell.ImgesContainer, images: testImages )
+        
+        let images = self.voiceList[indexPath.section].images
+        imagesBinder(cell.ImgesContainer, images: images )
         return cell
     }
     
@@ -268,15 +270,13 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
     func imagesBinder(containter:UIView,images:[UIImage]) {
         let Xoffset = CGFloat(6)
         let Yoffset = CGFloat(4)
-        for view in containter.subviews
-            {
+        for view in containter.subviews {
                 if view.tag == 1
                 {
                     view.removeFromSuperview()
                 }
             }
-        switch images.count
-        {
+        switch images.count {
             case 1:
                 let imgView = UIImageView(image: images.first)
                 imgView.frame = containter.frame
