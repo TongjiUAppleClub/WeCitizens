@@ -32,7 +32,6 @@ class WelcomeViewController: UIViewController,PFSignUpViewControllerDelegate,PFL
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -45,8 +44,17 @@ class WelcomeViewController: UIViewController,PFSignUpViewControllerDelegate,PFL
                 self.presentViewController(vc!, animated: true, completion: nil)
             })
             
-        }
-        else {
+            let user = PFUser.currentUser()!
+            if nil == (user.valueForKey("focusedNum") as? Int) {
+                user["focusedNum"] = 0
+                user["resume"] = 100
+                user["focusVoices"] = [String]()
+                user["voiceNum"] = 0
+                user.saveInBackground()
+                print("user saveeeeeeeeee")
+            }
+            
+        } else {
             loginVC = LoginViewController()
             loginVC.delegate = self
             signUpVC = SignUpViewController()
@@ -69,7 +77,6 @@ class WelcomeViewController: UIViewController,PFSignUpViewControllerDelegate,PFL
         SignupB.backgroundColor = UIColor.clearColor()
         SignupB.layer.borderColor = TheColor.CGColor
         SignupB.setTitleColor(UIColor.lxd_MainBlueColor(), forState: .Normal)
-        
     }
     
     @IBAction func Login() {
@@ -82,12 +89,10 @@ class WelcomeViewController: UIViewController,PFSignUpViewControllerDelegate,PFL
     
     
     func logInViewController(logInController: PFLogInViewController, shouldBeginLogInWithUsername username: String, password: String) -> Bool {
-        if (!username.isEmpty && !password.isEmpty )
-        {
+        if (!username.isEmpty && !password.isEmpty ) {
             return true
         }
         UIAlertView(title: "缺少信息", message: "请补全缺少的信息", delegate: self, cancelButtonTitle:"确定").show()
-        
         return false
     }
     
@@ -127,7 +132,4 @@ class WelcomeViewController: UIViewController,PFSignUpViewControllerDelegate,PFL
     func signUpViewController(signUpController: PFSignUpViewController, didFailToSignUpWithError error: NSError?) {
         print("注册失败")
     }
-    
-    
-    
 }

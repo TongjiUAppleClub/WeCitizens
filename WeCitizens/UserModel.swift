@@ -151,12 +151,17 @@ class UserModel:DataModel {
 //                    let avatarImage = super.convertPFFileToImage(avatarFile)
                     let name = result.valueForKey("username") as! String
                     let email = result.valueForKey("email") as! String
-                    let resume = result.valueForKey("resume") as! Int
-                    let voiceNum = result.valueForKey("voiceNum") as! Int
-                    let focusNum = result.valueForKey("focusedNum") as! Int
+                    let resume = result.valueForKey("resume") as? Int
+                    let voiceNum = result.valueForKey("voiceNum") as? Int
+                    let focusNum = result.valueForKey("focusedNum") as? Int
                     
+                    let newUser:User
+                    if let resumeNum = resume, voice = voiceNum, focus = focusNum {
+                        newUser = User(imageFromRemote: nil, name: name, email: email, resume: resumeNum, voiceNum: voice, focusedNum: focus)
+                    } else {
+                        newUser = User(imageFromRemote: nil, name: name, email: email, resume: 100, voiceNum: 0, focusedNum: 0)
+                    }
                     
-                    let newUser = User(imageFromRemote: nil, name: name, email: email, resume: resume, voiceNum: voiceNum, focusedNum: focusNum)
                     resultHandler(newUser, nil)
                 } else {
                     resultHandler(nil, nil)

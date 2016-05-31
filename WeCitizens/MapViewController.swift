@@ -34,7 +34,7 @@ class MapViewController: UIViewController,MKMapViewDelegate{
         voiceList.forEach { voice in
             let drapPin = MKPointAnnotation()
             drapPin.coordinate = CLLocationCoordinate2DMake(voice.latitude, voice.longitude)
-            drapPin.title = "NYC!"
+            drapPin.title = voice.title
             MapView.addAnnotation(drapPin)
         }
         

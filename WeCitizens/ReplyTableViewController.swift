@@ -60,7 +60,14 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
         } else if let id = voiceId {
             print("id:\(id)")
             replyModel.getReplies(id).then { (replies) -> Void in
-                self.replyList = replies
+                if 0 == replies.count {
+                    let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+                    hud.mode = .Text
+                    hud.labelText = "暂无回应"
+                    hud.hide(true, afterDelay: 2.0)
+                } else {
+                    self.replyList = replies
+                }
                 self.cellHeights = [CGFloat](count: self.replyList.count, repeatedValue: self.kCloseCellHeight)
                 self.tableView.reloadData()
             } .error { err in

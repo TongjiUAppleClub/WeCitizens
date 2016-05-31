@@ -160,12 +160,24 @@ class AddVoiceTableViewController: UITableViewController,UITextViewDelegate, UII
             let user = PFUser.currentUser()!
             let activity = Activity(email: user.email!, name: user.username!, title: "\(user.username!)推送了一条新的Voice", content: newVoice.content)
             
-            //TODO: 发布新Voice时需要为用户增加一个voice
-            voiceModel.addNewVoice(newVoice).then { result in
+            // 发布新Voice时为用户增加一个voice
+            voiceModel.addNewVoice(newVoice).then { (result) -> Promise<Bool> in
+                let user = PFUser.currentUser()!
+                let voiceNum = user.valueForKey("voiceNum") as? Int
+                if let num = voiceNum {
+                    user["voiceNum"] = num + 1
+                } else {
+                    user["voiceNum"] = 1
+                }
+                user.saveInBackground()
+                
                 return self.activityModel.addNewActivity(activity)
             } .then { isSuccess -> Void in
                 print("add new activity succes")
                 hud.hide(true)
+                
+                // 页面跳回
+                self.navigationController?.popViewControllerAnimated(true)
             } .error { err in
                 print("add new voice error:\(err)")
                 hud.mode = .Text

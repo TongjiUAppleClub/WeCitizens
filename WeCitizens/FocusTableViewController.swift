@@ -26,15 +26,17 @@ class FocusTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         
         let user = PFUser.currentUser()!
-        let focusIds = user.valueForKey("focusVoices") as! NSArray
-        let idsArray = focusIds.map { id in
-            return (id as! String)
-        }
-        voiceModel.getVoiceTitles(idsArray).then { (titleArray) -> Void in
+        
+        if let focusIds = user.valueForKey("focusVoices") as? NSArray {
+            let idsArray = focusIds.map { id in
+                return (id as! String)
+            }
+            voiceModel.getVoiceTitles(idsArray).then { (titleArray) -> Void in
                 self.voiceArray = titleArray
                 self.tableView.reloadData()
-        } .error { err in
-                print("获取voice title array时出错\(err)")
+                } .error { err in
+                    print("获取voice title array时出错\(err)")
+            }
         }
     }
 
