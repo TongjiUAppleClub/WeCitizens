@@ -13,35 +13,41 @@ class MapViewController: UIViewController,MKMapViewDelegate{
     
     @IBOutlet weak var MapView: MKMapView!
     
+    var voiceList = [Voice]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "地图"
         MapView.delegate = self
         MapView.showsUserLocation = true
+        if self.voiceList.count > 0 {
+            MapView.centerCoordinate = CLLocationCoordinate2D(latitude: voiceList[0].latitude, longitude: voiceList[0].longitude)
+        }
         MapView.userTrackingMode = MKUserTrackingMode.Follow
-        drawPins([])
+        drawPins()
         cameraSetUp()
+        
+        print("voice size:\(self.voiceList.count)")
     }
     
-    func drawPins(pins:[CLLocationCoordinate2D])
-    {
-        //TODO:- 写个循环，一个个的加
-        let drapPin = MKPointAnnotation()
-        drapPin.coordinate = CLLocationCoordinate2DMake(40.730872, -74.003066)
-        drapPin.title = "NYC!"
-        MapView.addAnnotation(drapPin)
+    func drawPins() {
+        voiceList.forEach { voice in
+            let drapPin = MKPointAnnotation()
+            drapPin.coordinate = CLLocationCoordinate2DMake(voice.latitude, voice.longitude)
+            drapPin.title = voice.title
+            MapView.addAnnotation(drapPin)
+        }
+        
     }
     
-    private func cameraSetUp()
-    {
+    private func cameraSetUp() {
       MapView.camera.altitude = 1400
       MapView.camera.pitch = 50
       MapView.camera.heading = 180
     }
     @IBAction func ChangeMapType(sender: UISegmentedControl) {
         
-        switch sender.selectedSegmentIndex
-        {
+        switch sender.selectedSegmentIndex {
         case 1:
             MapView.mapType = .HybridFlyover
             cameraSetUp()

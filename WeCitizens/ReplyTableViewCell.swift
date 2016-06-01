@@ -9,9 +9,15 @@
 import UIKit
 import FoldingCell
 
+protocol JumpVoiceDelegate {
+    func jumpVoiceDetail(voiceId:String)
+}
+
 class ReplyTableViewCell: FoldingCell,SSRadioButtonControllerDelegate{
 
 //Foreground View
+    var delegate:JumpVoiceDelegate?
+    var voiceId:String?
     
     @IBOutlet weak var Back: UIView!
     @IBOutlet weak var Favatar: UIImageView!
@@ -64,8 +70,7 @@ class ReplyTableViewCell: FoldingCell,SSRadioButtonControllerDelegate{
         return durations[itemIndex]
     }
     
-    func configureUI()
-    {
+    func configureUI() {
         foregroundView.layer.cornerRadius = 8
         Back.layer.cornerRadius = 8
         Favatar = UIImageView.lxd_CircleImage(Favatar, borderColor: UIColor.clearColor(), borderWidth: 0)
@@ -85,11 +90,13 @@ class ReplyTableViewCell: FoldingCell,SSRadioButtonControllerDelegate{
         
     }
     
+    @IBAction func jumpVoice(sender: AnyObject) {
+        delegate!.jumpVoiceDetail(self.voiceId!)
+    }
     
-    func drawBarChart(radios:[CGFloat])
-    {
-        for (index,radio) in radios.enumerate()
-        {
+    
+    func drawBarChart(radios:[CGFloat]) {
+        for (index,radio) in radios.enumerate() {
             let width :CGFloat = 20.0+radio*300
             let y:CGFloat = EvaluateButton.layer.frame.origin.y+CGFloat(35*index+64)
             let frame = CGRect(x: -20, y:y, width:width , height: 20)
@@ -111,13 +118,11 @@ class ReplyTableViewCell: FoldingCell,SSRadioButtonControllerDelegate{
         }
     }
     
-    func setButtons()
-    {
-      radioButtonController = SSRadioButtonsController()
-      for button in CommentButtons
-      {
-        radioButtonController?.addButton(button)
-      }
+    func setButtons() {
+        radioButtonController = SSRadioButtonsController()
+        for button in CommentButtons {
+            radioButtonController?.addButton(button)
+        }
         radioButtonController?.shouldLetDeSelect = true
     }
     

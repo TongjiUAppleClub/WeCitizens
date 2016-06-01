@@ -12,6 +12,7 @@ pod 'FoldingCell'
 pod "BSImagePicker", "~> 2.3"
 
 # objective-c
+pod "PromiseKit", "~> 3.0"
 pod 'MBProgressHUD', '~> 0.9.2'
 pod 'MJRefresh'
 pod 'Parse', '~> 1.10.0'

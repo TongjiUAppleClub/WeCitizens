@@ -11,7 +11,7 @@ import MJRefresh
 import CoreLocation
 import MBProgressHUD
 
-class ProposeTableViewController: UITableViewController,CLLocationManagerDelegate{
+class ProposeTableViewController: UITableViewController,CLLocationManagerDelegate, NewLocationDelegate{
   
     let tmpAvatar =  UIImage(named: "avatar")
     let testImages = [UIImage(named: "logo_1")!,UIImage(named: "logo_1")!]
@@ -29,8 +29,6 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
     let userModel = UserModel()
     let number = 10
     var queryTimes = 0
-//    var hud:MBProgressHUD!
-    
     
 //MARK:- Life cycle
     override func viewDidLoad() {
@@ -68,7 +66,7 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
                             self.voiceList.append(voice)
                         })
                         self.tableView.reloadData()
-                        self.queryTimes++
+                        self.queryTimes += 1
                     } else {
                         print("no data in refreshing footer")
                     }
@@ -113,7 +111,7 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
                 if let voices = results {
                     self.voiceList = voices
                     self.tableView.reloadData()
-                    self.queryTimes++
+                    self.queryTimes += 1
                 } else {
                     //没取到数据
                     print("no data in refreshing header")
@@ -131,18 +129,16 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
         hud.hide(true, afterDelay: 2.0)
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        
-    }
-    
-    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         configureUI()
         
     }
+    
+    func setNewLocation(newLocation: String) {
+        print("locaiton:\(newLocation)")
+    }
+    
     
 // MARK:- Table view data source && delegate
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -171,20 +167,24 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
       let cell = tableView.dequeueReusableCellWithIdentifier("CommentCell", forIndexPath: indexPath) as! CommentTableViewCell
         
         dataBinder(cell, voice: self.voiceList[indexPath.section])
-        imagesBinder(cell.ImgesContainer, images: testImages )
+        
+        let images = self.voiceList[indexPath.section].images
+        imagesBinder(cell.ImgesContainer, images: images )
         return cell
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "ShowDetail") {
             let controller = segue.destinationViewController as! VoiceDetailTableViewController
-            let row = ( sender as! NSIndexPath ).row
+            let row = ( sender as! NSIndexPath ).section
             controller.title = self.voiceList[row].title
             controller.voice = self.voiceList[row]
-        
         } else if (segue.identifier == "PushVoice") {
             let controller = segue.destinationViewController as! AddVoiceTableViewController
             controller.currentLocation = self.currentLocal
+        } else if (segue.identifier == "ShowMap") {
+            let controller = segue.destinationViewController as! MapViewController
+            controller.voiceList = self.voiceList
         }
     }
     
@@ -204,7 +204,8 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
         
         switchButton.setImage(UIImage(named: "switch"), forState: .Normal)
     
-        switchButton.addTarget(self, action: "ChangeLocation:", forControlEvents: UIControlEvents.TouchUpInside)
+        switchButton.addTarget(self, action: #selector(ProposeTableViewController.ChangeLocation(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        //如何获取到controller？
         
         titleView.addSubview(locationLabel)
         titleView.addSubview(switchButton)
@@ -263,21 +264,19 @@ class ProposeTableViewController: UITableViewController,CLLocationManagerDelegat
         cell.CommentUser.text = "\(voice.user!.userName)"
         cell.UpdateTime.text = voice.dateStr
         cell.Abstract.text = voice.abstract
-        cell.Classify.text = voice.classify.rawValue
+        cell.Classify.text = voice.classify
     }
     
     func imagesBinder(containter:UIView,images:[UIImage]) {
         let Xoffset = CGFloat(6)
         let Yoffset = CGFloat(4)
-        for view in containter.subviews
-            {
+        for view in containter.subviews {
                 if view.tag == 1
                 {
                     view.removeFromSuperview()
                 }
             }
-        switch images.count
-        {
+        switch images.count {
             case 1:
                 let imgView = UIImageView(image: images.first)
                 imgView.frame = containter.frame

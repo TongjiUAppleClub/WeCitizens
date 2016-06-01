@@ -8,6 +8,9 @@
 
 import Foundation
 import Parse
+import PromiseKit
+
+// TODO:1. Voice添加赞同数量
 
 class VoiceModel: DataModel {
     //获取指定数量Voice,code completed
@@ -137,19 +140,24 @@ class VoiceModel: DataModel {
             let focusNum = result.objectForKey("focusNum") as! Int
             let city = result.objectForKey("city") as! String
             let isReplied = result.objectForKey("isReplied") as! Bool
+            let replyId = result.objectForKey("replyId") as! String
+            
+            let lat = result.objectForKey("latitude") as! Double
+            let lon = result.objectForKey("longitude") as! Double
+            
             let images = result.objectForKey("images") as! NSArray
             
             let imageList = super.convertArrayToImages(images)
             
-            let newVoice = Voice(voiceIdFromRemote: id, email: email, name: name, date: time, title: title, abstract: abstract, content: content, status: status, classify: classifyStr, focusNum: focusNum, city: city, replied: isReplied, images: imageList)
+            let newVoice = Voice(voiceIdFromRemote: id, email: email, name: name, date: time, title: title, abstract: abstract, content: content, status: status, classify: classifyStr, focusNum: focusNum, city: city, replied: isReplied, replyId: replyId, latitude: lat, longitude: lon, images: imageList)
             
             voice.append(newVoice)
         }
         return voice
     }
     
-    //新建Voice, code complete
-    func addNewVoice(newVoice: Voice, resultHandler: (Bool, NSError?) -> Void) {
+    //新建Voice
+    func addNewVoice(newVoice: Voice) -> Promise<Bool> {
         let voice = PFObject(className: "Voice")
         
         //给voice赋值...
@@ -160,22 +168,29 @@ class VoiceModel: DataModel {
         voice["abstract"] = newVoice.abstract
         voice["content"] = newVoice.content
         voice["status"] = newVoice.status
-        voice["classify"] = newVoice.classify.rawValue
+        voice["classify"] = newVoice.classify
         voice["focusNum"] = newVoice.focusNum
         voice["city"] = newVoice.city
         voice["isReplied"] = newVoice.isReplied
         voice["replyId"] = newVoice.replyId
+        voice["latitude"] = newVoice.latitude
+        voice["longitude"] = newVoice.longitude
+        
         voice["images"] = self.convertImageToPFFile(newVoice.images)
         
-        voice.saveInBackgroundWithBlock { (success, error) -> Void in
-            if error == nil {
-                if success {
-                    resultHandler(true, nil)
+        
+        return Promise { fulfill, reject in
+            voice.saveInBackgroundWithBlock{ isSuccess, error in
+                if nil != error {
+                    reject(error!)
                 } else {
-                    resultHandler(false, nil)
+                    if isSuccess {
+                        fulfill(true)
+                    } else {
+                        let err = NSError(domain: "新建voice失败", code: 101, userInfo: nil)
+                        reject(err)
+                    }
                 }
-            } else {
-                resultHandler(false, error)
             }
         }
     }
@@ -191,7 +206,8 @@ class VoiceModel: DataModel {
             
             var currentNum = result.valueForKey("focusNum") as! Int
             print("current number:\(currentNum)")
-            result.setValue(++currentNum, forKey: "focusNum")
+            currentNum += 1
+            result.setValue(currentNum, forKey: "focusNum")
             
             result.saveInBackgroundWithBlock(resultHandler)
         } catch {
@@ -211,7 +227,8 @@ class VoiceModel: DataModel {
             
             var currentNum = result.valueForKey("focusNum") as! Int
             print("current number:\(currentNum)")
-            result.setValue(--currentNum, forKey: "focusNum")
+            currentNum -= 1
+            result.setValue(currentNum, forKey: "focusNum")
             
             result.saveInBackgroundWithBlock(resultHandler)
         } catch {
@@ -240,13 +257,30 @@ class VoiceModel: DataModel {
                     let focusNum = result.objectForKey("focusNum") as! Int
                     let city = result.objectForKey("city") as! String
                     let isReplied = result.objectForKey("isReplied") as! Bool
+                    let replyId = result.objectForKey("replyId") as! String
+                    
+                    let lat = result.objectForKey("latitude") as! Double
+                    let lon = result.objectForKey("longitude") as! Double
                     
                     let images = result.objectForKey("images") as! NSArray
                     let imageList = super.convertArrayToImages(images)
                     
-                    let newVoice = Voice(voiceIdFromRemote: id, email: email, name: name, date: time, title: title, abstract: abstract, content: content, status: status, classify: classifyStr, focusNum: focusNum, city: city, replied: isReplied, images: imageList)
+                    let newVoice = Voice(voiceIdFromRemote: id, email: email, name: name, date: time, title: title, abstract: abstract, content: content, status: status, classify: classifyStr, focusNum: focusNum, city: city, replied: isReplied, replyId: replyId,  latitude: lat, longitude: lon, images: imageList)
                     
-                    resultHandler(newVoice, nil)
+                    UserModel().getUserInfo(email, resultHandler: { (newUser, error) in
+                        if let _ = error {
+                            print("get user error when get voice with id")
+                            resultHandler(nil, error)
+                        } else {
+                            if let user = newUser {
+                                newVoice.user = user
+                                resultHandler(newVoice, nil)
+                            } else {
+                                print("do not get user when get voice with id")
+                                resultHandler(nil, nil)
+                            }
+                        }
+                    })
                 } else {
                     //没找到voice
                     resultHandler(nil, nil)
@@ -255,6 +289,31 @@ class VoiceModel: DataModel {
                 resultHandler(nil, error)
             }
             
+        }
+    }
+    
+    // 根据voiceID获取voicetitle数组，用于在关注列表里显示
+    func getVoiceTitles(voiceIds:[String]) -> Promise<[(String, String)]> {
+        let query = PFQuery(className: "Voice")
+        
+        query.whereKey("objectId", containedIn: voiceIds)
+        return Promise { fulfill, reject in
+            query.findObjectsInBackgroundWithBlock { objects, error in
+                if error == nil {
+                    if let results = objects {
+                        let voices = results.map { (voice) -> (String, String) in
+                            let title = voice.valueForKey("title") as! String
+                            return (title:title, id: voice.objectId!)
+                        }
+                        fulfill(voices)
+                    } else {
+                        let err = NSError(domain: "没有获取到Voice的Title", code: 100, userInfo: nil)
+                        reject(err)
+                    }
+                } else {
+                    reject(error!)
+                }
+            }
         }
     }
 }

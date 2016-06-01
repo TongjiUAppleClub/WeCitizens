@@ -21,8 +21,7 @@ class SignUpViewController: PFSignUpViewController{
     }
     
     
-    func ConfigureUI()
-    {
+    func ConfigureUI() {
         let offsetX = CGFloat(30)
         let TheColor = UIColor.lxd_MainBlueColor()
         
@@ -42,8 +41,6 @@ class SignUpViewController: PFSignUpViewController{
         signUpView?.usernameField!.layer.borderWidth = 1.3
         signUpView?.usernameField!.layer.borderColor = TheColor.CGColor
         signUpView?.usernameField!.layer.cornerRadius = (signUpView?.usernameField?.frame.height)!/2
-        
-        
         
         var passframe = userframe
         passframe?.origin.y += (userframe?.size.height)! + 24
@@ -75,12 +72,5 @@ class SignUpViewController: PFSignUpViewController{
         signUpView?.signUpButton?.layer.borderWidth = 1.2
         signUpView?.signUpButton?.layer.borderColor = TheColor.CGColor
         signUpView?.signUpButton?.backgroundColor = TheColor
-
-        
     }
-    
- 
-    
-    
-    
 }

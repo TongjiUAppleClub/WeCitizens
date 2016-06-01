@@ -11,7 +11,7 @@ import MJRefresh
 import FoldingCell
 import MBProgressHUD
 
-class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDelegate{
+class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDelegate, JumpVoiceDelegate{
 
     let kCloseCellHeight:CGFloat = 280
     let kOpenCellHeight:CGFloat = 940
@@ -23,6 +23,9 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
         }
 
     }
+    
+    var replyId:String?
+    var voiceId:String?
     
     var replyList = [Reply]()
     var replyModel = ReplyModel()
@@ -37,69 +40,105 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
         tableView.rowHeight = UITableViewAutomaticDimension
         self.clearsSelectionOnViewWillAppear = false
         
-        tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
-            print("RefreshingHeader")
-            
-            //上拉刷新，在获取数据后清空旧数据，并做缓存
-            self.queryTimes = 0
-            self.getReplyFromRemote()
-            
-            dispatch_async(dispatch_get_main_queue()) { () -> Void in
-                
-                self.tableView.mj_header.endRefreshing()
-            }
-        })
-        
-        tableView.mj_footer = MJRefreshBackNormalFooter(refreshingBlock: { () -> Void in
-            print("RefreshingFooter")
-            
-            //1.下拉加载数据，将新数据append到数组中，不缓存
-            self.replyModel.getReply(self.number, queryTimes: self.queryTimes, cityName: "shanghai", needStore: false, resultHandler: { (results, error) -> Void in
+        if let id = replyId {
+            // 根据ID获取reply
+            replyModel.getReply(withId: id, resultHandler: { (result, error) in
                 if let _ = error {
-                    //有错误，给用户提示
-                    print("get reply fail with error:\(error!.userInfo)")
-                    self.processError(error!.code)
+                    print("get reply with id error: \(error)")
                 } else {
-                    if let replies = results {
-                        replies.forEach({ (reply) -> () in
-                            self.replyList.append(reply)
-                        })
+                    if let reply = result {
+                        print("get reply with id")
+                        print(reply.user)
+                        
+                        self.replyList.append(reply)
                         self.cellHeights = [CGFloat](count: self.replyList.count, repeatedValue: self.kCloseCellHeight)
                         self.tableView.reloadData()
-                        self.queryTimes++
-                    } else {
-                        print("no data in refreshing footer")
                     }
                 }
             })
             
-            dispatch_async(dispatch_get_main_queue()) { () -> Void in
-                self.tableView.mj_footer.endRefreshing()
-            }
-        })
-        
-        tableView.mj_header.automaticallyChangeAlpha = true
-        
-        //1.读缓存，如果有数据的话在tableView中填数据
-        self.replyModel.getReply("shanghai") { (results, error) -> () in
-            if let _ = error {
-                //有错误，给用户提示
-                print("get reply from local fail with error:\(error!.userInfo)")
-                self.processError(error!.code)
-            } else {
-                if let replies = results {
-                    self.replyList = replies
-                    self.cellHeights = [CGFloat](count: self.replyList.count, repeatedValue: self.kCloseCellHeight)
-                    self.tableView.reloadData()
+        } else if let id = voiceId {
+            print("id:\(id)")
+            replyModel.getReplies(id).then { (replies) -> Void in
+                if 0 == replies.count {
+                    let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+                    hud.mode = .Text
+                    hud.labelText = "暂无回应"
+                    hud.hide(true, afterDelay: 2.0)
                 } else {
-                    //没取到数据
-                    print("no data from local")
+                    self.replyList = replies
+                }
+                self.cellHeights = [CGFloat](count: self.replyList.count, repeatedValue: self.kCloseCellHeight)
+                self.tableView.reloadData()
+            } .error { err in
+                print("用voiceID获取reply时错误\(err)")
+            }
+        } else {
+            tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
+                print("RefreshingHeader")
+                
+                //上拉刷新，在获取数据后清空旧数据，并做缓存
+                self.queryTimes = 0
+                self.getReplyFromRemote()
+                
+                dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                    
+                    self.tableView.mj_header.endRefreshing()
+                }
+            })
+            
+            tableView.mj_footer = MJRefreshBackNormalFooter(refreshingBlock: { () -> Void in
+                print("RefreshingFooter")
+                
+                //1.下拉加载数据，将新数据append到数组中，不缓存
+                self.replyModel.getReply(self.number, queryTimes: self.queryTimes, cityName: "shanghai", needStore: false, resultHandler: { (results, error) -> Void in
+                    if let _ = error {
+                        //有错误，给用户提示
+                        print("get reply fail with error:\(error!.userInfo)")
+                        self.processError(error!.code)
+                    } else {
+                        if let replies = results {
+                            replies.forEach({ (reply) -> () in
+                                self.replyList.append(reply)
+                            })
+                            self.cellHeights = [CGFloat](count: self.replyList.count, repeatedValue: self.kCloseCellHeight)
+                            self.tableView.reloadData()
+                            self.queryTimes += 1
+                        } else {
+                            print("no data in refreshing footer")
+                        }
+                    }
+                })
+                
+                dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                    self.tableView.mj_footer.endRefreshing()
+                }
+            })
+            
+            tableView.mj_header.automaticallyChangeAlpha = true
+            
+            //1.读缓存，如果有数据的话在tableView中填数据
+            self.replyModel.getReply("shanghai") { (results, error) -> () in
+                if let _ = error {
+                    //有错误，给用户提示
+                    print("get reply from local fail with error:\(error!.userInfo)")
+                    self.processError(error!.code)
+                } else {
+                    if let replies = results {
+                        self.replyList = replies
+                        self.cellHeights = [CGFloat](count: self.replyList.count, repeatedValue: self.kCloseCellHeight)
+                        self.tableView.reloadData()
+                    } else {
+                        //没取到数据
+                        print("no data from local")
+                    }
                 }
             }
+            
+            //2.向后台请求数据，返回数据时做缓存
+            getReplyFromRemote()
         }
         
-        //2.向后台请求数据，返回数据时做缓存
-        getReplyFromRemote()
     }
     
     func getReplyFromRemote() {
@@ -113,13 +152,20 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
                     self.replyList = replies
                     self.cellHeights = [CGFloat](count: self.replyList.count, repeatedValue: self.kCloseCellHeight)
                     self.tableView.reloadData()
-                    self.queryTimes++
+                    self.queryTimes += 1
                 } else {
                     //没取到数据
                     print("no data in refreshing header")
                 }
             }
         })
+    }
+
+    func jumpVoiceDetail(voiceId:String) {
+        let controller = storyboard?.instantiateViewControllerWithIdentifier("VoiceDetailTableView") as! VoiceDetailTableViewController
+        controller.voiceId = voiceId
+        print("voice id: \(voiceId)")
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
     func processError(errorCode:Int) {
@@ -172,9 +218,7 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("FoldingCell", forIndexPath: indexPath) as! ReplyTableViewCell
         
-        imagesBinder(cell.imgContainer, images: [UIImage(named: "logo_1")!,UIImage(named: "logo_1")!])
-        imagesBinder(cell.CimgContainer, images: [UIImage(named: "logo_1")!,UIImage(named: "logo_1")!])
-        
+        imagesBinder(cell.imgContainer, images: self.replyList[indexPath.section].images)
         dataBinder(cell, reply: self.replyList[indexPath.section])
         
     
@@ -186,7 +230,6 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
         let cell = tableView.cellForRowAtIndexPath(indexPath) as! FoldingCell
         
         if cell.isAnimating() {
@@ -241,6 +284,9 @@ class ReplyTableViewController: UITableViewController,SSRadioButtonControllerDel
 //MARK:- Data Binder
     func dataBinder(cell:ReplyTableViewCell,reply: Reply) {
         let user = reply.user!
+        
+        cell.voiceId = reply.voiceId
+        cell.delegate = self
         
         if let image = user.avatar {
             cell.Favatar.image = image

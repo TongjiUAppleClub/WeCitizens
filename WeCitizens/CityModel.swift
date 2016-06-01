@@ -13,7 +13,7 @@ class CityModel: DataModel {
     
     //获取城市列表
     func getCityList(queryNum:Int, queryTimes: Int, resultHandler: ([City]?, NSError?) -> Void) {
-        let query = PFQuery(className: "Cities")
+        let query = PFQuery(className: "City")
         
         query.limit = queryNum
         query.skip = queryNum * queryTimes
@@ -26,7 +26,7 @@ class CityModel: DataModel {
                     var cities = [City]()
                     
                     for result in results {
-                        let name = result.objectForKey("cityName") as! String
+                        let name = result.objectForKey("name") as! String
                         
                         let newCity = City(cityName: name)
                         

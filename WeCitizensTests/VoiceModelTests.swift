@@ -46,7 +46,8 @@ class VoiceModelTests: XCTestCase {
     }
     
     func testNewVoice() {
-        let newVoice = Voice(emailFromLocal: "test", name: "tset", title: "test", abstract: "test", content: "test", classify: "教育", city: "shanghai", images: [])
+        
+        let newVoice = Voice(emailFromLocal: "test", name: "test", title: "test", abstract: "test", content: "test", classify: "教育", city: "shanghai", latitude: 31.0, longitude: 130.0, images: [])
         
         testVoiceModel.addNewVoice(newVoice) { (success, error) -> Void in
             self.expectation!.fulfill()

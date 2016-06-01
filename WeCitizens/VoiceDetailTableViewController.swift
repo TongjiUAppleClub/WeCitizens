@@ -19,7 +19,7 @@ class InputTextView: UITextView {
     
 }
 
-class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
+class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate, JumpReplyDelegate{
     
    
     var toolBar:UIToolbar!
@@ -29,15 +29,17 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
     
     let commentModel = CommentModel()
     let userModel = UserModel()
+    var voiceModel = VoiceModel()
     var queryTimes = 0
     var voice:Voice?
+    var followed = false
     var commentList = [Comment]()
     
+    var voiceId:String?
     
     override var inputAccessoryView:UIView! {
         get{
-            if toolBar == nil
-            {
+            if toolBar == nil {
                 toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 0, height: toolBarMinHeight-0.5))
                 
                 textView = InputTextView(frame: CGRectZero)
@@ -60,7 +62,7 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
                 sendButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
                 sendButton.setTitleColor(UIColor(red: 142/255, green: 142/255, blue: 147/255, alpha: 1),forState: .Disabled)
                 sendButton.contentEdgeInsets = UIEdgeInsets(top: 6, left: 6, bottom: 6, right: 6)
-                sendButton.addTarget(self, action: "SendComment", forControlEvents: UIControlEvents.TouchUpInside)
+                sendButton.addTarget(self, action: #selector(VoiceDetailTableViewController.SendComment), forControlEvents: UIControlEvents.TouchUpInside)
                 
                 toolBar.addSubview(sendButton)
                 
@@ -94,13 +96,51 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
         tableView.keyboardDismissMode = .Interactive
     
         let notificationCenter = NSNotificationCenter.defaultCenter()
-        notificationCenter.addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
-        notificationCenter.addObserver(self, selector: "keyboardDidShow:", name: UIKeyboardDidShowNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(VoiceDetailTableViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(VoiceDetailTableViewController.keyboardDidShow(_:)), name: UIKeyboardDidShowNotification, object: nil)
+        
+        if let id = voiceId {
+            voiceModel.getVoice(withId: id, resultHandler: { (result, error) in
+                if let _ = error {
+                    print("error when get voice detail with id: \(error)")
+                } else {
+                    if let voice = result {
+                        self.voice = voice
+                        self.tableView.reloadData()
+                        self.getComments()
+                    } else {
+                        print("do not get voice detail with id")
+                    }
+                }
+            })
+        } else {
+            voiceId = self.voice?.id
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        getComments()
+        checkVoiceFollow()
+    }
+    
+    func checkVoiceFollow() {
+        userModel.getFocusVoices { (objects, error) in
+            if nil == error {
+                if let results = objects {
+                    results.forEach {
+                        if self.voiceId == $0 {
+                            self.followed = true
+                            self.tableView.reloadData()
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func getComments() {
         if 0 == commentList.count {
             if let id = voice?.id {
                 commentModel.getComment(20, queryTimes: self.queryTimes, voiceId: id, block: { (comments, error) -> Void in
@@ -124,7 +164,7 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
                                         }
                                         self.tableView.reloadData()
                                         print("User List length:\(results.count)")//0
-                                        self.queryTimes++;
+                                        self.queryTimes += 1;
                                     } else {
                                         print("no users")
                                     }
@@ -137,10 +177,18 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
                 })
             }
         }
+
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+    }
+    
+    func jumpReplyDetail() {
+        let controller = storyboard?.instantiateViewControllerWithIdentifier("ReplyTableView") as! ReplyTableViewController
+        controller.replyId = self.voice!.replyId
+        controller.navigationItem.rightBarButtonItem = nil
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
 // MARK:- Table view data source && delegate
@@ -153,8 +201,7 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
     }
     
     override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        if (section == 0 )
-        {
+        if (section == 0 ) {
             let WIDTH = tableView.frame.width/5
             
             
@@ -167,20 +214,22 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
             likeButton.setImage(UIImage(named: "like_chosen"), forState: .Selected)
 
             likeButton.backgroundColor = UIColor.whiteColor()
-            likeButton.addTarget(self, action: "Like:", forControlEvents: .TouchUpInside)
+            likeButton.addTarget(self, action: #selector(VoiceDetailTableViewController.Like(_:)), forControlEvents: .TouchUpInside)
             
             let dislikeButton = UIButton(frame: CGRect(x: WIDTH, y: 8, width: WIDTH, height: 32))
             dislikeButton.setImage(UIImage(named: "dislike"), forState: .Normal)
             dislikeButton.setImage(UIImage(named: "dislike_chosen"), forState: .Selected)
             dislikeButton.backgroundColor = UIColor.whiteColor()
-            dislikeButton.addTarget(self, action: "Dislike:", forControlEvents: .TouchUpInside)
+            dislikeButton.addTarget(self, action: #selector(VoiceDetailTableViewController.Dislike(_:)), forControlEvents: .TouchUpInside)
 
             
             let followButton = UIButton(frame: CGRect(x: WIDTH*2, y: 8, width: WIDTH+2, height: 32))
             followButton.setImage(UIImage(named: "unwatched_eye"), forState: .Normal)
             followButton.setImage(UIImage(named: "watched_eye"), forState: .Selected)
             followButton.backgroundColor = UIColor.whiteColor()
-             followButton.addTarget(self, action: "Follow:", forControlEvents: .TouchUpInside)
+            followButton.selected = self.followed
+            
+            followButton.addTarget(self, action: #selector(VoiceDetailTableViewController.Follow(_:)), forControlEvents: .TouchUpInside)
             
             
             let line = UIView(frame: CGRect(x: WIDTH*3, y: 10,width:2,height:28))
@@ -212,14 +261,15 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (section == 0)
-        {
+        if (section == 0) {
             return 1
-        }
-        else
-        {
+        } else {
           return commentList.count
         }
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
     }
     
     
@@ -230,11 +280,20 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
             identifier = "DetailTitle"
             let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as! VoiceTitleTableViewCell
             
+            if let _ = voice?.replyId {
+                if voice!.isReplied {
+                    cell.delegate = self
+                } else {
+                    cell.CheckResponseButton.enabled = false
+                    cell.CheckResponseButton.setTitle("暂无回应", forState: .Disabled)
+                }
+            }
+            
             if let currentVoice = voice, voiceUser = voice?.user {
                 cell.Abstract.text = currentVoice.content
                 cell.CommentUser.text = voiceUser.userName
                 cell.Reputation.text = "\(voiceUser.resume)"
-                cell.Classify.text = currentVoice.classify.rawValue
+                cell.Classify.text = currentVoice.classify
                 cell.UpdateTime.text = currentVoice.dateStr
                 
                 if let image = voiceUser.avatar {
@@ -282,21 +341,29 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
         }
     }
     
-    func Dislike(sender: UIButton)
-    {
+    func Dislike(sender: UIButton) {
         sender.selected = !sender.selected
         print("Dislike")
     }
     
-    func Follow(sender:UIButton)
-    {
-        sender.selected = !sender.selected
-        print("Follow")
+    func Follow(sender:UIButton) {
+        if sender.selected {
+            userModel.deleteVoiceFocus(voice!.id!) { result, error in
+                if (nil == error && result!) {
+                    sender.selected = false
+                }
+            }
+        } else {
+            userModel.addNewFocusVoice(voice!.id!) { result, error in
+                if (nil == error && result!) {
+                    sender.selected = true
+                }
+            }
+        }
     }
     
     
-    @IBAction func Like(sender: UIButton)
-    {
+    @IBAction func Like(sender: UIButton) {
         sender.selected = !sender.selected
         print("Like")
     }
@@ -323,19 +390,15 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
         }
     }
     
-    func imagesBinder(containter:UIView,images:[UIImage])
-    {
+    func imagesBinder(containter:UIView,images:[UIImage]) {
         let Xoffset = CGFloat(6)
         let Yoffset = CGFloat(4)
-        for view in containter.subviews
-        {
-            if view.tag == 1
-            {
+        for view in containter.subviews {
+            if view.tag == 1 {
                 view.removeFromSuperview()
             }
         }
-        switch images.count
-        {
+        switch images.count {
         case 1:
             let imgView = UIImageView(image: images.first)
             imgView.frame = containter.frame
@@ -399,8 +462,7 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
             containter.removeFromSuperview()
             break;
         }
-        for  view in containter.subviews
-        {
+        for  view in containter.subviews {
             view.tag = 1
             view.layer.masksToBounds = false
             view.layer.cornerRadius = 5
@@ -408,8 +470,7 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
         }
     }
     
-    func keyboardWillShow(notification:NSNotification)
-    {
+    func keyboardWillShow(notification:NSNotification) {
         let userInfo = notification.userInfo as NSDictionary!
         let frameNew = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
         let insetNewBottom = tableView.convertRect(frameNew, fromView: nil).height
@@ -419,39 +480,31 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
         
         let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
         let animations: (() -> Void) = {
-            if !(self.tableView.tracking || self.tableView.decelerating)
-            {
-                if overflow > 0
-                {
+            if !(self.tableView.tracking || self.tableView.decelerating) {
+                if overflow > 0 {
                     self.tableView.contentOffset.y += insetChange
                     if self.tableView.contentOffset.y < -insetOld.top {
                         self.tableView.contentOffset.y = -insetOld.top
                     }
-                }
-                else if insetChange > -overflow
-                {
+                } else if insetChange > -overflow {
                     self.tableView.contentOffset.y += insetChange + overflow
                 }
                 
             }
         }
         
-        if duration > 0
-        {
+        if duration > 0 {
             let options = UIViewAnimationOptions(rawValue: UInt((userInfo[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).integerValue << 16))
             UIView.animateWithDuration(duration, delay: 0, options: options, animations: animations, completion: nil)
             
-        }
-        else
-        {
+        } else {
             animations()
         }
         
         
     }
     
-    func keyboardDidShow(notification: NSNotification)
-    {
+    func keyboardDidShow(notification: NSNotification) {
         let userInfo = notification.userInfo as NSDictionary!
         let frameNew = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
         let insetNewBottom = tableView.convertRect(frameNew, fromView: nil).height
@@ -460,14 +513,12 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
         tableView.contentInset.bottom = insetNewBottom
         tableView.scrollIndicatorInsets.bottom = insetNewBottom
         
-        if self.tableView.tracking || self.tableView.decelerating
-        {
+        if self.tableView.tracking || self.tableView.decelerating {
             tableView.contentOffset.y = contentOffsetY
         }
     }
     
-    func updateTextViewHeight()
-    {
+    func updateTextViewHeight() {
         let oldHeight = textView.frame.height
         let maxHeight = UIInterfaceOrientationIsPortrait(interfaceOrientation) ? textViewMaxHeight.portrait : textViewMaxHeight.landscape
         var newHeight = min(textView.sizeThatFits(CGSize(width: textView.frame.width, height: CGFloat.max)).height, maxHeight)
@@ -478,8 +529,7 @@ class VoiceDetailTableViewController: UITableViewController,UITextViewDelegate{
             newHeight = CGFloat(ceilf(newHeight.native))
         #endif
         
-        if newHeight != oldHeight
-        {
+        if newHeight != oldHeight {
             toolBar.frame.size.height = newHeight + 8*2 - 0.5
         }
     }
